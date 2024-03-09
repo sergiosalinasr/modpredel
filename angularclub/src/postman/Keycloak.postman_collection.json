@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "25c939cd-fe5d-4c20-b250-771cbb39a4bd",
+		"name": "Keycloak",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16987425"
+	},
+	"item": [
+		{
+			"name": "NuevoUsuario",
+			"item": [
+				{
+					"name": "Token_master",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/realms/club/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"realms",
+								"club",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Token_club",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "client_ID_club",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "56aea2a0-26e1-4fe7-9cdc-f065680e0ace",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/realms/club/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"realms",
+								"club",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NvoUsuario_master",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTajdpOTI1VlJRLV9EOWZwX0NxeXNlVXNIcDROcS10dDh2U043eGVoY3ZjIn0.eyJleHAiOjE3MDk3NjE1NjcsImlhdCI6MTcwOTc2MTUwNywianRpIjoiNGZmMDhmNGUtYjI1Ni00NjZmLWFjOTgtZjdlOTc4OTEzZjY4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImIwOWRkZmZhLTMwZjItNDIyOC1hMTc3LTdkNjRjZDRkMWJjZiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsInNlc3Npb25fc3RhdGUiOiJiYzI3YWNlYi0zYTg5LTRhODMtYjRhYi1jMTRiYjc5MTc4NzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.PSv9KqU0GGGOsnmEKT1TY93FSIffA_LUiv1C6x9cTUUBq0ZgPaifxFTuQJ4rIiNSgYQ8vbUAAqT-E9FxjZSOMLd1Q__ZaRRck5KrDuCiiNv-GFJnsz6zCQA5C4h2tOfauQajSWk__gJXDJI7IzuVfAnvNAeKQo-uE_sdYdxms2deaDOCT7UwcicamPeA-YsBC5Erh9xBBYhDkBRBP_0galUWEwwfMoazRlXHb85H4JXOyqS4lFmpmqTR8byhMe3jLW0oD0vuQb2hvwatHyESmWgtgXLWSMO1JLIDX7lQgppKlKXs7h2s2w_72VZevjM60l44RALlXlDA1BJ3moQQhA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"usuariop01\",\r\n  \"enabled\": true,\r\n  \"emailVerified\": true,\r\n  \"firstName\": \"Nombre\",\r\n  \"lastName\": \"Apellido\",\r\n  \"email\": \"usuariop01@ejemplo.com\",\r\n  \"credentials\": [{\r\n    \"type\": \"password\",\r\n    \"value\": \"usuariop01\",\r\n    \"temporary\": false\r\n  }]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/admin/realms/master/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"admin",
+								"realms",
+								"master",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NuevoUsuario club",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBQ1dXeHRLdG9tYWhfWG44VTBGYzdGSTVMaS14ZDRPOUhkVGVvblRtUk4wIn0.eyJleHAiOjE3MDkyMjMwMzgsImlhdCI6MTcwOTIyMjk3OCwianRpIjoiNTI1MTk5MmItOTMyOC00ZmM1LWFkMjAtMmEwOGE3NjNjNTg1IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgxL2F1dGgvcmVhbG1zL21hc3RlciIsInN1YiI6ImM1NTJlYjA1LTJkMzktNGJhYS1iY2FhLTFkOTE2ZGJjMDE4ZiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImFkbWluLWNsaSIsInNlc3Npb25fc3RhdGUiOiIwZWRiM2E0Mi0yOTY1LTQ1MGYtYWZlMS02OTY4MDgzY2IyZWEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiJ9.GhSXjDeCbex3XbRIfEHqu4NraEVpbPsrgVZwlKA7gSqPAnMHhlxAgQQzexPwo2XFQ-UpYIMdXYQiSPMPSTwHOsjqS5dn_JuUzBS684WzyJ7cvYyGW8_4leJ93gR4t--jkG6y4sRdI_j_G1W5-LUZfRewq-94d5VrQDjZhAdXAtTgTVqzMlnrdRMOnlnPzLaw-U2MncMYfi6a8nrGnZv7wF8w5jnUZuQZkxxlMJF3WWhTx5pt4mSa9Y_ORSQvobuG_sPfJ6ugPkT4MRwm0juuHwMIp1eV6rqhYazYWS37Us6ecpJAhfhVWC3_n-OYfPJJXYoUXK5cB_dS5y04hpxaKQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"nuevo_usuario10\",\r\n  \"enabled\": true,\r\n  \"emailVerified\": true,\r\n  \"firstName\": \"Nombre\",\r\n  \"lastName\": \"Apellido\",\r\n  \"email\": \"correo10@ejemplo.com\",\r\n  \"credentials\": [{\r\n    \"type\": \"password\",\r\n    \"value\": \"ContraseñaSegura345\",\r\n    \"temporary\": false\r\n  }]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/admin/realms/club/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"admin",
+								"realms",
+								"club",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "KeycloakSalud",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Body matches string\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"master\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/auth/realms/master/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Usr_y_Pass_master",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "admin-cli",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "nuevo_prueba01",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ContraseñaSegura345",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8081/auth/realms/master/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"auth",
+								"realms",
+								"master",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

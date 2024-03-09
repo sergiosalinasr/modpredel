@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<div class="container">
+
+    <h3>Lista de Socios</h3><br>
+
+    <button type="button" class="btn btn-primary" (click)="nuevoSocio()">Nuevo Socio</button>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">nombres</th>
+            <th scope="col">apePaterno</th>
+            <th scope="col">apeMaterno</th>
+            <th scope="col">correo</th>
+            <th scope="col">celular</th>
+            <th scope="col">fecNacimiento</th>
+            <th scope="col">tipoSocio</th>
+            <th scope="col">foto</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let socio of socios" (click)="editarSocio(socio.id)">
+            <th scope="row">{{ socio.id}}</th>
+            <td>{{ socio.nombres}}</td>
+            <td>{{ socio.apePaterno}}</td>
+            <td>{{ socio.apeMaterno}}</td>
+            <td>{{ socio.correo}}</td>
+            <td>{{ socio.celular}}</td>
+            <td>{{ socio.fecNacimiento}}</td>
+            <td>{{ socio.tipoSocio}}</td>
+            <td>{{ socio.foto}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>
