@@ -4,11 +4,11 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY package.json /app/
+COPY angularclub/package.json /app/
 
 RUN npm install
 
-COPY . /app
+COPY angularclub/ /app
 
 # Lista el contenido de /app para depuración
 RUN ls -la /app
@@ -26,5 +26,5 @@ COPY --from=build-step /app/dist/angularclub/browser /usr/share/nginx/html
 
 # Construir con:
 # el "--no-cache" se agrega para no usar la cache; esto es solo para depurar
-# docker build --no-cache -t angularclub -f src/docker/DockerfileBuildApp .
-# docker run -d -it -p 4300:80 angularclub
+# docker build --no-cache -t angularclub2 -f angularclub/src/docker/DockerfileBuildApp2 .
+# docker run -d -it -p 4300:80 <proyecto>
