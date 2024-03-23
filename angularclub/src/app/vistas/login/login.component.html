@@ -16,6 +16,8 @@
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
+    <button type="button" class="btn btn-primary" (click)="nuevoUsuario(loginForm.value)">Nuevo Usuario</button>
+
     <!-- Remind Passowrd -->
     <div class="alert alert-danger" *ngIf="errorStatus">
       <p>{{ errorMsj }}</p>

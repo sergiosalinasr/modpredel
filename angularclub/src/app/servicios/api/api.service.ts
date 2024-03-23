@@ -18,6 +18,9 @@ export class ApiService {
   url:string = "http://localhost:4000/"
   url_club: string = "http://45.236.128.235:8000/"
   private tokenEndpoint = 'http://localhost:8081/auth/realms/master/protocol/openid-connect/token';
+  private nuevoUsuarioEndpoint = 'http://localhost:8081/auth/admin/realms/master/users';
+  private keycloakUrl = "http://localhost:8081/auth"
+  private realm = "master"
   //private tokenEndpoint = 'http://keycloack:8080/auth/realms/master/protocol/openid-connect/token';
 
   constructor(private http:HttpClient) { }
@@ -88,6 +91,43 @@ export class ApiService {
     let direccion = this.url_club + "socios/api/v1/socios/";
     
     return this.http.post<ResponseI>(direccion, form);
+  }
+
+  // Función para crear un usuario
+  createUser(adminToken: string, username: string, password: string) {
+    const usersEndpoint = `${this.keycloakUrl}/admin/realms/${this.realm}/users`;
+
+    const userPayload = {
+        username,
+        enabled: true,
+        credentials: [{ type: 'password', value: password, temporary: false }],
+        // Puedes agregar más atributos aquí según sea necesario
+    };
+
+    try {
+        const error = this.http.post(usersEndpoint, userPayload, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${adminToken}`,
+            },
+        });
+        
+        console.log('Nuevo usuario: ' + adminToken + "/" + username + "/" + password + "/" + error);
+
+    } catch (error) {
+        console.error('Error creando usuario:', error);
+        throw error;
+    }
+  }
+
+  createUser2(adminToken: string, userData: any) {
+    const keycloakUrl = 'http://localhost:8081/auth/admin/realms/master/users';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${adminToken}`, // Asegúrate de obtener y usar un token válido de administrador aquí
+    });
+
+    return this.http.post(keycloakUrl, userData, { headers });
   }
 
 }
