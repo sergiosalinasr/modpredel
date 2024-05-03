@@ -18,6 +18,7 @@ export class ApiService {
   url:string = "http://localhost:4000/"
   url_club: string = "http://45.236.128.235:8000/"
   private tokenEndpoint = 'http://localhost:8081/auth/realms/master/protocol/openid-connect/token';
+  private nodetokenEndpoint = 'http://localhost:3000/login';
   private nuevoUsuarioEndpoint = 'http://localhost:8081/auth/admin/realms/master/users';
   private keycloakUrl = "http://localhost:8081/auth"
   private realm = "master"
@@ -58,6 +59,32 @@ export class ApiService {
       })
     );
   }
+
+  // este servicio en vez de acceder directamente a Keycloak, lo hace a através de un servicio node que si accede a keycloak
+  loginNode(username: string, password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+
+    const body = new URLSearchParams();
+
+    body.set('username', username);
+    body.set('password', password);
+
+    return this.http.post(this.nodetokenEndpoint, body.toString(), { headers }).pipe(
+      catchError(error => {
+        console.log("Angular - error.status="+error.status)
+        // Aquí puedes manejar errores específicos
+        // Por ejemplo, si error.status es 0 o 504, podría indicar que el endpoint no está disponible
+        if (error.status === 0 || error.status === 504) {
+          //console.error('El servicio de autenticación no está disponible.');
+          // Puedes devolver un observable con un mensaje específico o manejarlo como prefieras
+          return throwError(error);
+        }
+        // Reenviar el error si no es uno que estés manejando específicamente
+        return throwError(error);
+      })
+    );
+  }
+
 
   getAllSocios():Observable<ListasociosI[]>{
     let direccion = this.url_club + "socios/api/v1/socios/";
