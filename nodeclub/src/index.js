@@ -11,8 +11,8 @@ const app = express();
 // Aplica el middleware CORS
 app.use(cors());
 
-//app.use(express.json()); // Middleware para parsear JSON
-app.use(express.urlencoded({ extended: true }));
+// Middleware para parsear JSON
+app.use(express.json());
 
 // Desahabilitado hasta que conecte una Base de Datos mongodb
 /* mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
