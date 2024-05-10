@@ -24,7 +24,7 @@ app.use('/api', userRoutes);
 
 // por ahora, sólo un HOLA MUNDO
 app.get('/', (req, res) => {
-    res.send('¡HOLA MUNDO desde node backend!');
+    res.send('¡HOLA MUNDO desde node backend! Keycloak:');
 });
 
 // desde ChatGPT:

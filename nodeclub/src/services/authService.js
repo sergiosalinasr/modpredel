@@ -1,7 +1,7 @@
 const axios = require('axios');
 const qs = require('querystring');
 
-const tokenEndpoint = 'http://localhost:8081/auth/realms/master/protocol/openid-connect/token'; // Ajusta esto según tu configuración de Keycloak
+const tokenEndpoint = '/auth/realms/master/protocol/openid-connect/token'; // Ajusta esto según tu configuración de Keycloak
 
 function login(username, password) {
   const headers = {
@@ -16,7 +16,9 @@ function login(username, password) {
     grant_type: 'password'
   });
 
-  return axios.post(tokenEndpoint, body, { headers })
+  KEYCLOAK_URL = process.env.KEYCLOAK_URL + tokenEndpoint
+
+  return axios.post(KEYCLOAK_URL, body, { headers })
     .then(response => response.data)
     .catch(error => {
       if (!error.response || error.response.status === 0 || error.response.status === 504) {

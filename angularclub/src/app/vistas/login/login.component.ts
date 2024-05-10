@@ -58,7 +58,6 @@ export class LoginComponent {
     })
     */
     
-    //this.api.login(form.usuario, form.password).subscribe({
       this.api.loginNode(form.usuario, form.password).subscribe({
       //data =>{
       next: (data) => {
