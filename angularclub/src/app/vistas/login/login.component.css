@@ -291,3 +291,11 @@ html {
     width:60%;
   }
   
+  /* login.component.css */
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

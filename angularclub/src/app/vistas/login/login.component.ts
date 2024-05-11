@@ -21,6 +21,10 @@ export class LoginComponent {
   version = environment.appVersion;
   errorMessage: string = '';
   v_token: string = '';
+
+  // Estado del mensaje
+  message: string = '';
+  messageType: 'success' | 'error' = 'success';
   
   loginForm = new FormGroup({
     usuario : new FormControl('', Validators.required),
@@ -43,44 +47,44 @@ export class LoginComponent {
   }
 
 
+  // El usuario ingresa un par de credenciales...
   onLogin(form:any){
     
-    /*
-    this.api.loginByEmail(form).subscribe(data =>{
-      let dataResponse:ResponseI =data;
-      if (dataResponse.status == "ok"){
-        localStorage.setItem("token",dataResponse.result.token);
-        this.router.navigate(['dashboard'])
-      }else{
-        this.errorStatus = true;
-        this.errorMsj = dataResponse.result.error_msg;
-      }
-    })
-    */
-    
+    // Validando usuario y clave...
+    console.log("Validando usuario y clave...");
+    if (!this.loginForm.valid) {
+      console.log('El formulario no es válido');
+      this.showMessage('Login no es satisfactorio', 'error');
+      this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
+      
+    } else {
+      console.log('El formulario es válido:', this.loginForm.value);
+      // Aquí manejarías la lógica de envío del formulario, como enviarlo a un servidor
+      this.alertas.showSuccess('Intentando login...', 'Procesando');
       this.api.loginNode(form.usuario, form.password).subscribe({
-      //data =>{
-      next: (data) => {
-        console.log('Login exitoso. data.access_token:', data.access_token);
-        localStorage.setItem("token",data.access_token);
-        
-        this.alertas.showSuccess('Login exitoso.', 'Hecho');
-
-        this.router.navigate(['dashboard'])
-        // Procesar la respuesta exitosa aquí (por ejemplo, redirigir al usuario o almacenar el token)
-      },
-      error: (error) => {
-        console.error('Error de login:', error);
-        
-        this.handleLoginError(error);
-      }
-    })
+        next: (data) => {
+          //Las credenciales son válidas. Procesar la respuesta exitosa aquí (por ejemplo, redirigir al usuario o almacenar el token)
+          
+          localStorage.setItem("token",data.access_token);
+          
+          this.alertas.showSuccess('Login exitoso.', 'Hecho');
+  
+          this.router.navigate(['dashboard'])
+  
+        },
+        error: (error) => {
+          console.error('Error de login:', error);
+          
+          this.handleLoginError(error);
+        }
+      })
+    }
     
   }
 
   // Método para manejar errores de login
   handleLoginError(error: any) {
-    // Aquí puedes personalizar el manejo de errores basado en el error recibido
+    // Aquí se personalizar el manejo de errores basado en el error recibido
     if (error.status === 0 || error.status === 504) {
       this.errorMessage = 'El servicio de autenticación no está disponible.';
       this.alertas.showSuccess(error.HttpErrorResponse, this.errorMessage);
@@ -134,6 +138,14 @@ export class LoginComponent {
         console.error('Error al crear usuario', error)
       }
     });
+  }
+
+  showMessage(msg: string, type: 'success' | 'error') {
+    this.message = msg;
+    this.messageType = type;
+    setTimeout(() => {
+      this.message = ''; // Limpiar mensaje después de 3 segundos
+    }, 3000);
   }
 
 }

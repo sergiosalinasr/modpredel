@@ -13,7 +13,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
       <input type="text" id="login" class="fadeIn second" placeholder="Ingrese su login" formControlName="usuario">
       <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+      <input type="submit" class="fadeIn fourth" value="LogIn">
     </form>
 
     <button type="button" class="btn btn-primary" (click)="nuevoUsuario(loginForm.value)">Nuevo Usuario</button>
@@ -21,6 +21,11 @@
     <!-- Remind Passowrd -->
     <div class="alert alert-danger" *ngIf="errorStatus">
       <p>{{ errorMsj }}</p>
+    </div>
+
+      <!-- Mensaje de estado -->
+    <div *ngIf="message" [class]="messageType">
+      {{ message }}
     </div>
 
   </div>
