@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 const userRoutes = require('./api/routes/userRoutes');
 const config = require('./config');
 const { login } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
-
+// Funciones de utilidad para interactuar con Keycloak
+const keycloakAdmin = require('./keycloakAdmin');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 
 // Middleware para parsear JSON
 app.use(express.json());
+
 
 // Desahabilitado hasta que conecte una Base de Datos mongodb
 /* mongoose.connect(config.dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,7 +26,7 @@ app.use('/api', userRoutes);
 
 // por ahora, sólo un HOLA MUNDO
 app.get('/', (req, res) => {
-    res.send('¡HOLA MUNDO desde node backend! Keycloak:');
+    res.send('¡Node: Healthy!');
 });
 
 // desde ChatGPT:
@@ -50,6 +52,34 @@ app.post('/login', (req, res) => {
             }
         });
 });
+
+
+app.post('/SignUp', async (req, res) => {
+  const { username, password } = req.body;
+
+  // Validación básica de entrada
+  if (!username || !password) {
+    return res.status(400).send({ error: 'Node: Username and password are required.' });
+  }
+
+  try {
+    // Comprobar si el usuario ya existe
+    const userExists = await keycloakAdmin.checkUserExists(username);
+    if (userExists) {
+      return res.status(409).send({ error: 'User already exists.' });
+    }
+
+    // Crear el usuario en Keycloak
+    
+    //const createUserResponse = await keycloakAdmin.createUser(username, password);
+    //res.status(201).send({ message: 'User created successfully.', userId: createUserResponse.id });
+  } catch (error) {
+    console.error('SignUp Error:', error);
+    res.status(500).send({ error: 'Internal server error.' });
+  }
+  
+});
+
 
 app.listen(config.port, () => {
     console.log(`Node: Servidor corriendo en http://localhost:${config.port}`);

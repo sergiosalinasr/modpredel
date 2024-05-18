@@ -74,7 +74,7 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Error de login:', error);
-          
+          this.alertas.showSuccess('Error de login...', 'En el servidor');
           this.handleLoginError(error);
         }
       })
@@ -99,20 +99,46 @@ export class LoginComponent {
 
   nuevoUsuario(form:any){
     
-    this.api.login("admin", "admin").subscribe({
-      //data =>{
-      next: (data) => {
-        console.log('Login exitoso. data.access_token:', data.access_token);
-        this.v_token = data.access_token;
-        //this.api.createUser(this.v_token, form.usuario, form.password)
-        this.addUser(this.v_token, form.usuario, form.password);
-      },
-      error: (error) => {
-        console.error('Error de login:', error);
-        this.handleLoginError(error);
-      }
-    });
-    console.log('Login exitoso. data.access_token:', this.v_token);
+    //Si uno de los datos de usuario/password no son válidos
+      //mensaje de error Ususario/password
+    //Si el usuario ya existe
+      //Mensaje de error
+    //Proceso para crear el nuevo usuario
+      //Enviar usuario/password a node
+        //Mensaje uduario creado exitosamente
+      //Mensaje usuario no fue creado
+
+    // Validando usuario y clave...
+    console.log("Validando que Formato de usuario y Password sean válidos");
+    if (!this.loginForm.valid) {
+      console.log('ERROR: Formato inválido de usuario y/o Password');
+      this.showMessage('Formato inválido de usuario y/o Password', 'error');
+      this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
+      
+    } else {
+      console.log('El formulario es válido, por lo tanto validamos que el nuevo usuario no exista:', this.loginForm.value);
+      // Aquí manejarías la lógica de envío del formulario, como enviarlo a un servidor
+      this.alertas.showSuccess('Intentando login...', 'Procesando');
+      this.api.loginNode(form.usuario, form.password).subscribe({
+        next: (data) => {
+          //Las credenciales son válidas. Procesar la respuesta exitosa aquí (por ejemplo, redirigir al usuario o almacenar el token)
+          
+          localStorage.setItem("token",data.access_token);
+          
+          this.alertas.showSuccess('Login exitoso.', 'Hecho');
+  
+          this.router.navigate(['dashboard'])
+  
+        },
+        error: (error) => {
+          console.error('Error de login:', error);
+          this.alertas.showSuccess('Error de login...', 'En el servidor');
+          this.handleLoginError(error);
+        }
+      })
+    }
+
+
   }
 
   addUser(vp_token: string, vp_usuario: string, vp_password: string) {
