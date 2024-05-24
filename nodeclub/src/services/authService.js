@@ -2,6 +2,9 @@ const axios = require('axios');
 const qs = require('querystring');
 
 const tokenEndpoint = '/auth/realms/master/protocol/openid-connect/token'; // Ajusta esto según tu configuración de Keycloak
+const adminTokenEndpoint = process.env.KEYCLOAK_URL + '/auth/realms/master/protocol/openid-connect/token';
+const usersEndpoint = '/auth/admin/realms/master/users';
+
 
 function login(username, password) {
   const headers = {
@@ -29,4 +32,70 @@ function login(username, password) {
     });
 }
 
-module.exports = { login };
+async function getAdminToken() {
+  const tokenEndpoint = '/auth/realms/master/protocol/openid-connect/token'; // Asegura la correcta definición del endpoint
+  const keycloakBaseUrl = process.env.KEYCLOAK_URL; // Base URL para Keycloak
+  const completeUrl = `${keycloakBaseUrl}${tokenEndpoint}`; // Construye la URL completa correctamente
+
+  const body = qs.stringify({
+    client_id: 'admin-cli',
+    //client_secret: process.env.KEYCLOAK_ADMIN_CLI_SECRET, // Asegúrate de configurar esto en tus variables de entorno
+    username: 'admin',
+    password: 'admin',
+    grant_type: 'password' // Cambiado a client_credentials para acceso sin usuario
+  });
+
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
+
+  try {
+    const response = await axios.post(completeUrl, body, { headers });
+
+    return response.data.access_token;
+  } catch (error) {
+    console.error('Error obteniendo token de Keycloak:', error);
+    throw error; // Lanza el error para manejo externo
+  }
+}
+
+async function createUser(username, password) {
+  const token = await getAdminToken();
+  const userData = {
+    username,
+    enabled: true,
+    credentials: [{
+      type: 'password',
+      value: password,
+      temporary: false
+    }]
+  };
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+
+  return axios.post(usersEndpoint, userData, { headers })
+    .then(response => {
+      return { id: response.data.id, status: response.status };
+    })
+    .catch(error => {
+      throw error;
+    });
+}
+
+async function checkUserExists(username) {
+  
+  const token = await getAdminToken();
+  
+  const keycloakBaseUrl = process.env.KEYCLOAK_URL; // Base URL para Keycloak
+  const completeUrl = `${keycloakBaseUrl}${usersEndpoint}`; // Construye la URL completa correctamente
+  const response = await axios.get(`${completeUrl}?username=${username}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  
+  return response.data.length > 0; // Devuelve true si el usuario existe, false si no
+}
+
+module.exports = { login, createUser, checkUserExists };
