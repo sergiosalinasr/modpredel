@@ -32,6 +32,7 @@ function login(username, password) {
     });
 }
 
+// La función obtiene un token del usuario administrador de Kaycloak (v)
 async function getAdminToken() {
   const tokenEndpoint = '/auth/realms/master/protocol/openid-connect/token'; // Asegura la correcta definición del endpoint
   const keycloakBaseUrl = process.env.KEYCLOAK_URL; // Base URL para Keycloak
@@ -64,6 +65,9 @@ async function createUser(username, password) {
   const userData = {
     username,
     enabled: true,
+    firstName: "Nombre",
+    lastName: "Apellido",
+    email: username + "@ejemplo.com",
     credentials: [{
       type: 'password',
       value: password,
@@ -76,15 +80,20 @@ async function createUser(username, password) {
     'Authorization': `Bearer ${token}`
   };
 
-  return axios.post(usersEndpoint, userData, { headers })
+  console.log('Node: en createUser');
+  KEYCLOAK_URL = process.env.KEYCLOAK_URL + usersEndpoint
+  return axios.post(KEYCLOAK_URL, userData, { headers })
     .then(response => {
+      console.log('Node: Usuario creado');
       return { id: response.data.id, status: response.status };
     })
     .catch(error => {
+      console.log('Node: Usuario no creado');
       throw error;
     });
 }
 
+// Esta función valida si existe o no en Keycloac el nombre de usuario (v)
 async function checkUserExists(username) {
   
   const token = await getAdminToken();
