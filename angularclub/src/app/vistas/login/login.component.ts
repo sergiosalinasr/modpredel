@@ -38,6 +38,9 @@ export class LoginComponent {
 
   ngOnInit(): void{
     this.checkLocalStorage();
+    this.alertas.currentMessage.subscribe(msg => this.message = msg);
+    this.alertas.currentMessageType.subscribe(type => this.messageType = type);
+
   }
 
   checkLocalStorage(){
@@ -51,30 +54,27 @@ export class LoginComponent {
   onLogin(form:any){
     
     // Validando usuario y clave...
-    console.log("Validando usuario y clave...");
     if (!this.loginForm.valid) {
-      console.log('El formulario no es válido');
-      this.showMessage('Login no es satisfactorio', 'error');
+      this.alertas.showMessage('Error: Ingrese usuario y password', 'error');
       this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
       
     } else {
-      console.log('El formulario es válido:', this.loginForm.value);
       // Aquí manejarías la lógica de envío del formulario, como enviarlo a un servidor
-      this.alertas.showSuccess('Intentando login...', 'Procesando');
+      this.alertas.showMessage('Intentando login...', 'success');
       this.api.loginNode(form.usuario, form.password).subscribe({
         next: (data) => {
           //Las credenciales son válidas. Procesar la respuesta exitosa aquí (por ejemplo, redirigir al usuario o almacenar el token)
           
           localStorage.setItem("token",data.access_token);
           
-          this.alertas.showSuccess('Login exitoso.', 'Hecho');
+          this.alertas.showMessage('Login exitoso.', 'success');
   
           this.router.navigate(['dashboard'])
   
         },
         error: (error) => {
           console.error('Error de login:', error);
-          this.alertas.showSuccess('Error de login...', 'En el servidor');
+          this.alertas.showMessage('Error de login en el servidor...', 'error');
           this.handleLoginError(error);
         }
       })
@@ -104,7 +104,7 @@ export class LoginComponent {
     console.log("Validando usuario y clave...");
     if (!this.loginForm.valid) {
       console.log('Error: ingrese un formato de usuario y Password válidos');
-      this.showMessage('Nuevo usuario no es satisfactorio', 'error');
+      this.alertas.showMessage('Nuevo usuario no es satisfactorio', 'error');
       this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
       
     } else {
@@ -158,12 +158,6 @@ export class LoginComponent {
     });
   }
   */
-  showMessage(msg: string, type: 'success' | 'error') {
-    this.message = msg;
-    this.messageType = type;
-    setTimeout(() => {
-      this.message = ''; // Limpiar mensaje después de 3 segundos
-    }, 3000);
-  }
+  
 
 }
