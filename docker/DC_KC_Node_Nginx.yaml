@@ -40,4 +40,4 @@ volumes:
   keycloak_logs:
 
 
-#  docker compose -f docker/DC_KC_Node.yaml up -d
+#  docker compose -f docker/DC_KC_Node_Nginx.yaml up -d

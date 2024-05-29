@@ -14,6 +14,7 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
     HeaderComponent,
     FooterComponent,
     //viene de app-routing.module.ts
-    routingComponents
+    routingComponents,
+    MenuComponent
     //LoginComponent,
     //DashboardComponent,
     //NuevoComponent,

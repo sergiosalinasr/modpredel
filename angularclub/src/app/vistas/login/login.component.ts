@@ -69,7 +69,8 @@ export class LoginComponent {
           
           this.alertas.showMessage('Login exitoso.', 'success');
   
-          this.router.navigate(['dashboard'])
+          //this.router.navigate(['dashboard'])
+          this.router.navigate(['menu'])
   
         },
         error: (error) => {

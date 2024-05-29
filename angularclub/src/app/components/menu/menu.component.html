@@ -1,0 +1,19 @@
+<!-- src/app/components/menu/menu.component.html -->
+<ul>
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="item.path">{{ item.label }}</a>
+      <ul *ngIf="item.children">
+        <ng-container *ngTemplateOutlet="recursiveList; context: {$implicit: item.children}"></ng-container>
+      </ul>
+    </li>
+  </ul>
+  
+  <ng-template #recursiveList let-items>
+    <li *ngFor="let item of items">
+      <a [routerLink]="item.path">{{ item.label }}</a>
+      <ul *ngIf="item.children">
+        <ng-container *ngTemplateOutlet="recursiveList; context: {$implicit: item.children}"></ng-container>
+      </ul>
+    </li>
+  </ng-template>
+  
