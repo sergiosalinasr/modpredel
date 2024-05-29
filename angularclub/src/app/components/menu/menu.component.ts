@@ -17,3 +17,4 @@ export class MenuComponent implements OnInit {
     this.menuItems = this.menuService.getMenuItems();
   }
 }
+
