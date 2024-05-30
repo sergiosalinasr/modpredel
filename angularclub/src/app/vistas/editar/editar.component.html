@@ -2,10 +2,13 @@
 
 <div class="div container">
 
+    <button type="button" class="btn btn-danger" (click)="eliminar()">Eliminar</button>
+    <button type="button" class="btn btn-dark" (click)="salir()">Salir</button>
     <div class="container">
 
         <form [formGroup]="editarForm" (ngSubmit)="postForm()">
             
+            <button type="submit" class="btn btn-primary">Guardar</button>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombres-</label>
                 <input type="text" class="form-control" placeholder="Nombre del Socio" formControlName="nombres">

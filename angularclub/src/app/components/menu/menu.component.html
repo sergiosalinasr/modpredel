@@ -1,27 +1,25 @@
-<!-- src/app/components/menu/menu.component.html -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Mi App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Club</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <ng-container *ngFor="let item of menuItems">
-          <li class="nav-item" *ngIf="!item.children">
-            <a class="nav-link" [routerLink]="item.path">{{ item.label }}</a>
-          </li>
-          <li class="nav-item dropdown" *ngIf="item.children">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              {{ item.label }}
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" *ngFor="let child of item.children" [routerLink]="child.path">{{ child.label }}</a>
-            </div>
-          </li>
-        </ng-container>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/dashboard">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/nuevo">Nuevo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
       </ul>
     </div>
-  </nav>
-  
-  
+  </div>
+</nav>
   
