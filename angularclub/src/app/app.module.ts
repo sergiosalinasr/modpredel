@@ -14,7 +14,8 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-import { MenuComponent } from './components/menu/menu.component';
+//import { MenuComponent } from './components/menu/menu.component';
+import { MenuhComponent } from './components/menuh/menuh.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MenuComponent } from './components/menu/menu.component';
     FooterComponent,
     //viene de app-routing.module.ts
     routingComponents,
-    MenuComponent
+    //MenuComponent,
+    MenuhComponent
     //LoginComponent,
     //DashboardComponent,
     //NuevoComponent,

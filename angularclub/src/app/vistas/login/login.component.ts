@@ -45,7 +45,8 @@ export class LoginComponent {
 
   checkLocalStorage(){
     if(localStorage.getItem('token')){
-      this.router.navigate(['dashboard'])
+      //this.router.navigate(['dashboard'])
+      this.router.navigate(['menu'])
     }
   }
 
