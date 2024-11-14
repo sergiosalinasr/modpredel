@@ -16,6 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 //import { MenuComponent } from './components/menu/menu.component';
 import { MenuhComponent } from './components/menuh/menuh.component';
+import { MenulateralComponent } from './menulateral/menulateral.component';
+import { TduMaintenanceComponent } from './components/tdu/tdu.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { MenuhComponent } from './components/menuh/menuh.component';
     //viene de app-routing.module.ts
     routingComponents,
     //MenuComponent,
-    MenuhComponent
+    MenuhComponent,
+    MenulateralComponent,
+    TduMaintenanceComponent
     //LoginComponent,
     //DashboardComponent,
     //NuevoComponent,

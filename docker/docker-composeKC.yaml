@@ -33,4 +33,4 @@ volumes:
       # DB_USER:
       # DB_PASSWORD: 
 
-# docker compose -f src/docker/docker-composeApp.yaml up -d
+# docker compose -f docker/docker-composeKC.yaml up -d 

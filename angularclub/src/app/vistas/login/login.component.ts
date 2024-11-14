@@ -19,6 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
 
   version = environment.appVersion;
+  env_empresa = environment.env_empresa;
   errorMessage: string = '';
   v_token: string = '';
 
@@ -46,7 +47,8 @@ export class LoginComponent {
   checkLocalStorage(){
     if(localStorage.getItem('token')){
       //this.router.navigate(['dashboard'])
-      this.router.navigate(['menu'])
+      //this.router.navigate(['menu'])
+      this.router.navigate(['menulateral'])
     }
   }
 
@@ -71,7 +73,7 @@ export class LoginComponent {
           this.alertas.showMessage('Login exitoso.', 'success');
   
           //this.router.navigate(['dashboard'])
-          this.router.navigate(['menu'])
+          this.router.navigate(['menulateral'])
   
         },
         error: (error) => {

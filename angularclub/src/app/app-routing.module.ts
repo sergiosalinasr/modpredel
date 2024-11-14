@@ -5,6 +5,8 @@ import { NuevoComponent} from './vistas/nuevo/nuevo.component';
 import { EditarComponent} from './vistas/editar/editar.component';
 import { DashboardComponent} from './vistas/dashboard/dashboard.component';
 import { MenuComponent} from './components/menu/menu.component'
+import { MenulateralComponent } from './menulateral/menulateral.component';
+import { TduMaintenanceComponent} from './components/tdu/tdu.component'
 
 const routes: Routes = [
   { path:'', redirectTo:'login', pathMatch:'full'},
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'nuevo', component:NuevoComponent},
   { path: 'editar/:id', component:EditarComponent},
   { path: 'menu', component:MenuComponent},
-  { path: 'opcion1/subopcion1', component: DashboardComponent }
+  { path: 'opcion1/subopcion1', component: DashboardComponent },
+  { path: 'menulateral', component: MenulateralComponent },
+  { path: 'Tdu', component: TduMaintenanceComponent }
 ];
 
 @NgModule({
@@ -22,4 +26,8 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 //Esta constante se lleva a app.module.ts (ver lineas comentadas en app.module.ts)
-export const routingComponents = [LoginComponent, DashboardComponent, NuevoComponent, EditarComponent]
+export const routingComponents = [
+  LoginComponent, 
+  DashboardComponent, NuevoComponent, EditarComponent, 
+  TduMaintenanceComponent
+]

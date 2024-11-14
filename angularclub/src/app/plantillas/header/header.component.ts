@@ -7,5 +7,6 @@ import { environment } from '../../../environments/environment';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  env_empresa = environment.env_empresa;
   version = environment.appVersion;
 }
