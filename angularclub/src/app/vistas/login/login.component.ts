@@ -6,6 +6,7 @@ import { LoginI} from '../../modelos/login.interface';
 import { ResponseI} from '../../modelos/response.interface'
 import { environment } from '../../../environments/environment';
 import { AlertasService } from '../../servicios/alertas/alertas.service';
+import { AuthService } from '../../services/auth.service';
 
 
 import { Router } from '@angular/router'
@@ -20,6 +21,7 @@ export class LoginComponent {
 
   version = environment.appVersion;
   env_empresa = environment.env_empresa;
+  env_empresa_logo: string = environment.env_empresa_logo;
   errorMessage: string = '';
   v_token: string = '';
 
@@ -32,7 +34,7 @@ export class LoginComponent {
     password : new FormControl('', Validators.required)
   })
 
-  constructor(private api:ApiService, private router:Router, private alertas:AlertasService) {}
+  constructor(private api:ApiService, private authService: AuthService, private router:Router, private alertas:AlertasService) {}
 
   errorStatus:boolean = false;
   errorMsj:any = "";
@@ -66,9 +68,16 @@ export class LoginComponent {
       this.alertas.showMessage('Intentando login...', 'success');
       this.api.loginNode(form.usuario, form.password).subscribe({
         next: (data) => {
-          //Las credenciales son válidas. Procesar la respuesta exitosa aquí (por ejemplo, redirigir al usuario o almacenar el token)
-          
-          localStorage.setItem("token",data.access_token);
+          console.log("data:"+data.refresh_token);
+          this.authService.saveToken(
+            data.access_token, // Token del backend.
+            data.expires_in,    // Tiempo en segundos desde la respuesta del backend.
+            data.refresh_token
+          );
+
+          // configuración de la renovación del token
+          console.log("login->setTokenExpiration")
+          this.authService.setTokenExpiration(data.expires_in * 1000);
           
           this.alertas.showMessage('Login exitoso.', 'success');
   

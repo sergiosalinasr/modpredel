@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./api/routes/userRoutes');
 const config = require('./config/index');
-const { login, createUser, checkUserExists } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
+const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
 require('dotenv').config();
 const sequelize = require('./config2');
 const tduRoutes = require('./api/routes/tduRoutes');
@@ -38,7 +38,11 @@ app.post('/login', (req, res) => {
     //console.log('Node: Función login:', login);
     login(username, password)
         .then(token => {
-            res.status(200).json({ access_token: token.access_token, token_type: token.token_type, expires_in: token.expires_in });
+            res.status(200).json({ 
+              access_token: token.access_token, 
+              token_type: token.token_type, 
+              expires_in: token.expires_in,
+              refresh_token: token.refresh_token });
         })
         .catch(error => {
             console.error('Node: Login error:', error);
@@ -48,6 +52,32 @@ app.post('/login', (req, res) => {
                 res.status(500).json({ message: 'Node: Internal server error.' });
             }
         });
+});
+
+// Ruta POST para manejar el refresh_token
+app.post('/refreshtoken', (req, res) => {
+  const { refresh_token } = req.body;
+  //console.error('Node: Entramos a /refresh_token:', username, password);
+  if ( !refresh_token) {
+      return res.status(400).json({ message: 'Node: refresh_token are required.' });
+  }
+  //console.log('Node: Función refresh_token:', refresh_token);
+  refreshtoken( refresh_token)
+      .then(token => {
+          res.status(200).json({ 
+            access_token: token.access_token, 
+            token_type: token.token_type, 
+            expires_in: token.expires_in,
+            refresh_token: token.refresh_token });
+      })
+      .catch(error => {
+          console.error('Node: Login error:', error);
+          if (error.response && (error.response.status === 400 || error.response.status === 401)) {
+              res.status(error.response.status).json({ message: 'Node: Authentication failed. Check credentials.' });
+          } else {
+              res.status(500).json({ message: 'Node: Internal server error.' });
+          }
+      });
 });
 
 

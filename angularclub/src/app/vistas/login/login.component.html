@@ -1,32 +1,28 @@
-
-<div class="wrapper fadeInDown">
+<div class="wrapper">
   <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- Icon -->
+    <!-- Títulos -->
     <div class="fadeIn first">
-      <img src="assets/CRISOL.jpg" id="icon" alt="User Icon" />
-      <p>{{env_empresa}} - {{ version }}</p>
+      <img src={{env_empresa_logo}} icon alt="User Icon" />
+      <p>{{ env_empresa }} - {{ version }}</p>
     </div>
 
-    <!-- Login Form -->
+    <!-- Formulario de Login -->
     <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
-      <input type="text" id="login" class="fadeIn second" placeholder="Ingrese su login" formControlName="usuario">
-      <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
-      <input type="submit" class="fadeIn fourth" value="LogIn">
+      <input type="text" id="login" class="fadeIn second" placeholder="Ingrese su login" formControlName="usuario" />
+      <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password" />
+      <input type="submit" class="fadeIn fourth" value="LogIn" />
     </form>
 
-    <button type="button" class="btn btn-primary" (click)="nuevoUsuario(loginForm.value)">Nuevo Usuario</button>
+    <!--button type="button" class="btn btn-primary" (click)="nuevoUsuario(loginForm.value)">Nuevo Usuario</button-->
 
-    <!-- Remind Passowrd -->
+    <!-- Mensaje de error -->
     <div class="alert alert-danger" *ngIf="errorStatus">
       <p>{{ errorMsj }}</p>
     </div>
 
-      <!-- Mensaje de estado -->
+    <!-- Mensaje de estado -->
     <div *ngIf="message" [class]="messageType">
       {{ message }}
     </div>
-
   </div>
 </div>

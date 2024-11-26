@@ -1,14 +1,15 @@
-<app-header></app-header>
+<!--app-header></app-header-->
 
 <div class="div container">
             
-    <button type="button" class="btn btn-dark" (click)="salir()">Salir</button>
+    <button type="button" class="btn btn-dark" (click)="salir()">Volver</button>
+    <button type="submit" class="btn btn-primary">Guardar</button>
 
     <div class="container">
 
         <form [formGroup]="nuevoForm" (ngSubmit)="postForm()">
             
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            
 
             <div class="form-group row">
                 <label for="exampleFormControlInput1" class="col-sm-1 col-form-label">Nombres-</label>
@@ -46,13 +47,11 @@
                 <label for="exampleFormControlInput1">foto:</label>
                 <input type="text" class="form-control" placeholder="Foto del Socio" formControlName="foto">
             </div>
-            <br>
-            <br>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <!--button type="submit" class="btn btn-primary">Guardar</button-->
 
         </form>
     </div>
-    <button type="button" class="btn btn-dark" (click)="salir()">Salir</button>
+    <!--button type="button" class="btn btn-dark" (click)="salir()">Salir</button-->
     
 
 </div>

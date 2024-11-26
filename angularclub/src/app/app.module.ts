@@ -18,6 +18,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { MenuhComponent } from './components/menuh/menuh.component';
 import { MenulateralComponent } from './menulateral/menulateral.component';
 import { TduMaintenanceComponent } from './components/tdu/tdu.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +47,9 @@ import { TduMaintenanceComponent } from './components/tdu/tdu.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

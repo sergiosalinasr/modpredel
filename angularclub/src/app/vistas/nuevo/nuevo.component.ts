@@ -86,7 +86,7 @@ export class NuevoComponent {
   }
 
   salir(){
-    this.router.navigate(['dashboard']);
+    this.router.navigate(['menulateral/dashboard']);
   }
 
 }

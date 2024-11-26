@@ -32,6 +32,30 @@ function login(username, password) {
     });
 }
 
+function refreshtoken(refresh_token) {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
+
+  const body = qs.stringify({
+    client_id: 'admin-cli',
+    grant_type: "refresh_token",
+    refresh_token: refresh_token
+  });
+
+  KEYCLOAK_URL = process.env.KEYCLOAK_URL + tokenEndpoint
+
+  return axios.post(KEYCLOAK_URL, body, { headers })
+    .then(response => response.data)
+    .catch(error => {
+      if (!error.response || error.response.status === 0 || error.response.status === 504) {
+        console.error('El servicio de autenticación no está disponible.');
+        throw new Error('Authentication service unavailable');
+      }
+      throw error;
+    });
+}
+
 // La función obtiene un token del usuario administrador de Kaycloak (v)
 async function getAdminToken() {
   const tokenEndpoint = '/auth/realms/master/protocol/openid-connect/token'; // Asegura la correcta definición del endpoint
@@ -107,4 +131,4 @@ async function checkUserExists(username) {
   return response.data.length > 0; // Devuelve true si el usuario existe, false si no
 }
 
-module.exports = { login, createUser, checkUserExists };
+module.exports = { login, refreshtoken, createUser, checkUserExists };

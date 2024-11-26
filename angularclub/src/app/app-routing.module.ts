@@ -6,18 +6,27 @@ import { EditarComponent} from './vistas/editar/editar.component';
 import { DashboardComponent} from './vistas/dashboard/dashboard.component';
 import { MenuComponent} from './components/menu/menu.component'
 import { MenulateralComponent } from './menulateral/menulateral.component';
-import { TduMaintenanceComponent} from './components/tdu/tdu.component'
+import { TduMaintenanceComponent} from './components/tdu/tdu.component';
+import { EmployeeComponent} from './components/employee/employee.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path:'', redirectTo:'login', pathMatch:'full'},
   { path: 'login', component:LoginComponent},
-  { path: 'dashboard', component:DashboardComponent},
-  { path: 'nuevo', component:NuevoComponent},
+  //{ path: 'dashboard', component:DashboardComponent},
+  //{ path: 'nuevo', component:NuevoComponent},
   { path: 'editar/:id', component:EditarComponent},
-  { path: 'menu', component:MenuComponent},
+  { path: 'menu', component:MenuComponent, canActivate: [authGuard]},
   { path: 'opcion1/subopcion1', component: DashboardComponent },
-  { path: 'menulateral', component: MenulateralComponent },
-  { path: 'Tdu', component: TduMaintenanceComponent }
+  { path: 'menulateral', component: MenulateralComponent , canActivate: [authGuard], 
+    children: [
+      { path: 'Tdu', component: TduMaintenanceComponent },
+      { path: 'dashboard', component:DashboardComponent},
+      { path: 'employee', component:EmployeeComponent},
+      { path: 'nuevo', component:NuevoComponent},
+      // Otras rutas hijas
+    ] },
+  
 ];
 
 @NgModule({
@@ -28,6 +37,6 @@ export class AppRoutingModule { }
 //Esta constante se lleva a app.module.ts (ver lineas comentadas en app.module.ts)
 export const routingComponents = [
   LoginComponent, 
-  DashboardComponent, NuevoComponent, EditarComponent, 
+  DashboardComponent,EmployeeComponent,  NuevoComponent, EditarComponent, 
   TduMaintenanceComponent
 ]

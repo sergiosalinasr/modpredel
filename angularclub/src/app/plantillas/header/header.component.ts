@@ -8,5 +8,6 @@ import { environment } from '../../../environments/environment';
 })
 export class HeaderComponent {
   env_empresa = environment.env_empresa;
+  env_nombre_sistema = environment.env_nombre_sistema;
   version = environment.appVersion;
 }
