@@ -6,11 +6,15 @@
 
 <div class="container  bg-light text-white p-3">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 mt-4">
             <ul class="list-group">
                 <li
                    *ngFor="let employee of employeeArray"
-                   class="List-group-item list-group-item-action" >
+                   class="List-group-item list-group-item-action"
+                   (click)="openForEdit(employee)"
+                   [class.bg-primary]="employee == selectedEmployee"
+                   [class.text-white]="employee == selectedEmployee"
+                   >
                    <span class="badge badge-primary">{{employee.id}}</span> {{ employee.name}} - {{ employee.country }}
                 </li>
             </ul>
@@ -19,6 +23,21 @@
                     <div class="card-title">
                         Insert A new Employee
                     </div>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedEmployee.name" placeholder="Insert a name" class="form-group">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedEmployee.country" placeholder="Insert a country" class="form-group">
+                    </div>
+                    <button (click)="addOrEdir()" class="btn btn-primary">
+                        Submit
+                    </button>
+                    <button
+                        *ngIf="selectedEmployee.id !==0"
+                        class="btn btn-danger"
+                        (click)="delete()">
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>

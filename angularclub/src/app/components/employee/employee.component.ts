@@ -13,4 +13,30 @@ export class EmployeeComponent {
     {id: 2, name: "Angelica", country: "USA"},
     {id: 3, name: "Joe", country: "USA"}
   ];
+
+  selectedEmployee: Employee = new Employee(0, "", "");
+
+  addOrEdir(){
+
+    // Si no hay emppleado seleccionado...
+    if (this.selectedEmployee.id == 0){
+      this.selectedEmployee.id = this.employeeArray.length + 1;
+      this.employeeArray.push(this.selectedEmployee);
+    }
+    
+    this.selectedEmployee = new Employee(0, "", "");
+  }
+
+  openForEdit(employee: Employee){
+    this.selectedEmployee = employee;
+  }
+
+  delete(){
+    if (confirm("Are yu sure you want to deleted it?")){
+      this.employeeArray = this.employeeArray.filter( x => x != this.selectedEmployee);
+      this.selectedEmployee = new Employee(0, "", "");
+    }
+    
+  }
+
 }
