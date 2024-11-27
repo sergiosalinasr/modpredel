@@ -11,7 +11,10 @@ export class EmployeeComponent {
   employeeArray: Employee[] = [
     {id: 1, name: "Ryan", country: "USA"},
     {id: 2, name: "Angelica", country: "USA"},
-    {id: 3, name: "Joe", country: "USA"}
+    {id: 3, name: "Joe", country: "USA"},
+    {id: 3, name: "Joe2", country: "USA"},
+    {id: 3, name: "Joe3", country: "USA"},
+    {id: 3, name: "Joe4", country: "USA"}
   ];
 
   selectedEmployee: Employee = new Employee(0, "", "");
@@ -34,7 +37,7 @@ export class EmployeeComponent {
   delete(){
     if (confirm("Are yu sure you want to deleted it?")){
       this.employeeArray = this.employeeArray.filter( x => x != this.selectedEmployee);
-      this.selectedEmployee = new Employee(0, "", "");
+      //this.selectedEmployee = new Employee(0, "", "");
     }
     
   }

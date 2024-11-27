@@ -7,17 +7,18 @@
 <div class="container  bg-light text-white p-3">
     <div class="row">
         <div class="col-md-8 mt-4">
-            <ul class="list-group">
+            <ul class="list-group" style="max-height: 150px; overflow-y: auto;">
                 <li
                    *ngFor="let employee of employeeArray"
-                   class="List-group-item list-group-item-action"
+                   class="list-group-item list-group-item-action"
                    (click)="openForEdit(employee)"
                    [class.bg-primary]="employee == selectedEmployee"
                    [class.text-white]="employee == selectedEmployee"
-                   >
-                   <span class="badge badge-primary">{{employee.id}}</span> {{ employee.name}} - {{ employee.country }}
+                >
+                  <span class="badge badge-primary">{{ employee.id }}</span>
+                  {{ employee.name }} - {{ employee.country }}
                 </li>
-            </ul>
+              </ul>
             <div class="card mt-4">
                 <div class="card-body">
                     <div class="card-title">
@@ -30,7 +31,7 @@
                         <input type="text" [(ngModel)]="selectedEmployee.country" placeholder="Insert a country" class="form-group">
                     </div>
                     <button (click)="addOrEdir()" class="btn btn-primary">
-                        Submit
+                        Actualizar
                     </button>
                     <button
                         *ngIf="selectedEmployee.id !==0"
