@@ -37,7 +37,7 @@ export class EmployeeComponent {
   delete(){
     if (confirm("Are yu sure you want to deleted it?")){
       this.employeeArray = this.employeeArray.filter( x => x != this.selectedEmployee);
-      //this.selectedEmployee = new Employee(0, "", "");
+      this.selectedEmployee = new Employee(0, "", "");
     }
     
   }
