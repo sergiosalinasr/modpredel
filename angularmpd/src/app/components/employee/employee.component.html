@@ -30,8 +30,17 @@
                     <div class="form-group">
                         <input type="text" [(ngModel)]="selectedEmployee.country" placeholder="Insert a country" class="form-group">
                     </div>
-                    <button (click)="addOrEdir()" class="btn btn-primary">
+                    <button
+                        *ngIf="selectedEmployee.id !==0" 
+                        (click)="addOrEdit()"
+                        class="btn btn-primary">
                         Actualizar
+                    </button>
+                    <button
+                        *ngIf="selectedEmployee.id ==0" 
+                        (click)="agregar()"
+                        class="btn btn-primary">
+                        Agregar
                     </button>
                     <button
                         *ngIf="selectedEmployee.id !==0"
