@@ -9,6 +9,8 @@ import { MenulateralComponent } from './menulateral/menulateral.component';
 import { TduMaintenanceComponent} from './components/tdu/tdu.component';
 import { EmployeeComponent} from './components/employee/employee.component';
 import { authGuard } from './guards/auth.guard';
+import { TablatduComponent } from './components/tablatdu/tablatdu.component';
+
 
 const routes: Routes = [
   { path:'', redirectTo:'login', pathMatch:'full'},
@@ -23,6 +25,7 @@ const routes: Routes = [
       { path: 'Tdu', component: TduMaintenanceComponent },
       { path: 'dashboard', component:DashboardComponent},
       { path: 'employee', component:EmployeeComponent},
+      { path: 'tablatdu', component:TablatduComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -37,6 +40,10 @@ export class AppRoutingModule { }
 //Esta constante se lleva a app.module.ts (ver lineas comentadas en app.module.ts)
 export const routingComponents = [
   LoginComponent, 
-  DashboardComponent,EmployeeComponent,  NuevoComponent, EditarComponent, 
+  DashboardComponent,
+  EmployeeComponent,
+  TablatduComponent,
+  NuevoComponent,
+  EditarComponent, 
   TduMaintenanceComponent
 ]

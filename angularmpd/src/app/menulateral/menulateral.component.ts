@@ -11,7 +11,7 @@ export class MenulateralComponent {
   menuOptions = [
     { id: 1, title: 'Opción 1', submenu: [{ title: 'Dashboard', route: '/menulateral/dashboard' },{ title: 'Employee', route: '/menulateral/employee' }]},
     { id: 2, title: 'menu', route: '/menu', submenu: null },
-    { id: 3, title: 'Opción 3', submenu: [{ title: 'Subopción 3.1', route: '/option3/sub1' },{ title: 'Subopción 3.2', route: '/option3/sub2' }]},
+    { id: 3, title: 'UDC', submenu: [{ title: 'Tabla TDU', route: '/menulateral/tablatdu' },{ title: 'Subopción 3.2', route: '/option3/sub2' }]},
     { id: 4, title: 'Opción 4', submenu: [{ title: 'Subopción 4.1', route: '/option4/sub1' },{ title: 'Subopción 4.2', route: '/option4/sub2' }]},
     { id: 5, title: 'Configuración', submenu: [{ title: 'TDU', route: '/menulateral/Tdu' },{ title: 'Subopción 5.2', route: '/option5/sub2' }]},
     { id: 6, title: 'Logout', route: null, submenu: null }
