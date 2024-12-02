@@ -1,5 +1,5 @@
 <a class="navbar-brand">
-    Angular CRUD
+    CRUD Tabla TDU 
 </a>
 
 <div class="container  bg-light text-white p-3">
@@ -19,15 +19,32 @@
               </ul>
             <div class="card mt-4">
                 <div class="card-body">
-                    <div class="card-title" *ngIf="selectedTablatdu.id ==0">
-                        Insert A new Employee
+                    <div *ngIf="selectedTablatdu.id == 0; else editMode" class="card-title">
+                        Agregar nuevo registro
+                      </div>
+                      <ng-template #editMode>
+                        <div class="card-title">
+                          Editar registro existente
+                        </div>
+                      </ng-template>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedTablatdu.nombreCorto" placeholder="Nombre tabla" class="form-group w50">
                     </div>
                     <div class="form-group">
-                        <input type="text" [(ngModel)]="selectedTablatdu.nombreCorto" placeholder="Insert a name" class="form-group">
+                        <input type="text" [(ngModel)]="selectedTablatdu.descripcionLarga" placeholder="Descripción larga de la tabla" class="form-group w-75">
                     </div>
-                    <div class="form-group">
-                        <input type="text" [(ngModel)]="selectedTablatdu.descripcionLarga" placeholder="Insert a country" class="form-group">
-                    </div>
+                    <button
+                        
+                        (click)="addOrEdit()"
+                        class="btn btn-primary">
+                        Submit
+                    </button>
+                    <button
+                        *ngIf="selectedTablatdu.id !==0"
+                        class="btn btn-danger"
+                        (click)="delete()">
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
