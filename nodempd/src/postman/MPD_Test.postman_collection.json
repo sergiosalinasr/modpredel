@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "bb4d76f6-8879-489c-9d01-953f8683859b",
 		"name": "MPD_Test",
+		"description": "Esta colección se usa para generar las pruebas con newman.\n\nSe traen las rutinas desde la colección MPD que estén funcionando bien y por lo tanto para incuirlas en la secuencia de pruebas",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "16987425"
 	},
@@ -379,6 +380,27 @@
 				},
 				{
 					"name": "CDU_Update",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"Ultimo id update\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    console.log(\"Ultimo id update\")\r",
+									"    console.log(jsonData.message)\r",
+									"    pm.expect(jsonData.message).to.eql(\"CDU updated\");\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
 					},
@@ -395,13 +417,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/cdu/{{v_id}}/{{v_id_cdu}}",
+							"raw": "{{host}}/cdu/{{v_id_cdu}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"cdu",
-								"{{v_id}}",
 								"{{v_id_cdu}}"
 							]
 						}
@@ -423,7 +444,6 @@
 									"    console.log(\"Ultimo id delete\")\r",
 									"    console.log(jsonData.message)\r",
 									"    pm.expect(jsonData.message).to.eql(\"CDU deleted\");\r",
-									"    //pm.environment.set(\"v_id_cdu\", 0);\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -438,13 +458,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/cdu/{{v_id}}/{{v_id_cdu}}",
+							"raw": "{{host}}/cdu/{{v_id_cdu}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"cdu",
-								"{{v_id}}",
 								"{{v_id_cdu}}"
 							]
 						}
@@ -466,7 +485,6 @@
 									"    console.log(\"Ultimo id delete\")\r",
 									"    console.log(jsonData.message)\r",
 									"    pm.expect(jsonData.message).to.eql(\"TDU deleted\");\r",
-									"    //pm.environment.set(\"v_id\", 0);\r",
 									"});"
 								],
 								"type": "text/javascript",

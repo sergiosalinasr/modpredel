@@ -10,6 +10,7 @@ import { TduMaintenanceComponent} from './components/tdu/tdu.component';
 import { EmployeeComponent} from './components/employee/employee.component';
 import { authGuard } from './guards/auth.guard';
 import { TablatduComponent } from './components/tablatdu/tablatdu.component';
+import { TablacduComponent } from './components/tablacdu/tablacdu.component';
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'dashboard', component:DashboardComponent},
       { path: 'employee', component:EmployeeComponent},
       { path: 'tablatdu', component:TablatduComponent},
+      { path: 'tablacdu', component:TablacduComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -43,6 +45,7 @@ export const routingComponents = [
   DashboardComponent,
   EmployeeComponent,
   TablatduComponent,
+  TablacduComponent,
   NuevoComponent,
   EditarComponent, 
   TduMaintenanceComponent

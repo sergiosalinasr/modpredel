@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Tablatdu } from '../models/tablatdu'
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TablatduService {
 
-  url_mpd: string = "http://localhost:3000"
+  url_mpd: string = environment.env_url_backend;
 
   constructor(private http:HttpClient) { }
 

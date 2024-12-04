@@ -35,6 +35,26 @@ exports.getCDUsByTDUId = async (req, res) => {
     }
 };
 
+// Controlador para obtener un registro de CDU según id
+exports.getCDUById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Busca el registro específico con el id e id_tdu
+        const cdu = await CDU.findOne({
+            where: { id },
+        });
+
+        if (cdu) {
+            res.status(200).json(cdu);
+        } else {
+            res.status(404).json({ message: 'Registro no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 // Controlador para obtener un registro de CDU según id e id_tdu
 exports.getCDUByIdAndTDU = async (req, res) => {
     try {
@@ -57,6 +77,16 @@ exports.getCDUByIdAndTDU = async (req, res) => {
 
 exports.updateCDU = async (req, res) => {
     try {
+        const { id } = req.params;
+        const [updated] = await CDU.update(req.body, { where: { id } });
+        updated ? res.status(200).json({ message: "CDU updated" }) : res.status(404).json({ error: "CDU not found" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.updateCDU_TDU = async (req, res) => {
+    try {
         const { id_tdu, id } = req.params;
         const [updated] = await CDU.update(req.body, { where: { id_tdu, id } });
         updated ? res.status(200).json({ message: "CDU updated" }) : res.status(404).json({ error: "CDU not found" });
@@ -65,7 +95,18 @@ exports.updateCDU = async (req, res) => {
     }
 };
 
+
 exports.deleteCDU = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleted = await CDU.destroy({ where: { id } });
+        deleted ? res.status(200).json({ message: "CDU deleted" }) : res.status(404).json({ error: "CDU not found" });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+exports.deleteCDU_TDU = async (req, res) => {
     try {
         const { id_tdu, id } = req.params;
         const deleted = await CDU.destroy({ where: { id_tdu, id } });
