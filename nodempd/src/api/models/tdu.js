@@ -1,6 +1,6 @@
 // models/tdu.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../config2'); // Asegúrate de que apunta a la configuración correcta de Sequelize
+const sequelize = require('../../config'); // Asegúrate de que apunta a la configuración correcta de Sequelize
 
 const TDU = sequelize.define('tdu', {
     nombreCorto: {

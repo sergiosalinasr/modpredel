@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./api/routes/userRoutes');
-const config = require('./config/index');
+//const config = require('./config/index');
 const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
 require('dotenv').config();
-const sequelize = require('./config2');
+const sequelize = require('./config');
 const tduRoutes = require('./api/routes/tduRoutes');
 const cduRoutes = require('./api/routes/cduRoutes');
 

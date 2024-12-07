@@ -1,6 +1,6 @@
 // models/cdu.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../../config2');
+const sequelize = require('../../config');
 const TDU = require('./tdu'); // Importa el modelo TDU
 
 const CDU = sequelize.define('cdu', {
