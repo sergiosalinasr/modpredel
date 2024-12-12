@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config(); // Cargar las variables de entorno
-
+const { getSecret, setSecret } = require('./services/vaultService');
 
 
 const config = {
@@ -28,4 +28,7 @@ const sequelize = new Sequelize(
     }
 );
 
+
 module.exports = sequelize, config;
+
+

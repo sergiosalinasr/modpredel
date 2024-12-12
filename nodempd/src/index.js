@@ -6,6 +6,7 @@ const userRoutes = require('./api/routes/userRoutes');
 const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
 require('dotenv').config();
 const sequelize = require('./config');
+const { getSecret, setSecret } = require('./services/vaultService');
 const tduRoutes = require('./api/routes/tduRoutes');
 const cduRoutes = require('./api/routes/cduRoutes');
 
@@ -110,21 +111,17 @@ app.post('/SignUp', async (req, res) => {
 });
 
 // Conexión a la base de datos
-sequelize.sync().then(() => {
-  console.log('Database connected');
-  app.listen(3000, () => console.log('Server is running on port 3000'));
-}).catch(error => {
-  console.error('Error: La Database no está disponible');
-  console.error(error.message || error);
-  console.error('Error: La Database no está disponible');
-  process.exit(1); // Cierra el proceso si la base de datos no está disponible
-});
+sequelize.sync()
+  .then(() => {
+    console.log('Database connected');
+    app.listen(3000, () => console.log('Server is running on port 3000'));
+  })
+  .catch(error => {
+    console.error(error.message || error);
+    console.error('Error: La Database no está disponible');
+    process.exit(1); // Cierra el proceso si la base de datos no está disponible
+  });
 
-/*
-app.listen(config.port, () => {
-    console.log(`Node: Servidor corriendo en http://localhost:${config.port}`);
-});
-*/
 
 module.exports = app; // Para pruebas y flexibilidad adicional
 
