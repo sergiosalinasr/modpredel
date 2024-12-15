@@ -9,6 +9,9 @@ const sequelize = require('./config');
 const { getSecret, setSecret } = require('./services/vaultService');
 const tduRoutes = require('./api/routes/tduRoutes');
 const cduRoutes = require('./api/routes/cduRoutes');
+//const usersRoutes = require("./api/routes/usersRoutes");
+const leyRoutes = require("./api/routes/leyRoutes");
+
 
 
 const app = express();
@@ -23,9 +26,12 @@ app.use(express.json());
 app.use('/tdu', tduRoutes);
 app.use('/cdu', cduRoutes);
 
+//app.use('/users', usersRoutes);
+app.use('/ley', leyRoutes);
+
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {
-    res.send('¡Node: Healthy!');
+    res.send('¡Nodempd: Healthy!');
 });
 
 
@@ -111,6 +117,7 @@ app.post('/SignUp', async (req, res) => {
 });
 
 // Conexión a la base de datos
+
 sequelize.sync()
   .then(() => {
     console.log('Database connected');
@@ -122,6 +129,7 @@ sequelize.sync()
     process.exit(1); // Cierra el proceso si la base de datos no está disponible
   });
 
+//app.listen(3000, () => console.log('Server is running on port 3000'));
 
 module.exports = app; // Para pruebas y flexibilidad adicional
 
