@@ -16,7 +16,11 @@ export class MenulateralComponent {
         { title: 'Tabla TDU', route: '/menulateral/tablatdu' },
         { title: 'Tabla UDC', route: '/menulateral/tablacdu' }
       ]},
-    { id: 4, title: 'Opción 4', submenu: [{ title: 'Subopción 4.1', route: '/option4/sub1' },{ title: 'Subopción 4.2', route: '/option4/sub2' }]},
+    { id: 4, title: 'Maestros',
+      submenu: [
+        { title: 'Ley', route: '/menulateral/ley' },
+        { title: 'Subopción 4.2', route: '/option4/sub2' }
+      ]},
     { id: 5, title: 'Configuración', submenu: [{ title: 'TDU', route: '/menulateral/Tdu' },{ title: 'Subopción 5.2', route: '/option5/sub2' }]},
     { id: 6, title: 'Logout', route: null, submenu: null }
   ];

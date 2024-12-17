@@ -683,7 +683,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombre\": \"Ley8\",\r\n  \"descripcion\": \"Descripción Ley8 \",\r\n  \"fechaPublicacion\": \"2024-12-08\",\r\n  \"pais\": 2\r\n}\r\n",
+							"raw": "{\r\n  \"nombre\": \"Ley8\",\r\n  \"descripcion\": \"Descripción Ley8 \",\r\n  \"fechapublicacion\": \"2024-12-08\",\r\n  \"pais\": {{v_id_cdu}}\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"

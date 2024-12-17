@@ -11,6 +11,7 @@ import { EmployeeComponent} from './components/employee/employee.component';
 import { authGuard } from './guards/auth.guard';
 import { TablatduComponent } from './components/tablatdu/tablatdu.component';
 import { TablacduComponent } from './components/tablacdu/tablacdu.component';
+import { LeyComponent } from './components/ley/ley.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'employee', component:EmployeeComponent},
       { path: 'tablatdu', component:TablatduComponent},
       { path: 'tablacdu', component:TablacduComponent},
+      { path: 'ley', component:LeyComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -46,6 +48,7 @@ export const routingComponents = [
   EmployeeComponent,
   TablatduComponent,
   TablacduComponent,
+  LeyComponent,
   NuevoComponent,
   EditarComponent, 
   TduMaintenanceComponent

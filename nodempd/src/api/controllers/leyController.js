@@ -25,16 +25,21 @@ exports.getleyById = async (req, res) => {
 
 exports.createley = async (req, res) => {
   try {
-    const { nombre, descripcion, fechaPublicacion, pais } = req.body;
-    const fechaPublicacionFormateada = new Date(fechaPublicacion);
+    const { nombre, descripcion, fechapublicacion, pais } = req.body;
+    const fechaPublicacionFormateada = new Date(fechapublicacion);
     const timestampNow = new Date();
+    /*
+    console.log("En postLey - this.selectedLey.nombre: " + nombre + 
+      " descripcion: " + descripcion +
+      " fechapublicacion: " + fechapublicacion +
+      " pais: " + pais);
+    */
     const { rows } = await pool.query(
       "INSERT INTO " + schema + ".ley " +
       "(nombre, descripcion, fechapublicacion, pais, createdat, updatedat)" +
       " VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [nombre, descripcion, fechaPublicacionFormateada, pais, timestampNow, timestampNow]
+      [nombre, descripcion, fechapublicacion, pais, timestampNow, timestampNow]
     );
-
     res.status(201).json(rows[0]);
   } catch (error) {
     return res.status(500).json({ error: error.message });
