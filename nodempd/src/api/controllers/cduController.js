@@ -18,12 +18,34 @@ exports.getCDUs = async (req, res) => {
     }
 };
 
-// Controlador para obtener los registros de CDU por id_tdu
-exports.getCDUsByTDUId = async (req, res) => {
-    const { id_tdu } = req.params; // Obtiene el id_tdu de los parámetros de la URL
+// Controlador para obtener los registros de CDU por id_tdu getCDUByIdAndTDU
+exports.getCDUByIdAndTDU = async (req, res) => {
+    const { id, id_tdu } = req.params; // Obtiene id_tdu e id de los parámetros de la URL
     try {
         const cdus = await CDU.findAll({
-            where: { id_tdu } // Filtra los registros donde el id_tdu coincida
+            where: { 
+                id_tdu, // Filtra por id_tdu
+                id      // Filtra también por id
+            }
+        });
+        if (cdus.length > 0) {
+            res.status(200).json(cdus); // Devuelve los registros encontrados
+        } else {
+            res.status(404).json({ message: `No se encontraron registros para id_tdu: ${id_tdu} e id: ${id}` });
+        }
+    } catch (error) {
+        res.status(500).json({ error: error.message }); // Manejo de errores
+    }
+};
+
+// Controlador para obtener lista de registros de CDU según un id_tdu (Por ejemplo 4 tabla de paises)
+exports.getCDUsByTDU = async (req, res) => {
+    const { id_tdu } = req.params; // Obtiene id_tdu e id de los parámetros de la URL
+    try {
+        const cdus = await CDU.findAll({
+            where: { 
+                id_tdu // Filtra por id_tdu
+            }
         });
         if (cdus.length > 0) {
             res.status(200).json(cdus); // Devuelve los registros encontrados
@@ -34,6 +56,7 @@ exports.getCDUsByTDUId = async (req, res) => {
         res.status(500).json({ error: error.message }); // Manejo de errores
     }
 };
+
 
 // Controlador para obtener un registro de CDU según id
 exports.getCDUById = async (req, res) => {

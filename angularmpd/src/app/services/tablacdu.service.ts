@@ -21,6 +21,22 @@ export class TablacduService {
 
   }
 
+  tablaCduByIdTdu(id_cdu: number, id_tdu: number):Observable<Tablacdu[]>{
+  
+      let direccion = this.url_mpd + "/cdu/" + id_cdu + "/tdu/" + id_tdu;
+      console.log("GET direccion: " + direccion);
+      return this.http.get<Tablacdu[]>(direccion);
+  
+    }
+
+    // Controlador para obtener lista de registros de CDU según un id_tdu (Por ejemplo 4 tabla de paises)
+    getCDUsByTDU( id_tdu: number):Observable<Tablacdu[]>{
+  
+      let direccion = this.url_mpd + "/cdu/tdu/" + id_tdu;
+      return this.http.get<Tablacdu[]>(direccion);
+  
+    }
+
   putTablacdu(form:Tablacdu):Observable<any>{
     
     const url = this.url_mpd + "/cdu/" + form.id; // URL completa con el ID
