@@ -20,6 +20,7 @@ import { MenulateralComponent } from './menulateral/menulateral.component';
 import { TduMaintenanceComponent } from './components/tdu/tdu.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+//import { CdleyComponent } from './components/crudley/cdley/cdley.component';
 //import { LeyComponent } from './components/ley/ley.component';
 //import { TablacduComponent } from './components/tablacdu/tablacdu.component';
 
@@ -34,7 +35,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     //MenuComponent,
     MenuhComponent,
     MenulateralComponent,
-    TduMaintenanceComponent,
+    TduMaintenanceComponent
+    //CdleyComponent,
     //LeyComponent,
     //TablacduComponent
     //LoginComponent,

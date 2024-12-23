@@ -12,6 +12,7 @@ import { authGuard } from './guards/auth.guard';
 import { TablatduComponent } from './components/tablatdu/tablatdu.component';
 import { TablacduComponent } from './components/tablacdu/tablacdu.component';
 import { LeyComponent } from './components/ley/ley.component';
+import { CdleyComponent } from './components/crudley/cdley/cdley.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'tablatdu', component:TablatduComponent},
       { path: 'tablacdu', component:TablacduComponent},
       { path: 'ley', component:LeyComponent},
+      { path: 'cdley', component:CdleyComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -49,6 +51,7 @@ export const routingComponents = [
   TablatduComponent,
   TablacduComponent,
   LeyComponent,
+  CdleyComponent,
   NuevoComponent,
   EditarComponent, 
   TduMaintenanceComponent

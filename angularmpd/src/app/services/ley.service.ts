@@ -63,4 +63,11 @@ url_mpd: string = environment.env_url_backend;
 
   }
 
+  deleteLeyId(idLey: number):Observable<any>{
+    
+    const url = this.url_mpd + "/ley/" + idLey; // URL completa con el ID
+    return this.http.delete(url);
+
+  }
+
 }
