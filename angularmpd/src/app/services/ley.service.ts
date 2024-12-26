@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Ley } from '../models/ley'
+import { Ley, LeyCampos } from '../models/ley'
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,13 @@ url_mpd: string = environment.env_url_backend;
 
     let direccion = this.url_mpd + "/ley";
     return this.http.get<Ley[]>(direccion);
+
+  }
+
+  getleycampos():Observable<LeyCampos[]>{
+
+    let direccion = this.url_mpd + "/ley/getleycampos";
+    return this.http.get<LeyCampos[]>(direccion);
 
   }
 

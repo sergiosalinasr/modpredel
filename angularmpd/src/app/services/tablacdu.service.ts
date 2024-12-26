@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Tablacdu } from '../models/tablacdu'
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 
@@ -36,6 +36,16 @@ export class TablacduService {
       return this.http.get<Tablacdu[]>(direccion);
   
     }
+
+  async getCDUsByTDUAsync(id_tdu: number): Promise<Tablacdu[]> {
+    const direccion = `${this.url_mpd}/cdu/tdu/${id_tdu}`;
+    try {
+      return await firstValueFrom(this.http.get<Tablacdu[]>(direccion));
+    } catch (error) {
+      console.error('Error al obtener los CDUs:', error);
+      throw error;
+    }
+  }
 
   putTablacdu(form:Tablacdu):Observable<any>{
     

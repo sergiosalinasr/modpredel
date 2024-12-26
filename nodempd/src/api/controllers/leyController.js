@@ -4,8 +4,24 @@ require('dotenv').config();
 const schema = process.env.DB_SCHEMA;
 
 exports.getley = async (req, res) => {
+  console.log("getley ");
  try { 
   const response = await pool.query("SELECT id, nombre, descripcion, fechapublicacion, pais FROM " + schema + ".ley ORDER BY id ASC");
+  res.status(200).json(response.rows);
+} catch (error) {
+  return res.status(400).json({ error: error.message });
+}
+
+};
+
+exports.getleycampos = async (req, res) => {
+  console.log("getleycampos ");
+ try { 
+  const consulta = "SELECT l.id, l.nombre, l.descripcion, l.fechapublicacion, l.pais, c.\"nombreCorto\" AS descripcionPais " + 
+    " FROM " + schema + ".ley AS l, " + schema + ".cdu AS c " +
+    " WHERE l.pais = c.id " +
+    " ORDER BY id ASC"
+  const response = await pool.query(consulta);
   res.status(200).json(response.rows);
 } catch (error) {
   return res.status(400).json({ error: error.message });

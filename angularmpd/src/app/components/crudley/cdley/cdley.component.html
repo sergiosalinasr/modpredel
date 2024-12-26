@@ -8,17 +8,18 @@
                 <th scope="col">nombre</th>
                 <th scope="col">descripcion</th>
                 <th scope="col">fechapublicacion</th>
-                <th scope="col">pais</th>
+                <th scope="col">----------Pais--------------</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let ley of leyArray">
+            <tr *ngFor="let ley of LeyCamposArray">
                 <th scope="row">{{ ley.id }}</th>
                 <td>{{ ley.nombre }}</td>
                 <td>{{ ley.descripcion }}</td>
                 <td>{{ ley.fechapublicacion }}</td>
-                <td>{{ ley.pais }}</td>
+                
+                <td>{{ ley.descripcionpais }}</td>
                 <td>
                     <button type="button" class="btn btn-danger me-1" (click)="deleteLey(ley.id); $event.stopPropagation()">D</button>
                     <button type="button" class="btn btn-primary" (click)="editarLey(ley.id); $event.stopPropagation()">U</button>

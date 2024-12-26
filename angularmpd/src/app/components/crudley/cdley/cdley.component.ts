@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { Ley } from '../../../models/ley';
+import { Ley, LeyCampos } from '../../../models/ley';
 import { LeyService } from '../../../services/ley.service'
+import { Tablacdu } from '../../../models/tablacdu';
+import { TablacduService } from '../../../services/tablacdu.service'
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-cdley',
@@ -10,21 +13,31 @@ import { Router } from '@angular/router';
 })
 export class CdleyComponent {
 
-  leyArray:Ley[] = [];
+  //leyArray:Ley[] = [];
+  LeyCamposArray:LeyCampos[] = [];
+  //leyArray: (Ley & { descripcionPais?: string })[] = [];
+  tablacduArray: Tablacdu[] = [];
 
-  constructor(private leyService:LeyService, private router: Router) { }
+
+  constructor(private leyService:LeyService, private router: Router, private tablacduService:TablacduService) { }
 
   ngOnInit(): void {
 
-      this.refrescarListaLeyes();
+    //this.tablacduArrayCarga();
+    this.refrescarListaLeyes();
    
   }
 
   nuevaLey() {
 
+    this.router.navigate(['menulateral/culey', 0 ]);
+
   }
 
-  editarLey(ley_id: number) {
+  editarLey(id: number) {
+
+    //this.router.navigate(['editar', id]);
+    this.router.navigate(['menulateral/culey', id ]);
 
   }
 
@@ -54,16 +67,55 @@ export class CdleyComponent {
   }
 
   refrescarListaLeyes(){
-    this.leyService.leyLista().subscribe(data =>{
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].fechapublicacion != null){
-          data[i].fechapublicacion = this.formatISODateToDDMMYYYY(data[i].fechapublicacion);
+    this.leyService.getleycampos().subscribe(data =>{
+      this.LeyCamposArray = data;
+      for (let i = 0; i < this.LeyCamposArray.length; i++) {
+        console.log("this.LeyCamposArray[i].descripcionpais: " + this.LeyCamposArray[i].descripcionpais);
+        if (this.LeyCamposArray[i].fechapublicacion != null){
+          this.LeyCamposArray[i].fechapublicacion = this.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);
         } else {
-          data[i].fechapublicacion = "";
+          this.LeyCamposArray[i].fechapublicacion = "";
         }
       }
-     this.leyArray = data;
     })
+    for (let i = 0; i < this.LeyCamposArray.length; i++) {
+      //this.leyArray[i].descripcionPais = this.nombrePais(this.leyArray[i].pais);
+    }
   }
+
+  /*
+  tablacduArrayCarga(){
+    this.tablacduService.getCDUsByTDU(4).subscribe({
+      next: (data) => {
+        this.tablacduArray = data;
+      },
+      error: (err) => {
+      }
+    });
+  }
+  */
+
+  async tablacduArrayCarga() {
+    try {
+      this.tablacduArray = await firstValueFrom(this.tablacduService.getCDUsByTDU(4));
+      this.refrescarListaLeyes();
+    } catch (err) {
+      console.error('Error al cargar el array de CDU:', err);
+      // Manejo del error (puedes mostrar un mensaje al usuario o realizar otra acción)
+    }
+  }
+
+  nombrePais(idPais: number): string {
+    console.log("Buscando el pais: " + idPais);
+  
+    const pais = this.tablacduArray.find(item => item.id === idPais);
+  
+    if (pais) {
+      return pais.nombreCorto;
+    }
+  
+    return "País no encontrado";
+  }
+  
 
 }
