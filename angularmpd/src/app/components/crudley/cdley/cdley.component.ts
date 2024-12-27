@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UtilsService } from '../../../services/utils.service';
 import { Ley, LeyCampos } from '../../../models/ley';
 import { LeyService } from '../../../services/ley.service'
 import { Tablacdu } from '../../../models/tablacdu';
@@ -19,7 +20,11 @@ export class CdleyComponent {
   tablacduArray: Tablacdu[] = [];
 
 
-  constructor(private leyService:LeyService, private router: Router, private tablacduService:TablacduService) { }
+  constructor(
+    private leyService:LeyService, 
+    private router: Router, 
+    private utilsService: UtilsService,
+    private tablacduService:TablacduService) { }
 
   ngOnInit(): void {
 
@@ -72,50 +77,13 @@ export class CdleyComponent {
       for (let i = 0; i < this.LeyCamposArray.length; i++) {
         console.log("this.LeyCamposArray[i].descripcionpais: " + this.LeyCamposArray[i].descripcionpais);
         if (this.LeyCamposArray[i].fechapublicacion != null){
-          this.LeyCamposArray[i].fechapublicacion = this.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);
+          //this.LeyCamposArray[i].fechapublicacion = this.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);
+          this.LeyCamposArray[i].fechapublicacion = this.utilsService.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);
         } else {
           this.LeyCamposArray[i].fechapublicacion = "";
         }
       }
     })
-    for (let i = 0; i < this.LeyCamposArray.length; i++) {
-      //this.leyArray[i].descripcionPais = this.nombrePais(this.leyArray[i].pais);
-    }
   }
-
-  /*
-  tablacduArrayCarga(){
-    this.tablacduService.getCDUsByTDU(4).subscribe({
-      next: (data) => {
-        this.tablacduArray = data;
-      },
-      error: (err) => {
-      }
-    });
-  }
-  */
-
-  async tablacduArrayCarga() {
-    try {
-      this.tablacduArray = await firstValueFrom(this.tablacduService.getCDUsByTDU(4));
-      this.refrescarListaLeyes();
-    } catch (err) {
-      console.error('Error al cargar el array de CDU:', err);
-      // Manejo del error (puedes mostrar un mensaje al usuario o realizar otra acción)
-    }
-  }
-
-  nombrePais(idPais: number): string {
-    console.log("Buscando el pais: " + idPais);
-  
-    const pais = this.tablacduArray.find(item => item.id === idPais);
-  
-    if (pais) {
-      return pais.nombreCorto;
-    }
-  
-    return "País no encontrado";
-  }
-  
 
 }

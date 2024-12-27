@@ -34,6 +34,14 @@ url_mpd: string = environment.env_url_backend;
 
   }
 
+  getleybynombre(nombre: string):Observable<Ley[]>{
+
+    let direccion = this.url_mpd + "/ley/getleybynombre/" + nombre;
+    console.log("GET direccion: " + direccion);
+    return this.http.get<Ley[]>(direccion);
+
+  }
+
   putLey(form:Ley):Observable<any>{
     
     const url = this.url_mpd + "/ley/" + form.id; // URL completa con el ID

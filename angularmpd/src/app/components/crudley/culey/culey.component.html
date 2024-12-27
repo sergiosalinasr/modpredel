@@ -1,5 +1,5 @@
 <a class="navbar-brand">
-    CRUD Tabla Ley 
+    CRUD Tabla Ley2 
 </a>
 
 <div class="container  bg-light text-white p-3">
@@ -15,30 +15,53 @@
                           Editar Ley
                         </div>
                       </ng-template>
-                    <div class="form-group">
-                        <input type="text" [(ngModel)]="selectedLey.nombre" placeholder="Nombre Ley" class="form-group w50">
-                    </div>
+                      <div class="form-group">
+                        <input 
+                          type="text" 
+                          [(ngModel)]="selectedLey.nombre" 
+                          (ngModelChange)="convertirAMayusculas($event)" 
+                          placeholder="Nombre Ley" 
+                          class="form-group w50"
+                        >
+                      </div>
                     <div class="form-group">
                         <input type="text" [(ngModel)]="selectedLey.descripcion" placeholder="Descripción Ley" class="form-group w-75">
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px;">
-                      <label for="fechapublicacion">Fecha de publicación:</label>
-                      <input 
-                        type="text" 
-                        id="fechapublicacion" 
-                        [(ngModel)]="selectedLey.fechapublicacion" 
-                        placeholder="dd-mm-aaaa" 
-                      />
-                    </div>
+                        <label for="fechapublicacion">Fecha de publicación:</label>
+                        <input 
+                          type="text" 
+                          id="fechapublicacion" 
+                          [(ngModel)]="selectedLey.fechapublicacion" 
+                          placeholder="dd-mm-aaaa" 
+                          (ngModelChange)="esFechaValida($event)" 
+                          [ngClass]="{'is-invalid': !isValidFecha}"
+                        />
+                        <div *ngIf="!isValidFecha" class="text-danger">
+                          Formato inválido. Usa dd-mm-aaaa.
+                        </div>
+                      </div>
                     <div class="form-group">
                         <input type="text" [(ngModel)]="selectedLey.pais" placeholder="Id tabla ref" class="form-group w50">
                     </div>
-                    <button
-                        
+                    <div class="form-group">
+                        <label for="pais">Seleccione un País:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedLey.pais" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let pais of paisArray" [value]="pais.id">
+                            {{ pais.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+                    <button   
                         (click)="addOrEdit()"
                         class="btn btn-primary">
                         Submit
                     </button>
+                    <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
                 </div>
             </div>
         </div>

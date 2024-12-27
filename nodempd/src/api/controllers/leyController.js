@@ -39,6 +39,17 @@ exports.getleyById = async (req, res) => {
   }
 };
 
+exports.getleybynombre = async (req, res) => {
+  try {
+    const nombre = req.params.nombre;
+    console.log("API getleybynombre. Nombre recibido:-" + nombre + "-")
+    const response = await pool.query("SELECT id, nombre, descripcion, fechapublicacion, pais FROM " + schema + ".ley WHERE nombre = $1", [nombre]);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+};
+
 exports.createley = async (req, res) => {
   try {
     const { nombre, descripcion, fechapublicacion, pais } = req.body;

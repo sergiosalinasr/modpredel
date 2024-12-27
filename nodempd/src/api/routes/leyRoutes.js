@@ -6,6 +6,7 @@ const leyController = require('../controllers/leyController');
 console.log("En leyRoutes")
 router.get("/", leyController.getley);
 router.get("/getleycampos", leyController.getleycampos);
+router.get("/getleybynombre/:nombre", leyController.getleybynombre);
 router.get("/:id", leyController.getleyById);
 router.post("/", leyController.createley);
 router.put("/:id", leyController.updateley);

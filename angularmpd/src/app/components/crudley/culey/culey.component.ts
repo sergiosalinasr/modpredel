@@ -3,8 +3,10 @@ import { format } from 'date-fns';
 import { UtilsService } from '../../../services/utils.service';
 import { Ley } from '../../../models/ley';
 import { LeyService } from '../../../services/ley.service'
+import { Tablacdu } from '../../../models/tablacdu';
 import { TablacduService } from '../../../services/tablacdu.service'
 import { Router, ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-culey',
@@ -15,6 +17,10 @@ export class CuleyComponent {
 
   selectedLey: Ley = new Ley(0, "", "", "", 0);
   leyIdEntrada: number = 0;
+  isValidFecha: boolean = true;
+  paisArray: Tablacdu[] = [];
+  leyNombreArray:Ley[] = [];
+  leyArray:Ley[] = [];
 
   constructor(private leyService:LeyService, 
     private router: Router, 
@@ -23,17 +29,30 @@ export class CuleyComponent {
     private tablacduService: TablacduService) { }
 
   ngOnInit(): void {
+
+    // Carga arreglo de lista de paises
+    this.cargaPaises();
+
+    // Lee el paramatro de entrada necesario para saber si es una nueva Ley (=0) o es editar (>0)
     this.leyIdEntrada = Number(this.activerouter.snapshot.paramMap.get('id'));
     
+    // Si estamos editando, cargamos los daos respectivos
     if ( this.leyIdEntrada > 0){
       this.leyService.leyById(this.leyIdEntrada).subscribe(data =>{
         this.selectedLey = data[0];
         this.selectedLey.fechapublicacion = this.utilsService.formatISODateToDDMMYYYY(this.selectedLey.fechapublicacion)
       })
-    }
+    };
+
+    // Carga de leyes para validaciones: no repetir nombre de ley
+    this.leyService.leyLista().subscribe(data =>{
+      this.leyArray = data;
+    });
   }
 
-  guardarLey(){
+  cancelar() {
+
+    this.router.navigate(['menulateral/cdley']);
 
   }
 
@@ -41,7 +60,6 @@ export class CuleyComponent {
     // Si estamos creando un registro:
     if (this.leyIdEntrada === 0 ) {
       let mensajeValidacion = this.datosValidos(this.selectedLey);
-      console.log("mensajeValidacion: " + mensajeValidacion)
       if ( mensajeValidacion != ""){
         alert(mensajeValidacion);
       } else {
@@ -82,13 +100,15 @@ export class CuleyComponent {
         })
       }
     }
-    
-    //this.selectedLey = new Ley(0, "", "", "", 0);
   }
 
 
   // Función de validación
   esFechaValida(fecha: string): boolean {
+    //Cambia la fecha en caso de / a - que es el formao correcto
+    fecha = fecha.replace(/\//g, "-")
+    // lo muestra en la pantalla:
+    this.selectedLey.fechapublicacion = fecha;
     const regex = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4})$/;
     if (!regex.test(fecha)) return false;
 
@@ -102,8 +122,15 @@ export class CuleyComponent {
 
   datosValidos(validando: Ley ){
 
+    let existe = false;
+
+    console.log("Fecha validando.fechapublicacion: " + validando.fechapublicacion)
     if ( validando.nombre === "" ) {
       return "Ingresar nombre de la Ley"
+    }
+    
+    if ( this.existePaisNombre(validando.nombre) ) {
+      return "Ese nombre de Ley ya existe"
     }
 
     if ( validando.descripcion === "" ) {
@@ -113,22 +140,70 @@ export class CuleyComponent {
     if ( !this.esFechaValida(validando.fechapublicacion)) {
       return "Ingresar una fecha válida"
     }
-
-    let mensaje = ""
-    this.tablacduService.tablaCduByIdTdu(validando.pais, 4).subscribe({
-      next: (data) => {
-        let dataResponse: any = data;
-        console.log("next: Pais es valido: dataResponse.status = " + dataResponse.status) 
-      },
-      error: (err) => {
-        
-        mensaje = "Error: El Pais es invalido";
-        console.log(mensaje);
-      }
-    });
     
-    return mensaje
+    return ""
 
   }
+
+  // Carga lista de paieses para seleccion en pantalla
+  cargaPaises(){
+    this.tablacduService.getCDUsByTDU(4).subscribe({
+      next: (data) => {
+        this.paisArray = data;
+      },
+      error: (err) => {
+      }
+    });
+  }
+
+  getDescripcionPais(idPais: number): string {
+    const pais = this.paisArray.find((p) => p.id === idPais);
+    return pais ? pais.nombreCorto : 'PAIS No encontrado';
+  }
+
+  convertirAMayusculas(valor: string): void {
+    this.selectedLey.nombre = valor.toUpperCase();
+  }
+  
+  existePaisNombre(paisNombre: string): boolean {
+ 
+    console.log("Buscando nombre...: " + paisNombre);
+
+    const paisEncontrado = this.leyArray.find((ley) => ley.nombre === paisNombre);
+    if (paisEncontrado) {
+      console.log("El país existe:", paisEncontrado);
+      return true
+    } else {
+      console.log("El país no existe.");
+      return false
+    };
+
+  }
+  
+
+  async verificarRespuestaConTimeout(paisNombre: string) {
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('Tiempo de espera excedido')), 5000)
+    );
+    let existe = false;
+    try {
+      const respuesta = await Promise.race([this.leyService.getleybynombre(paisNombre), timeout]);
+      console.log('Respuesta recibida:', respuesta);
+      
+        if (this.leyNombreArray.length === 0) {
+          console.log("No existe - this.leyNombreArray.length: " + this.leyNombreArray.length);
+          // Realizar acciones cuando no existe
+          existe = false;
+        } else {
+          console.log("Si existe: " + paisNombre);
+          // Realizar acciones cuando existe
+          existe = true;
+        }
+    } catch (error) {
+      console.error('Error o timeout:', error);
+    }
+  }
+  
+  
 
 }
