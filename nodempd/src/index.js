@@ -11,6 +11,7 @@ const tduRoutes = require('./api/routes/tduRoutes');
 const cduRoutes = require('./api/routes/cduRoutes');
 //const usersRoutes = require("./api/routes/usersRoutes");
 const leyRoutes = require("./api/routes/leyRoutes");
+const delitoRoutes = require("./api/routes/delitoRoutes");
 
 
 
@@ -28,6 +29,7 @@ app.use('/cdu', cduRoutes);
 
 //app.use('/users', usersRoutes);
 app.use('/ley', leyRoutes);
+app.use('/delito', delitoRoutes);
 
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {
