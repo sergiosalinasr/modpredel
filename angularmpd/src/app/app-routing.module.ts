@@ -14,6 +14,8 @@ import { TablacduComponent } from './components/tablacdu/tablacdu.component';
 import { LeyComponent } from './components/ley/ley.component';
 import { CdleyComponent } from './components/crudley/cdley/cdley.component';
 import { CuleyComponent } from './components/crudley/culey/culey.component';
+import { RddelitoComponent } from './components/cruddelito/rddelito/rddelito.component';
+import { CudelitoComponent } from './components/cruddelito/cudelito/cudelito.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,8 @@ const routes: Routes = [
       { path: 'ley', component:LeyComponent},
       { path: 'cdley', component:CdleyComponent},
       { path: 'culey/:id', component:CuleyComponent},
+      { path: 'rddelito', component:RddelitoComponent},
+      { path: 'cudelito/:id', component:CudelitoComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -55,6 +59,8 @@ export const routingComponents = [
   LeyComponent,
   CdleyComponent,
   CuleyComponent,
+  RddelitoComponent,
+  CudelitoComponent,
   NuevoComponent,
   EditarComponent, 
   TduMaintenanceComponent

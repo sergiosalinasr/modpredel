@@ -17,13 +17,16 @@ exports.getdelito = async (req, res) => {
 exports.getdelitocampos = async (req, res) => {
   console.log("getdelitocampos ");
  try { 
-  const consulta = "SELECT d.id, " +
+  const consulta = 
+    "SELECT d.id, " +
+     " d.idley,  " +
+     " l.nombre AS descley,  " +
      " d.nombre,  " +
      " d.descripcion,  " +
      " d.sancion, cs.\"nombreCorto\" AS descsancion,  " +
      " d.nivelgravedad, cng.\"nombreCorto\" AS descnivelgravedad  " +
-     " FROM mpd.delito AS d, mpd.cdu AS cs, mpd.cdu AS cng  " +
-     " WHERE d.sancion = cs.id  " +
+     " FROM " + schema + ".delito AS d, " + schema + ".ley AS l, " + schema + ".cdu AS cs, " + schema + ".cdu AS cng  " +
+     " WHERE d.idley = l.id and d.sancion = cs.id  " +
      " AND d.nivelgravedad = cng.id  " +
      " ORDER BY id ASC"
   const response = await pool.query(consulta);

@@ -19,7 +19,8 @@ export class MenulateralComponent {
     { id: 4, title: 'Maestros',
       submenu: [
         { title: 'Ley', route: '/menulateral/ley' },
-        { title: 'CRUDLey (nuevo)', route: '/menulateral/cdley' }
+        { title: 'CRUD Ley', route: '/menulateral/cdley' },
+        { title: 'CRUD Delito', route: '/menulateral/rddelito' }
       ]},
     { id: 5, title: 'Configuración', submenu: [{ title: 'TDU', route: '/menulateral/Tdu' },{ title: 'Subopción 5.2', route: '/option5/sub2' }]},
     { id: 6, title: 'Logout', route: null, submenu: null }

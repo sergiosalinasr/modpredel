@@ -1,0 +1,90 @@
+<a class="navbar-brand">
+    CRUD Tabla Delito
+</a>
+
+<div class="container  bg-light text-white p-3">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div *ngIf="selectedDelito.id == 0; else editMode" class="card-title">
+                        Agregar nuevo Delito
+                      </div>
+                      <ng-template #editMode>
+                        <div class="card-title">
+                          Editar Delito
+                        </div>
+                      </ng-template>
+                      <div class="form-group">
+                        <input 
+                          type="text" 
+                          [(ngModel)]="selectedDelito.nombre" 
+                          (ngModelChange)="convertirAMayusculas($event)" 
+                          placeholder="Nombre Ley" 
+                          class="form-group w50"
+                        >
+                      </div>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedDelito.descripcion" placeholder="Descripción Delito" class="form-group w-75">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedDelito.idley" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione una Ley:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedDelito.idley" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let ley of leyArray" [value]="ley.id">
+                            {{ ley.nombre }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedDelito.sancion" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione un Delito:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedDelito.sancion" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let sancion of tduSancionArray" [value]="sancion.id">
+                            {{ sancion.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedDelito.nivelgravedad" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione un Nivel de Gravedad:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedDelito.nivelgravedad" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let nivelgravedad of tduNivelgravedadArray" [value]="nivelgravedad.id">
+                            {{ nivelgravedad.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                    <button   
+                        (click)="addOrEdit()"
+                        class="btn btn-primary">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
