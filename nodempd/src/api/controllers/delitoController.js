@@ -59,9 +59,16 @@ exports.getdelitobynombre = async (req, res) => {
 };
 
 exports.createdelito = async (req, res) => {
+  console.log("createdelito ");
   try {
     const { idley, nombre, descripcion, sancion, nivelgravedad } = req.body;
     //const timestampNow = new Date();
+    console.log("idley, nombre, descripcion, sancion, nivelgravedad " + 
+      idley + "/" + 
+      nombre + "/" +
+      descripcion  + "/" +
+      sancion + "/" +
+      nivelgravedad );
     const { rows } = await pool.query(
       "INSERT INTO " + schema + ".delito " +
       "(idley, nombre, descripcion, sancion, nivelgravedad)" +

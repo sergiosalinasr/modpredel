@@ -1,0 +1,106 @@
+<a class="navbar-brand">
+    CRUD Tabla Riesgo
+</a>
+
+<div class="container  bg-light text-white p-3">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <div *ngIf="selectedRiesgo.id == 0; else editMode" class="card-title">
+                        Agregar nuevo Riesgo
+                      </div>
+                      <ng-template #editMode>
+                        <div class="card-title">
+                          Editar Riesgo
+                        </div>
+                      </ng-template>
+                      <div class="form-group">
+                        <input 
+                          type="text" 
+                          [(ngModel)]="selectedRiesgo.nombre" 
+                          (ngModelChange)="convertirAMayusculas($event)" 
+                          placeholder="Nombre Delito" 
+                          class="form-group w50"
+                        >
+                      </div>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedRiesgo.descripcion" placeholder="Descripción Riesgo" class="form-group w-75">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedRiesgo.iddelito" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione un Delito:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedRiesgo.iddelito" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let delito of delitoArray" [value]="delito.id">
+                            {{ delito.nombre }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedRiesgo.probabilidad" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione una probabilidad:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedRiesgo.probabilidad" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let probabilidad of tduProbabilidadArray" [value]="probabilidad.id">
+                            {{ probabilidad.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedRiesgo.impacto" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione un Impacto:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedRiesgo.impacto" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let impacto of tduImpactoArray" [value]="impacto.id">
+                            {{ impacto.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+
+                      <div class="form-group">
+                        <input type="text" [(ngModel)]="selectedRiesgo.mitigacion" placeholder="Id tabla ref" class="form-group w50">
+                    </div>
+                    <div class="form-group">
+                        <label for="pais">Seleccione un Mitigacion:</label>
+                        <select 
+                          id="pais" 
+                          [(ngModel)]="selectedRiesgo.mitigacion" 
+                          class="form-control"
+                        >
+                          <option *ngFor="let mitigacion of tduMitigacionArray" [value]="mitigacion.id">
+                            {{ mitigacion.nombreCorto }}
+                          </option>
+                        </select>
+                      </div>
+                    
+                    <button   
+                        (click)="addOrEdit()"
+                        class="btn btn-primary">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="cancelar()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

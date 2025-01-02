@@ -12,7 +12,7 @@ const cduRoutes = require('./api/routes/cduRoutes');
 //const usersRoutes = require("./api/routes/usersRoutes");
 const leyRoutes = require("./api/routes/leyRoutes");
 const delitoRoutes = require("./api/routes/delitoRoutes");
-
+const riesgoRoutes = require("./api/routes/riesgoRoutes");
 
 
 const app = express();
@@ -30,6 +30,7 @@ app.use('/cdu', cduRoutes);
 //app.use('/users', usersRoutes);
 app.use('/ley', leyRoutes);
 app.use('/delito', delitoRoutes);
+app.use('/riesgo', riesgoRoutes);
 
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {

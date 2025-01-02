@@ -16,6 +16,8 @@ import { CdleyComponent } from './components/crudley/cdley/cdley.component';
 import { CuleyComponent } from './components/crudley/culey/culey.component';
 import { RddelitoComponent } from './components/cruddelito/rddelito/rddelito.component';
 import { CudelitoComponent } from './components/cruddelito/cudelito/cudelito.component';
+import { RdriesgoComponent } from './components/crudriesgo/rdriesgo/rdriesgo.component';
+import { CuriesgoComponent } from './components/crudriesgo/curiesgo/curiesgo.component';
 
 
 const routes: Routes = [
@@ -38,6 +40,8 @@ const routes: Routes = [
       { path: 'culey/:id', component:CuleyComponent},
       { path: 'rddelito', component:RddelitoComponent},
       { path: 'cudelito/:id', component:CudelitoComponent},
+      { path: 'rdriesgo', component:RdriesgoComponent},
+      { path: 'curiesgo/:id', component:CuriesgoComponent},
       { path: 'nuevo', component:NuevoComponent},
       // Otras rutas hijas
     ] },
@@ -61,6 +65,8 @@ export const routingComponents = [
   CuleyComponent,
   RddelitoComponent,
   CudelitoComponent,
+  RdriesgoComponent,
+  CuriesgoComponent,
   NuevoComponent,
   EditarComponent, 
   TduMaintenanceComponent

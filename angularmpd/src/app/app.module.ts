@@ -20,8 +20,8 @@ import { MenulateralComponent } from './menulateral/menulateral.component';
 import { TduMaintenanceComponent } from './components/tdu/tdu.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { RdriesgoComponent } from './components/cruddelito/rdriesgo/rdriesgo.component';
-import { CuriesgoComponent } from './components/cruddelito/curiesgo/curiesgo.component';
+//import { RdriesgoComponent } from './components/cruddelito/rdriesgo/rdriesgo.component';
+//import { CuriesgoComponent } from './components/cruddelito/curiesgo/curiesgo.component';
 //import { RddelitoComponent } from './components/cruddelito/rddelito/rddelito.component';
 //import { CudelitoComponent } from './components/cruddelito/cudelito/cudelito.component';
 //import { CuleyComponent } from './components/crudley/culey/culey.component';
@@ -41,8 +41,8 @@ import { CuriesgoComponent } from './components/cruddelito/curiesgo/curiesgo.com
     MenuhComponent,
     MenulateralComponent,
     TduMaintenanceComponent,
-    RdriesgoComponent,
-    CuriesgoComponent
+    //RdriesgoComponent,
+    //CuriesgoComponent,
     //RddelitoComponent,
     //CudelitoComponent
     //CuleyComponent

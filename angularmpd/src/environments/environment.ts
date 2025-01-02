@@ -8,5 +8,8 @@ export const environment = {
   env_empresa: "NOMBRE EMPRESA",
   env_url_backend: "http://localhost:3000",
   env_tdu_sancion: 34,
-  env_tdu_nivelgravedad: 35
+  env_tdu_nivelgravedad: 35,
+  env_tdu_probabilidad: 36,
+  env_tdu_impacto: 37,
+  env_tdu_mitigacion: 38
 };
