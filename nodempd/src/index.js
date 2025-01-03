@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const logger = require('./logger');
+
 const userRoutes = require('./api/routes/userRoutes');
 //const config = require('./config/index');
 const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
@@ -40,6 +42,7 @@ app.get('/', (req, res) => {
 
 // Ruta POST para manejar el login
 app.post('/login', (req, res) => {
+  logger.info("POST /login");
     const { username, password } = req.body;
     //console.error('Node: Entramos a /login:', username, password);
     if (!username || !password) {
@@ -56,6 +59,7 @@ app.post('/login', (req, res) => {
         })
         .catch(error => {
             console.error('Node: Login error:', error);
+            logger.error(`POST /login error: ${error.message}`);
             if (error.response && (error.response.status === 400 || error.response.status === 401)) {
                 res.status(error.response.status).json({ message: 'Node: Authentication failed. Check credentials.' });
             } else {
@@ -121,14 +125,23 @@ app.post('/SignUp', async (req, res) => {
 
 // Conexión a la base de datos
 
+// Ejemplo de logging
+logger.info('INICIO APP');
+
 sequelize.sync()
   .then(() => {
     console.log('Database connected');
-    app.listen(3000, () => console.log('Server is running on port 3000'));
+    logger.info('Database connected');
+    app.listen(3000, () => 
+      {
+        console.log('Server is running on port 3000');
+        logger.info('Server is running on port 3000');
+      });
   })
   .catch(error => {
     console.error(error.message || error);
     console.error('Error: La Database no está disponible');
+    logger.error('Error: La Database no está disponible');
     process.exit(1); // Cierra el proceso si la base de datos no está disponible
   });
 
