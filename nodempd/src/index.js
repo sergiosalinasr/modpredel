@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const logger = require('./logger');
 
-const userRoutes = require('./api/routes/userRoutes');
+//const userRoutes = require('./api/routes/userRoutes');
 //const config = require('./config/index');
 const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
 require('dotenv').config();
@@ -36,7 +36,8 @@ app.use('/riesgo', riesgoRoutes);
 
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {
-    res.send('¡Nodempd: Healthy!');
+    //res.send('¡Nodempd: Healthy!');
+    return res.status(200).json({ message: 'Nodempd: Healthy' });
 });
 
 

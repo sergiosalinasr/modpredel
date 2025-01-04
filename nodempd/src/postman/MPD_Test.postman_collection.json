@@ -11,6 +11,160 @@
 			"name": "TABLAS_PPAL",
 			"item": [
 				{
+					"name": "Healthy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has correct message\", function () {\r",
+									"    const jsonData = pm.response.json(); // Obtén el cuerpo de la respuesta como JSON\r",
+									"    pm.expect(jsonData).to.have.property(\"message\", \"Nodempd: Healthy\"); // Valida que el mensaje sea exactamente \"Nodempd: Healthy\"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is exactly as expected\", function () {\r",
+									"    const expectedResponse = { message: \"Nodempd: Healthy\" }; // Define la respuesta esperada\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.eql(expectedResponse); // Compara toda la respuesta JSON con la esperada\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has access_token\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"access_token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Obtener access_token y refresh_token\", function () {\r",
+									"    pm.environment.set(\"v_access_token\", \"\");\r",
+									"    pm.environment.set(\"v_refresh_token\", \"\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"v_access_token\", jsonData.access_token);\r",
+									"    pm.environment.set(\"v_refresh_token\", jsonData.refresh_token);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"usuariop01\",\r\n  \"password\": \"usuariop01\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refreshtoken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has access_token\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property(\"access_token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Obtener access_token y refresh_token\", function () {\r",
+									"    pm.environment.set(\"v_access_token\", \"\");\r",
+									"    pm.environment.set(\"v_refresh_token\", \"\");\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"v_access_token\", jsonData.access_token);\r",
+									"    pm.environment.set(\"v_refresh_token\", jsonData.refresh_token);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"refresh_token\":  \"{{v_refresh_token}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/refreshtoken",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"refreshtoken"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "TDU_Create_CDU",
 					"event": [
 						{
