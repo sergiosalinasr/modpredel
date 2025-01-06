@@ -48,8 +48,6 @@ export class LoginComponent {
 
   checkLocalStorage(){
     if(localStorage.getItem('token')){
-      //this.router.navigate(['dashboard'])
-      //this.router.navigate(['menu'])
       this.router.navigate(['menulateral'])
     }
   }
@@ -144,33 +142,6 @@ export class LoginComponent {
     }
     
   }
-
-  /*
-  addUser(vp_token: string, vp_usuario: string, vp_password: string) {
-    const adminToken = vp_token; // Obtén este valor de forma segura
-    const userData = {
-      username: vp_usuario,
-      enabled: true,
-      emailVerified: true,
-      firstName: "Nombre",
-      lastName: "Apellido",
-      email: vp_usuario + "@ejemplo.com",
-      credentials: [{
-        type: "password",
-        value: vp_password,
-        temporary: false
-      }]
-    };
-
-    this.api.createUser2(adminToken, userData).subscribe({
-      next: (response) => this.alertas.showSuccess('Usuario creado exitosamente', 'Do it'),
-      error: (error) => {
-        this.alertas.showSuccess('Error al crear usuario', 'Try');
-        console.error('Error al crear usuario', error)
-      }
-    });
-  }
-  */
   
 
 }
