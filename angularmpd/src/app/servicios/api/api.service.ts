@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LoginI} from '../../modelos/login.interface';
 import { ResponseI } from '../../modelos/response.interface';
-import { ListasociosI } from '../../modelos/listasocios.interface';
-import { SocioI, SocioISinId } from '../../modelos/socio.interface';
-import { SocioI2, SocioISinId2 } from '../../modelos/socio2.interface';
+//import { ListasociosIx } from '../../modelos/listasocios.interface';
+//import { SocioIx, SocioISinIdx } from '../../modelos/socio.interface';
+//import { SocioI2x, SocioISinId2x } from '../../modelos/socio2.interface';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tick } from '@angular/core/testing';
@@ -138,6 +138,7 @@ export class ApiService {
     );
   }
 
+  /*
   getAllSocios():Observable<ListasociosI[]>{
     let direccion = this.url_club + "socios/api/v1/socios/";
     return this.http.get<ListasociosI[]>(direccion);
@@ -171,6 +172,7 @@ export class ApiService {
     
     return this.http.post<ResponseI>(direccion, form);
   }
+  */
 
   /*
   // Función para crear un usuario

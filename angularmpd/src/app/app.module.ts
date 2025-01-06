@@ -15,9 +15,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 //import { MenuComponent } from './components/menu/menu.component';
-import { MenuhComponent } from './components/menuh/menuh.component';
+//import { MenuhComponent } from './components/menuh/menuh.component';
 import { MenulateralComponent } from './menulateral/menulateral.component';
-import { TduMaintenanceComponent } from './components/tdu/tdu.component';
+//import { TduMaintenanceComponent } from './components/tdu/tdu.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 //import { RdriesgoComponent } from './components/cruddelito/rdriesgo/rdriesgo.component';
@@ -38,9 +38,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     //viene de app-routing.module.ts
     routingComponents,
     //MenuComponent,
-    MenuhComponent,
+    //MenuhComponent,
     MenulateralComponent,
-    TduMaintenanceComponent,
+    //TduMaintenanceComponent,
     //RdriesgoComponent,
     //CuriesgoComponent,
     //RddelitoComponent,
