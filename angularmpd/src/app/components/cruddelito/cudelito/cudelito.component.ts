@@ -122,7 +122,7 @@ export class CudelitoComponent {
       return "Ingresar nombre del Delito"
     }
     
-    if ( this.existeDelitoNombre(validando.nombre) ) {
+    if ( this.existeDelitoNombre(validando.nombre, validando.id) ) {
       return "Ese nombre de Delito ya existe"
     }
 
@@ -168,20 +168,24 @@ export class CudelitoComponent {
     this.selectedDelito.nombre = valor.toUpperCase();
   }
   
-  existeDelitoNombre(delitoNombre: string): boolean {
- 
+  existeDelitoNombre(delitoNombre: string, id: number): boolean {
     console.log("Buscando nombre...: " + delitoNombre);
-
-    const delitoEncontrado = this.delitoArray.find((delito) => delito.nombre === delitoNombre);
+  
+    // Buscar si hay un Delito con el mismo nombre y un ID distinto al proporcionado
+    const delitoEncontrado = this.delitoArray.find(
+      (delito) => delito.nombre === delitoNombre && delito.id !== id
+    );
+  
     if (delitoEncontrado) {
-      console.log("El Delito existe:", delitoEncontrado);
-      return true
+      console.log("Ese Delito ya existe:", delitoEncontrado);
+      return true;
     } else {
-      console.log("El Delito no existe.");
-      return false
-    };
+      console.log("El Delito no existe o tiene el mismo ID.");
+      return false;
+    }
+  }
 
-  }  
+  
 
 }
 

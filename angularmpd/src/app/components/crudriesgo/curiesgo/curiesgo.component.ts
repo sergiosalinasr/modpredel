@@ -127,7 +127,7 @@ export class CuriesgoComponent {
       return "Ingresar nombre del Riesgo"
     }
     
-    if ( this.existeRiesgoNombre(validando.nombre) ) {
+    if ( this.existeRiesgoNombre(validando.nombre, validando.id) ) {
       return "Ese nombre de Riesgo ya existe"
     }
 
@@ -188,7 +188,7 @@ export class CuriesgoComponent {
     this.selectedRiesgo.nombre = valor.toUpperCase();
   }
   
-  existeRiesgoNombre(riesgoNombre: string): boolean {
+  existeRiesgoNombrex(riesgoNombre: string): boolean {
  
     console.log("Buscando nombre...: " + riesgoNombre);
 
@@ -202,6 +202,23 @@ export class CuriesgoComponent {
     };
 
   }  
+
+  existeRiesgoNombre(riesgoNombre: string, id: number): boolean {
+    console.log("Buscando nombre...: " + riesgoNombre);
+  
+    // Buscar si hay un Riesgo con el mismo nombre y un ID distinto al proporcionado
+    const riesgoEncontrado = this.riesgoArray.find(
+      (riesgo) => riesgo.nombre === riesgoNombre && riesgo.id !== id
+    );
+  
+    if (riesgoEncontrado) {
+      console.log("Ese Riesgo ya existe:", riesgoEncontrado);
+      return true;
+    } else {
+      console.log("El Riesgo no existe o tiene el mismo ID.");
+      return false;
+    }
+  }
 
 }
 

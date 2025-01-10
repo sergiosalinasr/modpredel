@@ -131,7 +131,7 @@ export class CuleyComponent {
       return "Ingresar nombre de la Ley"
     }
     
-    if ( this.existePaisNombre(validando.nombre) ) {
+    if ( this.existeLeyNombre(validando.nombre, validando.id) ) {
       return "Ese nombre de Ley ya existe"
     }
 
@@ -167,20 +167,23 @@ export class CuleyComponent {
     this.selectedLey.nombre = valor.toUpperCase();
   }
   
-  existePaisNombre(paisNombre: string): boolean {
- 
-    console.log("Buscando nombre...: " + paisNombre);
-
-    const paisEncontrado = this.leyArray.find((ley) => ley.nombre === paisNombre);
-    if (paisEncontrado) {
-      console.log("El país existe:", paisEncontrado);
-      return true
+  existeLeyNombre(leyNombre: string, id: number): boolean {
+    console.log("Buscando nombre...: " + leyNombre);
+  
+    // Buscar si hay una ley con el mismo nombre y un ID distinto al proporcionado
+    const leyEncontrada = this.leyArray.find(
+      (ley) => ley.nombre === leyNombre && ley.id !== id
+    );
+  
+    if (leyEncontrada) {
+      console.log("Esa Ley ya existe:", leyEncontrada);
+      return true;
     } else {
-      console.log("El país no existe.");
-      return false
-    };
-
+      console.log("El país no existe o tiene el mismo ID.");
+      return false;
+    }
   }
+  
   
 
   async verificarRespuestaConTimeout(paisNombre: string) {
