@@ -63,9 +63,12 @@ exports.createley = async (req, res) => {
     */
     const { rows } = await pool.query(
       "INSERT INTO " + schema + ".ley " +
-      "(nombre, descripcion, fechapublicacion, pais, createdat, updatedat)" +
-      " VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [nombre, descripcion, fechapublicacion, pais, timestampNow, timestampNow]
+      //"(nombre, descripcion, fechapublicacion, pais, createdat, updatedat)" +
+      "(nombre, descripcion, fechapublicacion, pais)" +
+      //" VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      " VALUES ($1, $2, $3, $4 ) RETURNING *",
+      //[nombre, descripcion, fechapublicacion, pais, timestampNow, timestampNow]
+      [nombre, descripcion, fechapublicacion, pais]
     );
     res.status(201).json(rows[0]);
   } catch (error) {

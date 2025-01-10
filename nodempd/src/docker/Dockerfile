@@ -19,3 +19,5 @@ EXPOSE 3000
 # Comando para ejecutar la aplicación
 CMD ["node", "src/index.js"]
 
+# docker build --no-cache -t i_nodempd -f src/docker/Dockerfile .
+

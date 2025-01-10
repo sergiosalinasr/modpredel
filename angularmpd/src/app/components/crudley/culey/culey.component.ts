@@ -7,6 +7,7 @@ import { Tablacdu } from '../../../models/tablacdu';
 import { TablacduService } from '../../../services/tablacdu.service'
 import { Router, ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-culey',
@@ -21,6 +22,7 @@ export class CuleyComponent {
   paisArray: Tablacdu[] = [];
   leyNombreArray:Ley[] = [];
   leyArray:Ley[] = [];
+  env_tdu_pais = environment.env_tdu_pais;
 
   constructor(private leyService:LeyService, 
     private router: Router, 
@@ -147,7 +149,7 @@ export class CuleyComponent {
 
   // Carga lista de paieses para seleccion en pantalla
   cargaPaises(){
-    this.tablacduService.getCDUsByTDU(4).subscribe({
+    this.tablacduService.getCDUsByTDU(this.env_tdu_pais).subscribe({
       next: (data) => {
         this.paisArray = data;
       },
