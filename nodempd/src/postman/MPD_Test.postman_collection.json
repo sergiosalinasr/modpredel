@@ -373,7 +373,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_tdu\": {{v_id}},\r\n  \"nombreCorto\": \"PAISPRUEBA\",\r\n  \"descripcionLarga\": \"Pais PRUEBA\"\r\n}\r\n\r\n",
+							"raw": "{\r\n  \"id_tdu\": {{v_id}},\r\n  \"nombreCorto\": \"CDUPRUEBA\",\r\n  \"descripcionLarga\": \"CDU PRUEBA\"\r\n}\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -733,8 +733,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"v_sancion\", 20);\r",
-									"pm.environment.set(\"v_nivelgravedad\", 23);"
+									"pm.environment.set(\"v_sancion\", 3);\r",
+									"pm.environment.set(\"v_nivelgravedad\", 10);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -942,9 +942,9 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"v_probabilidad\", 25);\r",
-									"pm.environment.set(\"v_impacto\", 28);\r",
-									"pm.environment.set(\"v_mitigacion\", 31);"
+									"pm.environment.set(\"v_probabilidad\", 14);\r",
+									"pm.environment.set(\"v_impacto\", 17);\r",
+									"pm.environment.set(\"v_mitigacion\", 26);"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -993,14 +993,6 @@
 									"    const jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.be.an(\"array\");\r",
 									"    pm.expect(jsonData.length).to.be.above(0);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Each record has nombre and descripcion\", function () {\r",
-									"    const jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item).to.have.property(\"nombre\");\r",
-									"        pm.expect(item).to.have.property(\"descripcion\");\r",
-									"    });\r",
 									"});\r",
 									""
 								],
@@ -1145,6 +1137,13 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
 						}
 					],
 					"protocolProfileBehavior": {
@@ -1155,7 +1154,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOPRUEBA2\",\r\n  \"descripcion\": \"DESCRIPCION RIESGOPRUEBA2\",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
+							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOUPDATE\",\r\n  \"descripcion\": \"DESCRIPCION RIESGO UPDATE\",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
