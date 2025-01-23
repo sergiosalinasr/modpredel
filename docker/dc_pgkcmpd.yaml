@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:12.0.2
+    container_name: keycloakmpd
+    ports:
+      - 8081:8080
+      - 8443:8443
+    restart: unless-stopped
+    environment:
+      # Credentials for admin account
+      KEYCLOAK_USER: "admin"
+      KEYCLOAK_PASSWORD: "admin"
+    volumes:
+      - C:\tmp\docker\mpd\keycloak\data:/opt/jboss/keycloak/standalone/data
+      - C:\tmp\docker\mpd\keycloak\logs:/opt/jboss/keycloak/standalone/log
+
+  c_pgsqlmpd:
+    image: postgres
+    container_name: postgresmpd
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    volumes:
+      - C:/tmp/docker/pgmpd/data:/var/lib/postgresql/data  # Persistencia de datos
+
+  c_pgadmmpd:
+    image: dpage/pgadmin4
+    container_name: pgadminmpd
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "sergio.salinasr@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "85:80"
+    depends_on:
+      - c_pgsqlmpd
+
+volumes:
+  keycloak_data:
+  keycloak_logs:
+
+
+# docker compose -f docker/dc_pgkcmpd.yaml -p dc_pgkcmpd up -d
+# EN LA CREACIÓN DEL SERVER EN PGADMIN, LA PRIMERA VEZ
+# considerar el nombre del host como (dockercompose-contenedor) en este caso: (dc_pgkcmpd-)postgresmpd

@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  c_pgsqlmpd:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    volumes:
+      - C:/tmp/docker/pgmpd/data:/var/lib/postgresql/data  # Persistencia de datos
+
+  c_pgadmmpd:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "sergio.salinasr@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "85:80"
+    depends_on:
+      - c_pgsqlmpd
+
+# docker compose -f docker/dc_pgmpd.yml -p dc_pgmpd up -d
+# EN LA CREACIÓN DEL SERVER EN PGADMIN, LA PRIMERA VEZ
+# considerar el nombre del host como (dockercompose-contenedor) en este caso: dc_pgadmin_postgre-c_postgres-1
