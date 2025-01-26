@@ -6,6 +6,17 @@ pipeline {
         CONTAINER_NAME = 'c_nodempd' // Cambia al nombre del contenedor que deseas verificar
     }
     stages {
+        stage('Build Node.js Docker Image') {
+            steps {
+                script {
+                    bat """
+                        echo Construyendo la imagen Docker para Node.js...
+                        cd nodempd
+                        docker build --no-cache -t i_nodempd -f src/docker/Dockerfile .
+                    """
+                }
+            }
+        }
 
         stage('Check and Stop Docker Compose') {
             when {
@@ -37,3 +48,4 @@ pipeline {
         }
     }
 }
+
