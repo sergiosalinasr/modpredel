@@ -37,7 +37,7 @@ app.use('/riesgo', riesgoRoutes);
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {
     //res.send('¡Nodempd: Healthy!');
-    return res.status(200).json({ message: 'Nodempd: Healthy' });
+    return res.status(200).json({ message: 'Nodempd v1.48.1: Healthy' });
 });
 
 
