@@ -23,7 +23,7 @@ pipeline {
                 script {
                     bat """
                         echo Construyendo la imagen Docker para Angular...
-                        cd angularmpd
+                        cd ../angularmpd
                         docker build --no-cache -t i_angularmpd2 -f src/docker/DockerfileBuildApp2 .
                     """
                 }
