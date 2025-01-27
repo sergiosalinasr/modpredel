@@ -37,6 +37,7 @@ pipeline {
                     // Ejecutar las pruebas con Newman y capturar el resultado
                     def result = bat(returnStatus: true, script: """
                         echo Ejecutando pruebas de APIs con Newman...
+                        cd nodempd
                         newman run src/postman/MPD_Test.postman_collection.json -e src/postman/dev_mpd.postman_environment.json
                     """)
                     if (result != 0) {
