@@ -18,6 +18,18 @@ pipeline {
             }
         }
 
+        stage('Build Angular Docker Image') {
+            steps {
+                script {
+                    bat """
+                        echo Construyendo la imagen Docker para Angular...
+                        cd angularmpd
+                        docker build --no-cache -t i_angularmpd2 -f src/docker/DockerfileBuildApp2 .
+                    """
+                }
+            }
+        }
+
         stage('Check and Stop Docker Compose') {
             when {
                 expression {
@@ -48,4 +60,3 @@ pipeline {
         }
     }
 }
-
