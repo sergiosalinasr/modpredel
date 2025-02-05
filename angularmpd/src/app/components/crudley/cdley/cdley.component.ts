@@ -75,7 +75,7 @@ export class CdleyComponent {
     this.leyService.getleycampos().subscribe(data =>{
       this.LeyCamposArray = data;
       for (let i = 0; i < this.LeyCamposArray.length; i++) {
-        console.log("this.LeyCamposArray[i].descripcionpais: " + this.LeyCamposArray[i].descripcionpais);
+        //console.log("this.LeyCamposArray[i].descripcionpais: " + this.LeyCamposArray[i].descripcionpais);
         if (this.LeyCamposArray[i].fechapublicacion != null){
           //this.LeyCamposArray[i].fechapublicacion = this.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);
           this.LeyCamposArray[i].fechapublicacion = this.utilsService.formatISODateToDDMMYYYY(this.LeyCamposArray[i].fechapublicacion);

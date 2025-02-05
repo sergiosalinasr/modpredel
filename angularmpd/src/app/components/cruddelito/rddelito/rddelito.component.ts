@@ -66,7 +66,7 @@ export class RddelitoComponent {
     this.delitoService.getdelitocampos().subscribe(data =>{
       this.DelitoCamposArray = data;
       for (let i = 0; i < this.DelitoCamposArray.length; i++) {
-        console.log("this.DelitoCamposArray[i].nombre: " + this.DelitoCamposArray[i].nombre);
+        //console.log("this.DelitoCamposArray[i].nombre: " + this.DelitoCamposArray[i].nombre);
       }
     })
   }

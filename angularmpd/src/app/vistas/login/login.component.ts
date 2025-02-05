@@ -62,7 +62,7 @@ export class LoginComponent {
       this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
       
     } else {
-      // Aquí manejarías la lógica de envío del formulario, como enviarlo a un servidor
+      // Aquí maneja la lógica de envío del formulario, como enviarlo a un servidor
       this.alertas.showMessage('Intentando login...', 'success');
       this.api.loginNode(form.usuario, form.password).subscribe({
         next: (data) => {
@@ -91,6 +91,44 @@ export class LoginComponent {
       })
     }
     
+  }
+
+  // El usuario ingresa un par de credenciales...
+  onLoginCookie(form:any){
+    
+    // Validando usuario y clave...
+    if (!this.loginForm.valid) {
+      this.alertas.showMessage('Error: Ingrese usuario y password', 'error');
+      this.loginForm.markAllAsTouched(); // Hace que todos los controles se marquen como "touched" para mostrar errores
+      
+    } else {
+      // Aquí maneja la lógica de envío del formulario, como enviarlo a un servidor
+      this.alertas.showMessage('Intentando login...', 'success');
+      this.api.loginNodeCookie(form.usuario, form.password).subscribe({
+        next: (data) => {
+          console.log("data:"+data.refresh_token);
+          this.authService.saveTokenCookie(
+            data.access_token, // Token del backend.
+            data.expires_in    // Tiempo en segundos desde la respuesta del backend.
+          );
+
+          // configuración de la renovación del token
+          console.log("login->setTokenExpiration")
+          this.authService.setTokenExpiration(data.expires_in * 1000);
+          
+          this.alertas.showMessage('Login exitoso.', 'success');
+  
+          //this.router.navigate(['dashboard'])
+          this.router.navigate(['menulateral'])
+  
+        },
+        error: (error) => {
+          console.error('Error de login:', error);
+          this.alertas.showMessage('Error de login en el servidor...', 'error');
+          this.handleLoginError(error);
+        }
+      })
+    } 
   }
 
   // Método para manejar errores de login

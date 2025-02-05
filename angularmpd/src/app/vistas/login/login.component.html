@@ -7,7 +7,7 @@
     </div>
 
     <!-- Formulario de Login -->
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginCookie(loginForm.value)">
       <input type="text" id="login" class="fadeIn second" placeholder="Ingrese su login" formControlName="usuario" />
       <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password" />
       <input type="submit" class="fadeIn fourth" value="LogIn" />

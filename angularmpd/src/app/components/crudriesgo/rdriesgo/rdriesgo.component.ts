@@ -66,7 +66,7 @@ export class RdriesgoComponent {
     this.riesgoService.getriesgocampos().subscribe(data =>{
       this.RiesgoCamposArray = data;
       for (let i = 0; i < this.RiesgoCamposArray.length; i++) {
-        console.log("this.RiesgoCamposArray[i].nombre: " + this.RiesgoCamposArray[i].nombre);
+        //console.log("this.RiesgoCamposArray[i].nombre: " + this.RiesgoCamposArray[i].nombre);
       }
     })
   }

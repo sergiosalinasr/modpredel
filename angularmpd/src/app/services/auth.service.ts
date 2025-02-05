@@ -21,7 +21,7 @@ export class AuthService {
       grant_type: 'refresh_token',
       refresh_token: this.refreshToken!,
     });
-  
+    console.log('renewToken:  Renovando el token directo en keycloak...');
     return this.http.post<any>(this.tokenUrl, body.toString(), {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     });
@@ -114,6 +114,16 @@ export class AuthService {
     localStorage.setItem('expires_in', expirationDate.toString());
     localStorage.setItem('expirationDate', expirationDate.toString());
     localStorage.setItem('refresh_token', refresh_token);
+  }
+
+  saveTokenCookie(token: string, 
+    expires_in: number): void {
+
+    localStorage.setItem('token', token);
+    const expirationDate = Date.now() + expires_in * 1000; // convierte segundos a milisegundos.
+    //localStorage.setItem('expires_in', expires_in.toString());
+    localStorage.setItem('expires_in', expirationDate.toString());
+    localStorage.setItem('expirationDate', expirationDate.toString())
   }
 
   /**

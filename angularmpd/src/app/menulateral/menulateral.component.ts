@@ -40,7 +40,7 @@ export class MenulateralComponent {
 
     // Notificar si El token está por expirar
     if (this.authService.isTokenExpiringSoon()) {
-      console.log('El token está por expirar. Renovando...');
+      console.log('toggleSubmenu: El token está por expirar. Renovando...');
       this.authService.renewToken();
     }
     this.activeSubmenu = this.activeSubmenu === optionId ? null : optionId;
