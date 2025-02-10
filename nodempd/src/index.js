@@ -6,7 +6,7 @@ const cookie = require('cookie'); // Si necesitas manipular cookies manualmente
 
 //const userRoutes = require('./api/routes/userRoutes');
 //const config = require('./config/index');
-const { login, createUser, checkUserExists, refreshtoken } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
+const { login, createUser, checkUserExists, refreshtoken, refreshTokenCookie } = require('./services/authService');  // Asegúrate de que la ruta al módulo authService sea correcta
 require('dotenv').config();
 const sequelize = require('./config');
 const { getSecret, setSecret } = require('./services/vaultService');
@@ -17,12 +17,20 @@ const leyRoutes = require("./api/routes/leyRoutes");
 const delitoRoutes = require("./api/routes/delitoRoutes");
 const riesgoRoutes = require("./api/routes/riesgoRoutes");
 const cookieParser = require('cookie-parser');
+const SECRET_KEY = 'mi_clave_secreta_super_segura_123!';
 
 
 const app = express();
 
+//antes de definir tus rutas.
+app.use(cookieParser()); // Habilitar el manejo de cookies
+
 // Aplica el middleware CORS
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+  origin: "http://localhost:4200", 
+  credentials: true
+}));
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -35,8 +43,6 @@ app.use('/cdu', cduRoutes);
 app.use('/ley', leyRoutes);
 app.use('/delito', delitoRoutes);
 app.use('/riesgo', riesgoRoutes);
-
-app.use(cookieParser()); // Habilitar el manejo de cookies
 
 // por ahora, sólo un Healthy!
 app.get('/', (req, res) => {
@@ -131,50 +137,52 @@ app.post('/SignUp', async (req, res) => {
 // Manjeo de token con cookie
 
 app.post('/logincookie', (req, res) => {
-    logger.info("POST /logincookie");
-    const { username, password } = req.body;
+  logger.info("POST /logincookie");
 
-    if (!username || !password) {
-        return res.status(400).json({ message: 'Node: Username and password are required.' });
-    }
+  const { username, password } = req.body;
 
-    login(username, password)
-        .then(token => {
-            // Configura la cookie para el refresh token
-            res.cookie('refresh_token', token.refresh_token, {
-                httpOnly: true, // La cookie no es accesible desde JavaScript
-                secure: true, // Solo se envía sobre HTTPS
-                sameSite: 'strict', // Protección contra CSRF
-                maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días de duración
+  if (!username || !password) {
+      return res.status(400).json({ message: 'Node: Username and password are required.' });
+  }
+
+  login(username, password)
+      .then(token => {
+          // Configura la cookie para el refresh token
+          res.cookie('refresh_token', token.refresh_token, {
+              httpOnly: true,
+              sameSite: "None", // O "None" si usas HTTPS
+              secure: false,    // Solo en local
+              path: "/",
             });
+            console.log("Enviando Set-Cookie:", res.getHeaders()["set-cookie"]);
 
-            // Devuelve el access token en el cuerpo de la respuesta
-            res.status(200).json({
-                access_token: token.access_token,
-                token_type: token.token_type,
-                expires_in: token.expires_in,
-            });
-        })
-        .catch(error => {
-            console.error('Node: Login error:', error);
-            logger.error(`POST /login error: ${error.message}`);
-            if (error.response && (error.response.status === 400 || error.response.status === 401)) {
-                res.status(error.response.status).json({ message: 'Node: Authentication failed. Check credentials.' });
-            } else {
-                res.status(500).json({ message: 'Node: Internal server error.' });
-            }
-        });
+          // Devuelve el access token en el cuerpo de la respuesta
+          res.status(200).json({
+              access_token: token.access_token,
+              token_type: token.token_type,
+              expires_in: token.expires_in,
+          });
+      })
+      .catch(error => {
+          console.error('Node: Login error:', error);
+          logger.error(`POST /login error: ${error.message}`);
+          if (error.response && (error.response.status === 400 || error.response.status === 401)) {
+              res.status(error.response.status).json({ message: 'Node: Authentication failed. Check credentials.' });
+          } else {
+              res.status(500).json({ message: 'Node: Internal server error.' });
+          }
+      });
 });
 
 app.post('/refreshtokencookie', (req, res) => {
-  const refreshToken = req.cookies.refresh_token; // Obtenemos el refresh token de la cookie
+  const refreshToken = req.cookies.refresh_token;
 
   if (!refreshToken) {
-      return res.status(401).json({ message: 'Node: No refresh token provided.' });
+      return res.status(401).json({ message: 'No refresh token provided' });
   }
 
-  // Función para refrescar el token (debes implementarla según tu lógica)
-  refreshtoken(refreshToken)
+  console.log('Node: /refreshtokencookie refreshToken:' + refreshToken);
+  refreshTokenCookie(refreshToken)
       .then(newToken => {
           // Devuelve el nuevo access token en el cuerpo de la respuesta
           res.status(200).json({
@@ -185,7 +193,7 @@ app.post('/refreshtokencookie', (req, res) => {
       })
       .catch(error => {
           console.error('Node: Refresh token error:', error);
-          res.status(401).json({ message: 'Node: Invalid refresh token.' });
+          res.status(401).json({ message: 'Invalid refresh token' });
       });
 });
 

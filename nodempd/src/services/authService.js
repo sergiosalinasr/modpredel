@@ -131,4 +131,30 @@ async function checkUserExists(username) {
   return response.data.length > 0; // Devuelve true si el usuario existe, false si no
 }
 
-module.exports = { login, refreshtoken, createUser, checkUserExists };
+function refreshTokenCookie(refreshToken) {
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  };
+
+  const body = qs.stringify({
+    client_id: 'admin-cli',
+    // client_secret: 'tu_client_secret', // Descomenta si es necesario para tu configuración de Keycloak
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken
+  });
+
+  const KEYCLOAK_URL = process.env.KEYCLOAK_URL + tokenEndpoint
+
+  console.error('refreshTokenCookie: POST: ' + KEYCLOAK_URL);
+  return axios.post(KEYCLOAK_URL, body, { headers })
+    .then(response => response.data)
+    .catch(error => {
+      if (!error.response || error.response.status === 0 || error.response.status === 504) {
+        console.error('El servicio de autenticación no está disponible.');
+        throw new Error('Authentication service unavailable');
+      }
+      throw error;
+    });
+}
+
+module.exports = { login, refreshtoken, createUser, checkUserExists, refreshTokenCookie };

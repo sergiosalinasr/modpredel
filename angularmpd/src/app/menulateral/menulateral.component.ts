@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ApiService} from '../servicios/api/api.service';
+import { AlertasService } from '../servicios/alertas/alertas.service';
 
 @Component({
   selector: 'app-menulateral',
@@ -8,6 +10,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./menulateral.component.css']
 })
 export class MenulateralComponent {
+
+  errorMessage: string = '';
+
   menuOptions = [
     //{ id: 1, title: 'Opción 1', submenu: [{ title: 'Dashboard', route: '/menulateral/dashboard' },{ title: 'Employee', route: '/menulateral/employee' }]},
     
@@ -32,7 +37,7 @@ export class MenulateralComponent {
     
   ];
   
-  constructor( private router:Router, private authService:AuthService) {}
+  constructor( private router:Router, private authService:AuthService, private api:ApiService, private alertas:AlertasService) {}
 
   activeSubmenu: number | null = null;
 
@@ -46,12 +51,62 @@ export class MenulateralComponent {
     this.activeSubmenu = this.activeSubmenu === optionId ? null : optionId;
   }
 
+  toggleSubmenuCookie(optionId: number): void {
+
+    // Notificar si El token está por expirar
+    if (this.authService.isTokenExpiringSoon()) {
+      // Aquí maneja la lógica de envío del formulario, como enviarlo a un servidor
+      console.log('Intentando refresh_tokenNodeCookie...');
+      this.api.refresh_tokenNodeCookie().subscribe({
+        next: (data) => {
+          console.log("data:"+data.refresh_token);
+          this.authService.saveTokenCookie(
+            data.access_token, // Token del backend.
+            data.expires_in    // Tiempo en segundos desde la respuesta del backend.
+          );
+
+          // configuración de la renovación del token
+          console.log("login->setTokenExpiration")
+          this.authService.setTokenExpiration(data.expires_in * 1000);
+          
+          this.alertas.showMessage('Login exitoso.', 'success');
+  
+          //this.router.navigate(['dashboard'])
+          this.router.navigate(['menulateral'])
+  
+        },
+        error: (error) => {
+          console.error('Error de login:', error);
+          this.alertas.showMessage('Error de login en el servidor...', 'error');
+          this.handleLoginError(error);
+        }
+      })
+    }
+    this.activeSubmenu = this.activeSubmenu === optionId ? null : optionId;
+  }
+
   logout(): void {
     // Se borra el token de conexión obtenido desde Keycloak y se conduce al login
     this.authService.clearToken();
 
     this.router.navigate(['login'])
   }
+
+  // Método para manejar errores de login
+  handleLoginError(error: any) {
+    // Aquí se personalizar el manejo de errores basado en el error recibido
+    if (error.status === 0 || error.status === 504) {
+      this.errorMessage = 'El servicio de autenticación no está disponible.';
+      this.alertas.showSuccess(error.HttpErrorResponse, this.errorMessage);
+    } else if (error.error && error.error.error_description) {
+      this.errorMessage = error.error.error_description;
+      this.alertas.showSuccess(error.HttpErrorResponse, this.errorMessage);
+    } else {
+      this.errorMessage = 'Ocurrió un error durante la autenticación.';
+      this.alertas.showSuccess(error.HttpErrorResponse, this.errorMessage);
+    }
+  }
+
 }
 
 

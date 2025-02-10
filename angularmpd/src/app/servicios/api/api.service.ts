@@ -20,6 +20,7 @@ export class ApiService {
   private keycloakUrl = "http://localhost:8081/auth"
   private realm = "master"
   private nodetokenEndpointcookie = 'http://localhost:3000/logincookie';
+  private noderefresh_tokenEndpointcookie = 'http://localhost:3000/refreshtokencookie';
 
   constructor(private http:HttpClient) { }
 
@@ -109,7 +110,7 @@ export class ApiService {
       password: password
     });
 
-    return this.http.post(this.nodetokenEndpointcookie, body, { headers }).pipe(
+    return this.http.post(this.nodetokenEndpointcookie, body, { headers, withCredentials: true }).pipe(
       catchError(error => {
         console.log("Angular - error.status="+error.status)
         // Aquí puedes manejar errores específicos
@@ -120,6 +121,21 @@ export class ApiService {
           return throwError(error);
         }
         // Reenviar el error si no es uno que estés manejando específicamente
+        return throwError(error);
+      })
+    );
+  }
+
+  // este servicio refresca el actual token
+  refresh_tokenNodeCookie(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(this.noderefresh_tokenEndpointcookie, {}, { headers, withCredentials: true }).pipe(
+      catchError(error => {
+        console.log("Angular - error.status=" + error.status);
+        if (error.status === 0 || error.status === 504) {
+          return throwError('El servicio de autenticación no está disponible.');
+        }
         return throwError(error);
       })
     );

@@ -7,7 +7,7 @@
         <button
           *ngIf="option.submenu; else simpleOption"
           class="btn btn-link text-white w-100 text-left d-flex justify-content-between align-items-center"
-          (click)="toggleSubmenu(option.id)">
+          (click)="toggleSubmenuCookie(option.id)">
           {{ option.title }}
           <span *ngIf="activeSubmenu === option.id">▲</span>
           <span *ngIf="activeSubmenu !== option.id">▼</span>
