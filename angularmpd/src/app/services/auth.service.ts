@@ -124,6 +124,7 @@ export class AuthService {
     //localStorage.setItem('expires_in', expires_in.toString());
     localStorage.setItem('expires_in', expirationDate.toString());
     localStorage.setItem('expirationDate', expirationDate.toString())
+    console.log("saveTokenCookie: expires_in="+expires_in+ " expirationDate.toString():"+expirationDate.toString())
   }
 
   /**

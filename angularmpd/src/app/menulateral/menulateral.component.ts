@@ -37,7 +37,9 @@ export class MenulateralComponent {
     
   ];
   
-  constructor( private router:Router, private authService:AuthService, private api:ApiService, private alertas:AlertasService) {}
+  constructor( private router:Router, private authService:AuthService, private api:ApiService, private alertas:AlertasService) {
+    console.log("menulateral: constructor");
+  }
 
   activeSubmenu: number | null = null;
 
@@ -53,21 +55,21 @@ export class MenulateralComponent {
 
   toggleSubmenuCookie(optionId: number): void {
 
+    console.log("toggleSubmenuCookie...");
+
     // Notificar si El token está por expirar
     if (this.authService.isTokenExpiringSoon()) {
       // Aquí maneja la lógica de envío del formulario, como enviarlo a un servidor
       console.log('Intentando refresh_tokenNodeCookie...');
       this.api.refresh_tokenNodeCookie().subscribe({
         next: (data) => {
-          console.log("data:"+data.refresh_token);
           this.authService.saveTokenCookie(
             data.access_token, // Token del backend.
             data.expires_in    // Tiempo en segundos desde la respuesta del backend.
           );
 
           // configuración de la renovación del token
-          console.log("login->setTokenExpiration")
-          this.authService.setTokenExpiration(data.expires_in * 1000);
+          //this.authService.setTokenExpiration(data.expires_in * 1000);
           
           this.alertas.showMessage('Login exitoso.', 'success');
   

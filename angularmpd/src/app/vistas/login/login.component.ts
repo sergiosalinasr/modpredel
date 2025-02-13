@@ -40,6 +40,7 @@ export class LoginComponent {
   errorMsj:any = "";
 
   ngOnInit(): void{
+    console.log("login-ngOnInit");
     this.checkLocalStorage();
     this.alertas.currentMessage.subscribe(msg => this.message = msg);
     this.alertas.currentMessageType.subscribe(type => this.messageType = type);
@@ -47,7 +48,9 @@ export class LoginComponent {
   }
 
   checkLocalStorage(){
+    console.log("checkLocalStorage")
     if(localStorage.getItem('token')){
+      console.log("checkLocalStorage: navigate(['menulateral'])")
       this.router.navigate(['menulateral'])
     }
   }
@@ -95,6 +98,7 @@ export class LoginComponent {
 
   // El usuario ingresa un par de credenciales...
   onLoginCookie(form:any){
+    console.log("onLoginCookie...")
     
     // Validando usuario y clave...
     if (!this.loginForm.valid) {
@@ -106,19 +110,19 @@ export class LoginComponent {
       this.alertas.showMessage('Intentando login...', 'success');
       this.api.loginNodeCookie(form.usuario, form.password).subscribe({
         next: (data) => {
-          console.log("data:"+data.refresh_token);
           this.authService.saveTokenCookie(
             data.access_token, // Token del backend.
             data.expires_in    // Tiempo en segundos desde la respuesta del backend.
           );
 
           // configuración de la renovación del token
-          console.log("login->setTokenExpiration")
-          this.authService.setTokenExpiration(data.expires_in * 1000);
+          //this.authService.setTokenExpiration(data.expires_in * 1000);
           
-          this.alertas.showMessage('Login exitoso.', 'success');
+          //this.alertas.showMessage('Login exitoso.', 'success');
+          console.log('onLoginCookie: Login exitoso.');
   
           //this.router.navigate(['dashboard'])
+          console.log('onLoginCookie: Navegando a menulateral...');
           this.router.navigate(['menulateral'])
   
         },

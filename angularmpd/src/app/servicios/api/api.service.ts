@@ -103,6 +103,7 @@ export class ApiService {
 
   // este servicio en vez de acceder directamente a Keycloak, lo hace a através de un servicio node que si accede a keycloak
   loginNodeCookie(username: string, password: string): Observable<any> {
+    console.log("loginNodeCookie...");
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const body = JSON.stringify({
@@ -110,6 +111,7 @@ export class ApiService {
       password: password
     });
 
+    console.log("loginNodeCookie: POST: " + this.nodetokenEndpointcookie);
     return this.http.post(this.nodetokenEndpointcookie, body, { headers, withCredentials: true }).pipe(
       catchError(error => {
         console.log("Angular - error.status="+error.status)

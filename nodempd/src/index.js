@@ -150,7 +150,7 @@ app.post('/logincookie', (req, res) => {
           // Configura la cookie para el refresh token
           res.cookie('refresh_token', token.refresh_token, {
               httpOnly: true,
-              sameSite: "None", // O "None" si usas HTTPS
+              sameSite: "Lax", // O "None" si usas HTTPS
               secure: false,    // Solo en local
               path: "/",
             });
@@ -184,6 +184,13 @@ app.post('/refreshtokencookie', (req, res) => {
   console.log('Node: /refreshtokencookie refreshToken:' + refreshToken);
   refreshTokenCookie(refreshToken)
       .then(newToken => {
+        res.cookie('refresh_token', newToken.refresh_token, {
+          httpOnly: true,
+          sameSite: "Lax",
+          secure: false, // Asegurar en producción
+          path: "/"
+        });
+        console.log('Node: /refreshtokencookie newToken.refresh_token:' + newToken.refresh_token);
           // Devuelve el nuevo access token en el cuerpo de la respuesta
           res.status(200).json({
               access_token: newToken.access_token,
