@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, interval, Subscription } from 'rxjs';
 import { ApiService } from '../servicios/api/api.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -119,12 +120,16 @@ export class AuthService {
   saveTokenCookie(token: string, 
     expires_in: number): void {
 
+    console.log("saveTokenCookie...");
+    console.log("saveTokenCookie: expires_in: " + expires_in + " Date.now(): " + Date.now());
     localStorage.setItem('token', token);
     const expirationDate = Date.now() + expires_in * 1000; // convierte segundos a milisegundos.
     //localStorage.setItem('expires_in', expires_in.toString());
     localStorage.setItem('expires_in', expirationDate.toString());
     localStorage.setItem('expirationDate', expirationDate.toString())
     console.log("saveTokenCookie: expires_in="+expires_in+ " expirationDate.toString():"+expirationDate.toString())
+    localStorage.setItem('expires_in_', expires_in.toString());
+    localStorage.setItem('expirationDate_', Date.now().toString());
   }
 
   /**
@@ -136,18 +141,29 @@ export class AuthService {
     localStorage.removeItem('expires_in');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('expirationDate');
+    localStorage.removeItem('expires_in_');
+    localStorage.removeItem('expirationDate_');
   }
 
   isTokenExpiringSoon(): boolean {
     const token = localStorage.getItem('token');
+    const expires_in = localStorage.getItem('expires_in');
     if (!token) return false;
   
     const payload = JSON.parse(atob(token.split('.')[1]));
     const expiration = payload.exp * 1000; // Tiempo en ms
     const now = Date.now();
     console.log("expiration - now : " + (expiration - now))
+    console.log("expires_in: " + expires_in)
   
     return expiration - now < 60000; // Menos de 1 minuto para expirar
+  }
+
+  isTokenExpiringSoon_(): boolean {
+    const expirationDate_:any = localStorage.getItem('expirationDate_');
+    const expires_in_:any = localStorage.getItem('expires_in_');
+  
+    return (Date.now() - expirationDate_) > expires_in_  * 1000 * 0.8; // Menos de 0.8 minuto para expirar
   }
 
 }

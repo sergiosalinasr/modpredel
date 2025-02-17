@@ -58,9 +58,12 @@ export class MenulateralComponent {
     console.log("toggleSubmenuCookie...");
 
     // Notificar si El token está por expirar
-    if (this.authService.isTokenExpiringSoon()) {
+    if (!this.authService.isTokenExpiringSoon_()) {
+      console.log('toggleSubmenuCookie: Aun No es hora de refrescar el token');
+    }
+      else {
       // Aquí maneja la lógica de envío del formulario, como enviarlo a un servidor
-      console.log('Intentando refresh_tokenNodeCookie...');
+      console.log('toggleSubmenuCookie: Hora de refrescar token...');
       this.api.refresh_tokenNodeCookie().subscribe({
         next: (data) => {
           this.authService.saveTokenCookie(
