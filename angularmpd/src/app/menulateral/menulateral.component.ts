@@ -53,8 +53,12 @@ export class MenulateralComponent {
     this.activeSubmenu = this.activeSubmenu === optionId ? null : optionId;
   }
 
-  toggleSubmenuCookie(optionId: number): void {
+  toggleSubmenuCookie_NoVa(optionId: number): void {
+    this.activeSubmenu = this.activeSubmenu === optionId ? null : optionId;
+  }
 
+  toggleSubmenuCookie(optionId: number): void {
+    
     console.log("toggleSubmenuCookie...");
 
     // Notificar si El token está por expirar

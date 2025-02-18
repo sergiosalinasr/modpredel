@@ -13,6 +13,7 @@ export class AuthService {
   private tokenUrl = 'http://localhost:8081/auth/realms/master/protocol/openid-connect/token';
   private token_expiration : any = 0;
   v_refresh_token:any;
+  private refreshInterval: Subscription | null = null;
 
   constructor(private http: HttpClient, private router:Router, private api: ApiService) {}
 
@@ -163,7 +164,34 @@ export class AuthService {
     const expirationDate_:any = localStorage.getItem('expirationDate_');
     const expires_in_:any = localStorage.getItem('expires_in_');
   
-    return (Date.now() - expirationDate_) > expires_in_  * 1000 * 0.8; // Menos de 0.8 minuto para expirar
+    return (Date.now() - expirationDate_) > expires_in_  * 1000 * 0.5; // Menos de 0.8 minuto para expirar
+  }
+
+  startTokenRefreshCheck() {
+    console.log("startTokenRefreshCheck")
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe(); // Evitar múltiples intervalos
+    }
+
+    this.refreshInterval = interval(30000).subscribe(() => { // Verifica cada 30s
+      if (this.isTokenExpiringSoon_()) {
+        //
+        console.log('startTokenRefreshCheck: Hora de refrescar token...');
+        this.api.refresh_tokenNodeCookie().subscribe({
+          next: (data) => {
+            this.saveTokenCookie(
+              data.access_token, // Token del backend.
+              data.expires_in    // Tiempo en segundos desde la respuesta del backend.
+            );
+    
+          },
+          error: (error) => {
+            console.error('Error de login:', error);
+          }
+        })
+        //
+      }
+    });
   }
 
 }

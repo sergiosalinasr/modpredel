@@ -9,6 +9,7 @@ import { AlertasService } from '../../servicios/alertas/alertas.service';
 import { AuthService } from '../../services/auth.service';
 
 
+
 import { Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -114,6 +115,8 @@ export class LoginComponent {
             data.access_token, // Token del backend.
             data.expires_in    // Tiempo en segundos desde la respuesta del backend.
           );
+
+          this.authService.startTokenRefreshCheck();
 
           // configuración de la renovación del token
           //this.authService.setTokenExpiration(data.expires_in * 1000);

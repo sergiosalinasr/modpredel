@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { LoginI} from '../../modelos/login.interface';
 import { ResponseI } from '../../modelos/response.interface';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, interval, Subscription } from 'rxjs';
 import { tick } from '@angular/core/testing';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,10 @@ export class ApiService {
   private realm = "master"
   private nodetokenEndpointcookie = 'http://localhost:3000/logincookie';
   private noderefresh_tokenEndpointcookie = 'http://localhost:3000/refreshtokencookie';
+  
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient
+    ) { }
 
 
   // este servicio en vez de acceder directamente a Keycloak, lo hace a através de un servicio node que si accede a keycloak
