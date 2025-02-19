@@ -96,7 +96,8 @@ export class MenulateralComponent {
 
   logout(): void {
     // Se borra el token de conexión obtenido desde Keycloak y se conduce al login
-    this.authService.clearToken();
+    //this.authService.clearToken();
+    this.authService.logout();
 
     this.router.navigate(['login'])
   }

@@ -31,7 +31,7 @@ export class AuthService {
   
   
 
-  logout() {
+  logoutx() {
     console.log("auth.service > logout > localStorage.removeItem('refresh_token')")
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -71,7 +71,7 @@ export class AuthService {
             }
           },
         error: () => {
-          this.logout(); // Si falla la renovación, redirige al login
+          this.logoutx(); // Si falla la renovación, redirige al login
         },
       });
     }, expiration - 5000); // Renueva el token 5 segundos antes de expirar
@@ -193,5 +193,16 @@ export class AuthService {
       }
     });
   }
+  
+  logout() {
+  
+    this.clearToken();
+
+    if (this.refreshInterval) {
+      this.refreshInterval.unsubscribe(); // Detener el intervalo de refresco
+      this.refreshInterval = null;
+    }
+  }
+  
 
 }
