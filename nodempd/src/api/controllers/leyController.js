@@ -31,6 +31,8 @@ exports.getleycampos = async (req, res) => {
 
 exports.getleyById = async (req, res) => {
   try {
+    const token = req.headers.authorization;
+    console.log("Token recibido:", token);
     const id = parseInt(req.params.id);
     const response = await pool.query("SELECT id, nombre, descripcion, fechapublicacion, pais FROM " + schema + ".ley WHERE id = $1", [id]);
     res.status(200).json(response.rows);

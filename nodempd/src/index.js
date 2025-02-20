@@ -19,8 +19,14 @@ const riesgoRoutes = require("./api/routes/riesgoRoutes");
 const cookieParser = require('cookie-parser');
 const SECRET_KEY = 'mi_clave_secreta_super_segura_123!';
 
+// Validacion de access_token en cada API
+const Keycloak = require('keycloak-connect');
+const session = require('express-session');
+
 
 const app = express();
+
+const memoryStore = new session.MemoryStore();
 
 //antes de definir tus rutas.
 app.use(cookieParser()); // Habilitar el manejo de cookies
