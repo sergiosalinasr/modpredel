@@ -20,13 +20,26 @@ const cookieParser = require('cookie-parser');
 const SECRET_KEY = 'mi_clave_secreta_super_segura_123!';
 
 // Validacion de access_token en cada API
-const Keycloak = require('keycloak-connect');
 const session = require('express-session');
+const memoryStore = new session.MemoryStore();
+const keycloak = require('./config/keycloak');
 
 
 const app = express();
 
-const memoryStore = new session.MemoryStore();
+app.use(session({
+  secret: 'some_secret',
+  resave: false,
+  saveUninitialized: true,
+  store: memoryStore
+}));
+
+// Proteger rutas con Keycloak
+if (!keycloak) {
+  console.error("Keycloak instance is undefined.");
+  process.exit(1);
+}
+app.use(keycloak.middleware());
 
 //antes de definir tus rutas.
 app.use(cookieParser()); // Habilitar el manejo de cookies
@@ -187,7 +200,7 @@ app.post('/refreshtokencookie', (req, res) => {
       return res.status(401).json({ message: 'No refresh token provided' });
   }
 
-  console.log('Node: /refreshtokencookie refreshToken:' + refreshToken);
+  //console.log('Node: /refreshtokencookie refreshToken:' + refreshToken);
   refreshTokenCookie(refreshToken)
       .then(newToken => {
         res.cookie('refresh_token', newToken.refresh_token, {
@@ -196,7 +209,7 @@ app.post('/refreshtokencookie', (req, res) => {
           secure: false, // Asegurar en producción
           path: "/"
         });
-        console.log('Node: /refreshtokencookie newToken.refresh_token:' + newToken.refresh_token);
+        //console.log('Node: /refreshtokencookie newToken.refresh_token:' + newToken.refresh_token);
           // Devuelve el nuevo access token en el cuerpo de la respuesta
           res.status(200).json({
               access_token: newToken.access_token,
