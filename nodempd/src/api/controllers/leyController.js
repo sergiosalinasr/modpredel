@@ -1,4 +1,5 @@
 
+const logger = require('../../logger');
 const pool = require("../../db")
 require('dotenv').config();
 const schema = process.env.DB_SCHEMA;
@@ -15,7 +16,8 @@ exports.getley = async (req, res) => {
 };
 
 exports.getleycampos = async (req, res) => {
-  console.log("getleycampos ");
+  console.log("getleycampos");
+  logger.info('getleycampos');
  try { 
   const consulta = "SELECT l.id, l.nombre, l.descripcion, l.fechapublicacion, l.pais, c.\"nombreCorto\" AS descripcionPais " + 
     " FROM " + schema + ".ley AS l, " + schema + ".cdu AS c " +
