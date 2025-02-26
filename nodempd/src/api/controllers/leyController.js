@@ -6,6 +6,7 @@ const schema = process.env.DB_SCHEMA;
 
 exports.getley = async (req, res) => {
   console.log("getley ");
+  logger.info('getley');
  try { 
   const response = await pool.query("SELECT id, nombre, descripcion, fechapublicacion, pais FROM " + schema + ".ley ORDER BY id ASC");
   res.status(200).json(response.rows);
@@ -33,6 +34,7 @@ exports.getleycampos = async (req, res) => {
 
 exports.getleyById = async (req, res) => {
   try {
+    logger.info('getleyById');
     const token = req.headers.authorization;
     console.log("Token recibido:", token);
     const id = parseInt(req.params.id);
@@ -45,6 +47,7 @@ exports.getleyById = async (req, res) => {
 
 exports.getleybynombre = async (req, res) => {
   try {
+    logger.info('getleybynombre');
     const nombre = req.params.nombre;
     console.log("API getleybynombre. Nombre recibido:-" + nombre + "-")
     const response = await pool.query("SELECT id, nombre, descripcion, fechapublicacion, pais FROM " + schema + ".ley WHERE nombre = $1", [nombre]);
@@ -56,6 +59,7 @@ exports.getleybynombre = async (req, res) => {
 
 exports.createley = async (req, res) => {
   try {
+    logger.info('createley');
     const { nombre, descripcion, fechapublicacion, pais } = req.body;
     const fechaPublicacionFormateada = new Date(fechapublicacion);
     const timestampNow = new Date();
@@ -82,6 +86,7 @@ exports.createley = async (req, res) => {
 
 exports.updateley = async (req, res) => {
   try {
+    logger.info('updateley');
     const id = parseInt(req.params.id);
     const { nombre, descripcion, fechapublicacion, pais } = req.body;
     const fechapublicacionFormateada = new Date(fechapublicacion);
@@ -97,6 +102,7 @@ exports.updateley = async (req, res) => {
 
 exports.deleteley = async (req, res) => {
   try {
+    logger.info('deleteley');
     const id = parseInt(req.params.id);
     const { rowCount } = await pool.query("DELETE FROM " + schema + ".ley where id = $1", [
       id,

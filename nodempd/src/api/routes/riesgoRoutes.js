@@ -1,14 +1,16 @@
 
 const express = require('express');
+const logger = require('../../logger');
 const router = express.Router();
 const riesgoController = require('../controllers/riesgoController');
+const keycloak = require('../../config/keycloak');
 
 console.log("En delitoRoutes")
-router.post("/", riesgoController.createriesgo);
-router.get("/", riesgoController.getriesgo);
-router.get("/getriesgocampos", riesgoController.getriesgocampos); // OJO: los sin ID ANTES de los con :id ¿?
-router.get("/:id", riesgoController.getriesgoById);
-router.put("/:id", riesgoController.updateriesgo);
-router.delete("/:id", riesgoController.deleteriesgo);
+router.post("/", keycloak.protect(), riesgoController.createriesgo);
+router.get("/", keycloak.protect(), riesgoController.getriesgo);
+router.get("/getriesgocampos", keycloak.protect(), riesgoController.getriesgocampos); // OJO: los sin ID ANTES de los con :id ¿?
+router.get("/:id", keycloak.protect(), riesgoController.getriesgoById);
+router.put("/:id", keycloak.protect(), riesgoController.updateriesgo);
+router.delete("/:id", keycloak.protect(), riesgoController.deleteriesgo);
 
 module.exports = router;
