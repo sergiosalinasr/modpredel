@@ -528,7 +528,13 @@
 					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nombre\": \"LEYPRUEBA\",\r\n  \"descripcion\": \"Descripción LEYPRUEBA \",\r\n  \"fechapublicacion\": \"2024-12-08\",\r\n  \"pais\": {{v_id_cdu}}\r\n}\r\n",
@@ -583,7 +589,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/ley",
 							"host": [
@@ -624,7 +636,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/ley/{{v_id_ley}}",
 							"host": [
@@ -672,7 +690,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/ley/getleycampos",
 							"host": [
@@ -746,7 +770,13 @@
 					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"idley\": {{v_id_ley}},\r\n  \"nombre\": \"DELITOPRUEBA\",\r\n  \"descripcion\": \"DESCRIPCION DELITOPRUEBA \",\r\n  \"sancion\": {{v_sancion}},\r\n  \"nivelgravedad\": {{v_nivelgravedad}}\r\n}\r\n",
@@ -793,7 +823,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/delito",
 							"host": [
@@ -834,7 +870,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/delito/{{v_id_delito}}",
 							"host": [
@@ -883,7 +925,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/delito/getdelitocampos",
 							"host": [
@@ -956,7 +1004,13 @@
 					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOPRUEBA\",\r\n  \"descripcion\": \"DESCRIPCION RIESGOPRUEBA \",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
@@ -1003,7 +1057,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/riesgo",
 							"host": [
@@ -1044,7 +1104,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/riesgo/{{v_id_riesgo}}",
 							"host": [
@@ -1095,7 +1161,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/riesgo/getriesgocampos",
 							"host": [
@@ -1141,8 +1213,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1151,7 +1226,13 @@
 					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOUPDATE\",\r\n  \"descripcion\": \"DESCRIPCION RIESGO UPDATE\",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
@@ -1209,7 +1290,13 @@
 					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"idley\": {{v_id_ley}},\r\n  \"nombre\": \"DELITOUPDATE\",\r\n  \"descripcion\": \"DESCRIPCION DELITO UPDATE\",\r\n  \"sancion\": {{v_sancion}},\r\n  \"nivelgravedad\": {{v_nivelgravedad}}\r\n}\r\n",
@@ -1267,7 +1354,13 @@
 					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"nombre\": \"LEYUPDATE\",\r\n  \"descripcion\": \"Descripción LEYUPDATE\",\r\n  \"fechapublicacion\": \"2024-12-07\",\r\n  \"pais\": {{v_id_cdu}}\r\n}\r\n",
@@ -1421,7 +1514,13 @@
 					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/riesgo/{{v_id_riesgo}}",
 							"host": [
@@ -1463,7 +1562,13 @@
 					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/delito/{{v_id_delito}}",
 							"host": [
@@ -1505,7 +1610,13 @@
 					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/ley/{{v_id_ley}}",
 							"host": [
