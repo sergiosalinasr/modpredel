@@ -135,6 +135,10 @@ export class CuriesgoComponent {
       return "Ingresar una descripción del Riesgo"
     }
     
+    if ( validando.iddelito === 0 ) {
+      return "Ingresar un DELITO del Riesgo"
+    }
+    
     if ( validando.probabilidad === 0 ) {
       return "Ingresar una probabilidad del Riesgo"
     }

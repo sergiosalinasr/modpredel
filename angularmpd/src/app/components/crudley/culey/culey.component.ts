@@ -142,6 +142,10 @@ export class CuleyComponent {
     if ( !this.esFechaValida(validando.fechapublicacion)) {
       return "Ingresar una fecha válida"
     }
+
+    if ( validando.pais === 0 ) {
+      return "Ingresar un PAIS"
+    }
     
     return ""
 

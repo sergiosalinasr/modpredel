@@ -1,11 +1,16 @@
+
 const express = require('express');
+const logger = require('../../logger');
 const router = express.Router();
 const tduController = require('../controllers/tduController');
+const keycloak = require('../../config/keycloak');
 
-router.post('/', tduController.createTDU);
-router.get('/', tduController.getTDUs);
-router.get('/:id', tduController.getTDUById);
-router.put('/:id', tduController.updateTDU);
-router.delete('/:id', tduController.deleteTDU);
+console.log("En delitoRoutes")
+router.post("/", tduController.createtdu);
+router.get("/", tduController.gettdu);
+router.get("/gettducampos", tduController.gettducampos); // OJO: los sin ID ANTES de los con :id ¿?
+router.get("/:id", tduController.gettduById);
+router.put("/:id", tduController.updatetdu);
+router.delete("/:id", tduController.deletetdu);
 
 module.exports = router;

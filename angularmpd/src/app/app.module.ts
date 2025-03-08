@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     FooterComponent,
     routingComponents,
     MenulateralComponent,
+    //RdcduComponent,
+    //CucduComponent,
+    //CutduComponent,
+    //RdtduComponent,
   ],
   imports: [
     BrowserModule,

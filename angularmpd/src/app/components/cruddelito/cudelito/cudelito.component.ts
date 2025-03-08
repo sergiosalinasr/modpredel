@@ -130,8 +130,9 @@ export class CudelitoComponent {
       return "Ingresar una descripción del Delito"
     }
     
-    if ( validando.sancion === 0 ) {
-      return "Ingresar una sancion del Delito"
+    
+    if ( validando.idley === 0 ) {
+      return "Ingresar una LEY del Delito"
     }
 
     if ( validando.nivelgravedad === 0 ) {

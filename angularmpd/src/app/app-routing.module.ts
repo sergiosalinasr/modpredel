@@ -12,7 +12,10 @@ import { RddelitoComponent } from './components/cruddelito/rddelito/rddelito.com
 import { CudelitoComponent } from './components/cruddelito/cudelito/cudelito.component';
 import { RdriesgoComponent } from './components/crudriesgo/rdriesgo/rdriesgo.component';
 import { CuriesgoComponent } from './components/crudriesgo/curiesgo/curiesgo.component';
-
+import { CutduComponent } from './components/crudtdu/cutdu/cutdu.component';
+import { RdtduComponent } from './components/crudtdu/rdtdu/rdtdu.component';
+import { RdcduComponent } from './components/crudcdu/rdcdu/rdcdu.component';
+import { CucduComponent } from './components/crudcdu/cucdu/cucdu.component';
 
 const routes: Routes = [
   { path:'', redirectTo:'login', pathMatch:'full'},
@@ -28,6 +31,11 @@ const routes: Routes = [
       { path: 'cudelito/:id', component:CudelitoComponent},
       { path: 'rdriesgo', component:RdriesgoComponent},
       { path: 'curiesgo/:id', component:CuriesgoComponent},
+      { path: 'rdriesgo', component:RdriesgoComponent},
+      { path: 'cutdu/:id', component:CutduComponent},
+      { path: 'rdtdu', component:RdtduComponent},
+      { path: 'cucdu/:id', component:CucduComponent},
+      { path: 'rdcdu', component:RdcduComponent},
     ] },
   
 ];
@@ -46,5 +54,9 @@ export const routingComponents = [
   RddelitoComponent,
   CudelitoComponent,
   RdriesgoComponent,
-  CuriesgoComponent
+  CuriesgoComponent,
+  CutduComponent,
+  RdtduComponent,
+  CucduComponent,
+  RdcduComponent
 ]

@@ -19,7 +19,9 @@ export class MenulateralComponent {
     { id: 3, title: 'UDC', 
       submenu: [
         { title: 'Tabla TDU', route: '/menulateral/tablatdu' },
-        { title: 'Tabla UDC', route: '/menulateral/tablacdu' }
+        { title: 'Tabla UDC', route: '/menulateral/tablacdu' },
+        { title: 'CRUD TDU', route: '/menulateral/rdtdu' },
+        { title: 'CRUD CDU', route: '/menulateral/rdcdu' }
       ]},
 
     { id: 4, title: 'Maestros',
