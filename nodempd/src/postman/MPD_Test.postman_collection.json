@@ -165,7 +165,7 @@
 					"response": []
 				},
 				{
-					"name": "TDU_Create_CDU",
+					"name": "createtdu",
 					"event": [
 						{
 							"listen": "test",
@@ -211,10 +211,16 @@
 					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreCorto\": \"TDUPRUEBA\",\r\n  \"descripcionLarga\": \"Tabla Definida por el Usuario (Prueba)\"\r\n}\r\n",
+							"raw": "{\r\n  \"nombreCorto\": \"TDUPOSTMAN\",\r\n  \"descripcionLarga\": \"TDUPOSTMAN\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -222,19 +228,20 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/tdu",
+							"raw": "{{host}}/tdu/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"tdu"
+								"tdu",
+								""
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "getTDU",
+					"name": "gettdu",
 					"event": [
 						{
 							"listen": "test",
@@ -267,7 +274,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/tdu/",
 							"host": [
@@ -295,7 +308,8 @@
 									"    var jsonData = pm.response.json();\r",
 									"    console.log(\"Ultimo id creado\")\r",
 									"    console.log(jsonData.id)\r",
-									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id\"));\r",
+									"    //pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id\"));\r",
+									"    pm.expect(jsonData[0].id).to.eql(pm.environment.get(\"v_id\"));\r",
 									"\r",
 									"});\r",
 									"\r",
@@ -309,7 +323,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/tdu/{{v_id}}",
 							"host": [
@@ -324,7 +344,7 @@
 					"response": []
 				},
 				{
-					"name": "CDU_Create",
+					"name": "createcdu",
 					"event": [
 						{
 							"listen": "test",
@@ -370,10 +390,16 @@
 					},
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"id_tdu\": {{v_id}},\r\n  \"nombreCorto\": \"CDUPRUEBA\",\r\n  \"descripcionLarga\": \"CDU PRUEBA\"\r\n}\r\n\r\n",
+							"raw": "{\r\n  \"id_tdu\": {{v_id}},\r\n  \"nombreCorto\": \"CDUPOSTMAN\",\r\n  \"descripcionLarga\": \"CDUPOSTMAN\"\r\n}\r\n\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -393,7 +419,7 @@
 					"response": []
 				},
 				{
-					"name": "getCDU",
+					"name": "getcdu",
 					"event": [
 						{
 							"listen": "test",
@@ -425,7 +451,13 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/cdu/",
 							"host": [
@@ -453,8 +485,10 @@
 									"    var jsonData = pm.response.json();\r",
 									"    console.log(\"Ultimo id creado\")\r",
 									"    console.log(jsonData.id)\r",
-									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id_cdu\"));\r",
-									"    pm.expect(jsonData.id_tdu).to.eql(pm.environment.get(\"v_id\"));\r",
+									"    //pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id_cdu\"));\r",
+									"    pm.expect(jsonData[0].id).to.eql(pm.environment.get(\"v_id_cdu\"));\r",
+									"    //pm.expect(jsonData.id_tdu).to.eql(pm.environment.get(\"v_id\"));\r",
+									"    pm.expect(jsonData[0].id_tdu).to.eql(pm.environment.get(\"v_id\"));\r",
 									"\r",
 									"});"
 								],
@@ -465,17 +499,21 @@
 					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{host}}/cdu/{{v_id_cdu}}/tdu/{{v_id}}",
+							"raw": "{{host}}/cdu/{{v_id_cdu}}",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"cdu",
-								"{{v_id_cdu}}",
-								"tdu",
-								"{{v_id}}"
+								"{{v_id_cdu}}"
 							]
 						}
 					},
@@ -990,9 +1028,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"v_probabilidad\", 14);\r",
-									"pm.environment.set(\"v_impacto\", 17);\r",
-									"pm.environment.set(\"v_mitigacion\", 26);"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1013,7 +1049,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOPRUEBA\",\r\n  \"descripcion\": \"DESCRIPCION RIESGOPRUEBA \",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
+							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOPRUEBA\",\r\n  \"descripcion\": \"DESCRIPCION RIESGOPRUEBA \",\r\n  \"probabilidad\": {{v_id_cdu}},\r\n  \"impacto\": {{v_id_cdu}},\r\n  \"mitigacion\": {{v_id_cdu}}\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1235,7 +1271,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOUPDATE\",\r\n  \"descripcion\": \"DESCRIPCION RIESGO UPDATE\",\r\n  \"probabilidad\": {{v_probabilidad}},\r\n  \"impacto\": {{v_impacto}},\r\n  \"mitigacion\": {{v_mitigacion}}\r\n}\r\n",
+							"raw": "{\r\n  \"iddelito\": {{v_id_delito}},\r\n  \"nombre\": \"RIESGOUPDATE\",\r\n  \"descripcion\": \"DESCRIPCION RIESGO UPDATE\",\r\n  \"probabilidad\": {{v_id_cdu}},\r\n  \"impacto\": {{v_id_cdu}},\r\n  \"mitigacion\": {{v_id_cdu}}\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1393,11 +1429,11 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"Ultimo id update\", function () {\r",
+									"pm.test(\"Ultimo id actualizado\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    console.log(\"Ultimo id update\")\r",
-									"    console.log(jsonData.message)\r",
-									"    pm.expect(jsonData.message).to.eql(\"CDU updated\");\r",
+									"    console.log(\"Ultimo id creado\")\r",
+									"    console.log(jsonData.id)\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id_cdu\"));\r",
 									"\r",
 									"});\r",
 									""
@@ -1412,10 +1448,16 @@
 					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreCorto\": \"CDUUPDATE\",\r\n  \"descripcionLarga\": \"Descripcion CDUUPDATE\"\r\n}\r\n",
+							"raw": "{\r\n  \"id_tdu\": {{v_id}},\r\n  \"nombreCorto\": \"CDUPOSTMAN\",\r\n  \"descripcionLarga\": \"UPDATEPOSTMAN\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1445,11 +1487,11 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"Ultimo id update\", function () {\r",
+									"pm.test(\"Ultimo id actualizado\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    console.log(\"Ultimo id update\")\r",
-									"    console.log(jsonData.message)\r",
-									"    pm.expect(jsonData.message).to.eql(\"TDU updated\");\r",
+									"    console.log(\"Ultimo id creado\")\r",
+									"    console.log(jsonData.id)\r",
+									"    pm.expect(jsonData.id).to.eql(pm.environment.get(\"v_id\"));\r",
 									"\r",
 									"});"
 								],
@@ -1463,10 +1505,16 @@
 					},
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"nombreCorto\": \"TDUPRUEBA\",\r\n  \"descripcionLarga\": \"Tabla TDUPRUEBA\"\r\n}\r\n",
+							"raw": "{\r\n  \"nombreCorto\": \"TDUPOSTMAN\",\r\n  \"descripcionLarga\": \"UPDATETDUPRUEBA\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1640,11 +1688,12 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"Ultimo id update\", function () {\r",
+									"pm.test(\"Ultimo id eliminado\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    console.log(\"Ultimo id delete\")\r",
-									"    console.log(jsonData.message)\r",
-									"    pm.expect(jsonData.message).to.eql(\"CDU deleted\");\r",
+									"    console.log(\"Ultimo id eliminado\")\r",
+									"    console.log(jsonData.eliminado)\r",
+									"    pm.expect(jsonData.eliminado).to.eql(\"ELIMINADO\");\r",
+									"\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1657,7 +1706,13 @@
 					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/cdu/{{v_id_cdu}}",
 							"host": [
@@ -1681,11 +1736,12 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"Ultimo id update\", function () {\r",
+									"pm.test(\"Ultimo id eliminado\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    console.log(\"Ultimo id delete\")\r",
-									"    console.log(jsonData.message)\r",
-									"    pm.expect(jsonData.message).to.eql(\"TDU deleted\");\r",
+									"    console.log(\"Ultimo id eliminado\")\r",
+									"    console.log(jsonData.eliminado)\r",
+									"    pm.expect(jsonData.eliminado).to.eql(\"ELIMINADO\");\r",
+									"\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -1698,7 +1754,13 @@
 					},
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{host}}/tdu/{{v_id}}",
 							"host": [
