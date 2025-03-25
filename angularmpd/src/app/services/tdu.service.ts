@@ -57,7 +57,7 @@ url_mpd: string = environment.env_url_backend;
       " descripcionLarga" + form.descripcionLarga);
     const url = this.url_mpd + "/tdu/";
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { nombreCorto: form.nombreCorto, descripcion: form.descripcionLarga };
+    const body = { nombreCorto: form.nombreCorto, descripcionLarga: form.descripcionLarga };
     /*
     const body = { 
       nombre: "tdu91", 

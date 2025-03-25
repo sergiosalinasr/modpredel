@@ -228,6 +228,7 @@ app.post('/refreshtokencookie', (req, res) => {
 // Ejemplo de logging
 logger.info('INICIO APP');
 
+/*
 sequelize.sync()
   .then(() => {
     console.log('Database connected');
@@ -244,8 +245,9 @@ sequelize.sync()
     logger.error('Error: La Database no está disponible');
     process.exit(1); // Cierra el proceso si la base de datos no está disponible
   });
+*/
 
-//app.listen(3000, () => console.log('Server is running on port 3000'));
+app.listen(3000, () => console.log('Server is running on port 3000'));
 
 module.exports = app; // Para pruebas y flexibilidad adicional
 

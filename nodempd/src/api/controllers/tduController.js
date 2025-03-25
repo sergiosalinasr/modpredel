@@ -1,6 +1,7 @@
 
 const pool = require("../../db")
 require('dotenv').config();
+const logger = require('../../logger');
 const schema = process.env.DB_SCHEMA;
 
 exports.gettdu = async (req, res) => {
@@ -55,6 +56,7 @@ exports.gettdubynombre = async (req, res) => {
 exports.createtdu = async (req, res) => {
   try {
     const { nombreCorto, descripcionLarga } = req.body;
+    logger.info("createtdu: nombreCorto= " + nombreCorto + " descripcionLarga: " + descripcionLarga);
     const v_createdAt = new Date();
     const v_updateAt = new Date();
     const { rows } = await pool.query(
