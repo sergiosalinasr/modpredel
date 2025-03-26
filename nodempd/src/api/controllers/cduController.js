@@ -35,6 +35,30 @@ exports.getcducampos = async (req, res) => {
 
 };
 
+exports.getcducamposid_tdu = async (req, res) => {
+  console.log("getcducampos ");
+  try {
+    const id_tdu = req.params.id_tdu;
+    //console.log("API getleybynombre. Nombre recibido:-" + nombre + "-")
+    const response = await pool.query(
+      "SELECT c.id, " +
+     " c.id_tdu,  " +
+     " t.\"nombreCorto\" AS desctdu,  " +
+     " c.\"nombreCorto\",  " +
+     " c.\"descripcionLarga\"  " +
+     " FROM " + schema + ".cdu AS c, " + 
+        schema + ".tdu AS t " + 
+     " WHERE c.id_tdu = t.id " + 
+     " AND c.id_tdu = $1 " +
+     " ORDER BY id ASC",
+       [id_tdu]);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+
+};
+
 exports.getcduById = async (req, res) => {
   try {
     const id = parseInt(req.params.id);

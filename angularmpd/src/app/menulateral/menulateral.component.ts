@@ -21,7 +21,7 @@ export class MenulateralComponent {
         { title: 'Tabla TDU', route: '/menulateral/tablatdu' },
         { title: 'Tabla UDC', route: '/menulateral/tablacdu' },
         { title: 'CRUD TDU', route: '/menulateral/rdtdu' },
-        { title: 'CRUD CDU', route: '/menulateral/rdcdu' }
+        { title: 'CRUD CDU', route: '/menulateral/rdcdu/0' }
       ]},
 
     { id: 4, title: 'Maestros',

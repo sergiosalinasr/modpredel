@@ -20,6 +20,7 @@ export class CucduComponent {
 
   selectedCdu: Cdu = new Cdu(0, "", "", 0);
   cduIdEntrada: number = 0;
+  idTdu: number = 0;
   tduArray: Tdu[] = [];
   tduSancionArray: Tablacdu[] = [];
   tduNivelgravedadArray: Tablacdu[] = [];
@@ -39,12 +40,15 @@ export class CucduComponent {
 
     // Lee el paramatro de entrada necesario para saber si es una nueva Cdu (=0) o es editar (>0)
     this.cduIdEntrada = Number(this.activerouter.snapshot.paramMap.get('id'));
+    this.idTdu = Number(this.activerouter.snapshot.paramMap.get('id_tdu'));
     
     // Si estamos editando, cargamos los daos respectivos
     if ( this.cduIdEntrada > 0){
       this.cduService.cduById(this.cduIdEntrada).subscribe(data =>{
         this.selectedCdu = data[0];
       })
+    } else {
+      this.selectedCdu.id_tdu = this.idTdu
     };
 
     // Carga de cdues para validaciones: no repetir nombre de cdu
@@ -61,7 +65,7 @@ export class CucduComponent {
 
   cancelar() {
 
-    this.router.navigate(['menulateral/rdcdu']);
+    this.router.navigate(['menulateral/rdcdu', this.idTdu]);
 
   }
 
@@ -77,7 +81,7 @@ export class CucduComponent {
           next: (data) => {
             let dataResponse: any = data;
             this.selectedCdu = new Cdu(0, "", "", 0);
-            this.router.navigate(['menulateral/rdcdu']);
+            this.router.navigate(['menulateral/rdcdu', this.idTdu]);
           },
           error: (err) => {
             alert('Hubo un problema al crear la nueva fila en la tabla Cdu.');
@@ -95,7 +99,7 @@ export class CucduComponent {
         this.cduService.putCdu(this.selectedCdu).subscribe({
           next: (data) => {
             let dataResponse: any = data;
-            this.router.navigate(['menulateral/rdcdu']);
+            this.router.navigate(['menulateral/rdcdu', this.idTdu]);
           },
           error: (err) => {
             alert('Hubo un problema al actualizar la tabla CDU.');

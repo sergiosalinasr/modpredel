@@ -34,8 +34,8 @@ const routes: Routes = [
       { path: 'rdriesgo', component:RdriesgoComponent},
       { path: 'cutdu/:id', component:CutduComponent},
       { path: 'rdtdu', component:RdtduComponent},
-      { path: 'cucdu/:id', component:CucduComponent},
-      { path: 'rdcdu', component:RdcduComponent},
+      { path: 'cucdu/:id/:id_tdu', component:CucduComponent},
+      { path: 'rdcdu/:id', component:RdcduComponent},
     ] },
   
 ];

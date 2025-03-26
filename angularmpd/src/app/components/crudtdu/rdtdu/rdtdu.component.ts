@@ -46,6 +46,13 @@ export class RdtduComponent {
 
   }
 
+  irCdu(id: number) {
+
+    //this.router.navigate(['editar', id]);
+    this.router.navigate(['menulateral/rdcdu', id ]);
+
+  }
+
   deleteTdu(tdu_id: number){
     if (confirm("Are yu sure you want to deleted it?")){
       this.tduService.deleteTduId(tdu_id).subscribe({

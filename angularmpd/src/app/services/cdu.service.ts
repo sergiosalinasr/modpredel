@@ -26,6 +26,15 @@ url_mpd: string = environment.env_url_backend;
 
   }
 
+  getcducamposid_tdu(id_tdu: number):Observable<CduCampos[]>{
+
+    console.log("En getcducamposid_tdu id_tdu=" + id_tdu)
+    let direccion = this.url_mpd + "/cdu/getcducampos/" + id_tdu;
+    console.log("GET direccion: " + direccion);
+    return this.http.get<CduCampos[]>(direccion);
+
+  }
+
   cduById(id: number):Observable<Cdu[]>{
 
     let direccion = this.url_mpd + "/cdu/" + id;
