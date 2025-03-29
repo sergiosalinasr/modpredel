@@ -30,7 +30,7 @@ export class RdcduComponent {
 
   ngOnInit(): void {
 
-    // Lee el paramatro de entrada necesario para saber si es una nueva Tdu (=0) o es editar (>0)
+    // Lee el paramatro de entrada necesario para saber si Udc es con filtro de TDU (>0) o sin filtro (=0)
     this.tduId_tduEntrada = Number(this.activerouter.snapshot.paramMap.get('id'));
     console.log( "En rdcdu/ngOnInit id_tdu=" + this.tduId_tduEntrada)
 

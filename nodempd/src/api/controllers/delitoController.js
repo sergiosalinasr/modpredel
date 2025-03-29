@@ -37,6 +37,32 @@ exports.getdelitocampos = async (req, res) => {
 
 };
 
+exports.getdelitocamposid_ley = async (req, res) => {
+  console.log("getdelitocampos ");
+  try {
+    const id_ley = req.params.id_ley;
+    console.log("API getdelitocamposid_ley id_ley:" + id_ley)
+    const response = await pool.query(
+      "SELECT d.id, " +
+     " d.idley,  " +
+     " l.nombre AS descley,  " +
+     " d.nombre,  " +
+     " d.descripcion,  " +
+     " d.sancion, cs.\"nombreCorto\" AS descsancion,  " +
+     " d.nivelgravedad, cng.\"nombreCorto\" AS descnivelgravedad  " +
+     " FROM " + schema + ".delito AS d, " + schema + ".ley AS l, " + schema + ".cdu AS cs, " + schema + ".cdu AS cng  " +
+     " WHERE d.idley = l.id and d.sancion = cs.id  " +
+     " AND d.nivelgravedad = cng.id  " +
+     " AND d.idley = $1 " +
+     " ORDER BY id ASC",
+       [id_ley]);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+
+};
+
 exports.getdelitoById = async (req, res) => {
   try {
     const id = parseInt(req.params.id);

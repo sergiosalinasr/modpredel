@@ -46,6 +46,13 @@ export class CdleyComponent {
 
   }
 
+  irDelito(id: number) {
+
+    //this.router.navigate(['editar', id]);
+    this.router.navigate(['menulateral/rddelito', id ]);
+
+  }
+
   deleteLey(ley_id: number){
     if (confirm("Are yu sure you want to deleted it?")){
       this.leyService.deleteLeyId(ley_id).subscribe({

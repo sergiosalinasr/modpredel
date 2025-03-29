@@ -26,6 +26,15 @@ url_mpd: string = environment.env_url_backend;
 
   }
 
+  getdelitocamposid_ley(id_ley: number):Observable<DelitoCampos[]>{
+  
+      console.log("En getdelitocamposid_ley id_ley=" + id_ley)
+      let direccion = this.url_mpd + "/delito/getdelitocampos/" + id_ley;
+      console.log("GET direccion: " + direccion);
+      return this.http.get<DelitoCampos[]>(direccion);
+  
+    }
+
   delitoById(id: number):Observable<Delito[]>{
 
     let direccion = this.url_mpd + "/delito/" + id;

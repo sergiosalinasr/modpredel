@@ -28,7 +28,7 @@ export class MenulateralComponent {
       submenu: [
         //{ title: 'Ley', route: '/menulateral/ley' },
         { title: 'CRUD Ley', route: '/menulateral/cdley' },
-        { title: 'CRUD Delito', route: '/menulateral/rddelito' },
+        { title: 'CRUD Delito', route: '/menulateral/rddelito/0' },
         { title: 'CRUD Riesgo', route: '/menulateral/rdriesgo' }
       ]},
     //{ id: 5, title: 'Configuración', submenu: [{ title: 'TDU', route: '/menulateral/Tdu' },{ title: 'Subopción 5.2', route: '/option5/sub2' }]},

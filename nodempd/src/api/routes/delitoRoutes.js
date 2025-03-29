@@ -9,6 +9,7 @@ console.log("En delitoRoutes")
 router.post("/", keycloak.protect(), delitoController.createdelito);
 router.get("/", keycloak.protect(), delitoController.getdelito);
 router.get("/getdelitocampos", keycloak.protect(), delitoController.getdelitocampos); // OJO: los sin ID ANTES de los con :id ¿?
+router.get("/getdelitocampos/:id_ley", delitoController.getdelitocamposid_ley);
 router.get("/:id", keycloak.protect(), delitoController.getdelitoById);
 router.put("/:id", keycloak.protect(), delitoController.updatedelito);
 router.delete("/:id", keycloak.protect(), delitoController.deletedelito);

@@ -20,6 +20,7 @@ export class CudelitoComponent {
 
   selectedDelito: Delito = new Delito(0, 0, "", "", 0, 0);
   delitoIdEntrada: number = 0;
+  id_Ley: number = 0;
   leyArray: Ley[] = [];
   tduSancionArray: Tablacdu[] = [];
   tduNivelgravedadArray: Tablacdu[] = [];
@@ -45,12 +46,15 @@ export class CudelitoComponent {
 
     // Lee el paramatro de entrada necesario para saber si es una nueva Delito (=0) o es editar (>0)
     this.delitoIdEntrada = Number(this.activerouter.snapshot.paramMap.get('id'));
+    this.id_Ley = Number(this.activerouter.snapshot.paramMap.get('id_ley'));
     
     // Si estamos editando, cargamos los daos respectivos
     if ( this.delitoIdEntrada > 0){
       this.delitoService.delitoById(this.delitoIdEntrada).subscribe(data =>{
         this.selectedDelito = data[0];
       })
+    }else {
+      this.selectedDelito.idley = this.id_Ley
     };
 
     // Carga de delitoes para validaciones: no repetir nombre de delito
@@ -67,7 +71,7 @@ export class CudelitoComponent {
 
   cancelar() {
 
-    this.router.navigate(['menulateral/rddelito']);
+    this.router.navigate(['menulateral/rddelito', this.id_Ley]);
 
   }
 
@@ -83,7 +87,7 @@ export class CudelitoComponent {
           next: (data) => {
             let dataResponse: any = data;
             this.selectedDelito = new Delito(0, 0, "", "", 0, 0);
-            this.router.navigate(['menulateral/rddelito']);
+            this.router.navigate(['menulateral/rddelito', this.id_Ley]);
           },
           error: (err) => {
             alert('Hubo un problema al crear la nueva fila en la tabla Delito.');
@@ -101,7 +105,7 @@ export class CudelitoComponent {
         this.delitoService.putDelito(this.selectedDelito).subscribe({
           next: (data) => {
             let dataResponse: any = data;
-            this.router.navigate(['menulateral/rddelito']);
+            this.router.navigate(['menulateral/rddelito', this.id_Ley]);
           },
           error: (err) => {
             alert('Hubo un problema al actualizar la tabla CDU.');
