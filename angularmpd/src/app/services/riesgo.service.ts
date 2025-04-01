@@ -26,6 +26,15 @@ url_mpd: string = environment.env_url_backend;
 
   }
 
+  getriesgocamposid_delito(id_delito: number):Observable<RiesgoCampos[]>{
+    
+        console.log("En getriesgocamposid_delito id_delito=" + id_delito)
+        let direccion = this.url_mpd + "/riesgo/getriesgocampos/" + id_delito;
+        console.log("GET direccion: " + direccion);
+        return this.http.get<RiesgoCampos[]>(direccion);
+    
+      }
+
   riesgoById(id: number):Observable<Riesgo[]>{
 
     let direccion = this.url_mpd + "/riesgo/" + id;

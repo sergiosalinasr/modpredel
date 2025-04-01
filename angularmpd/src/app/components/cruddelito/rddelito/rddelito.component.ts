@@ -52,6 +52,13 @@ export class RddelitoComponent {
 
   }
 
+  irRiesgo(id: number) {
+
+    //this.router.navigate(['editar', id]);
+    this.router.navigate(['menulateral/rdriesgo', id ]);
+
+  }
+
   deleteDelito(delito_id: number){
     if (confirm("Are yu sure you want to deleted it?")){
       this.delitoService.deleteDelitoId(delito_id).subscribe({

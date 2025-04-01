@@ -44,6 +44,39 @@ exports.getriesgocampos = async (req, res) => {
 
 };
 
+exports.getriesgocamposid_delito = async (req, res) => {
+  console.log("getdelitocampos ");
+  try {
+    const id_delito = req.params.id_delito;
+    console.log("API getriesgocamposid_delito id_delito:" + id_delito)
+    const response = await pool.query(
+      "SELECT r.id, " +
+     " r.iddelito,  " +
+     " d.nombre AS descdelito,  " +
+     " r.nombre,  " +
+     " r.descripcion,  " +
+     " r.probabilidad, cpr.\"nombreCorto\" AS descprobabilidad,  " +
+     " r.impacto, cim.\"nombreCorto\" AS descimpacto,  " +
+     " r.mitigacion, cmi.\"nombreCorto\" AS descmitigacion  " +
+     " FROM " + schema + ".riesgo AS r, " + 
+        schema + ".delito AS d, " + 
+        schema + ".cdu AS cpr, " + 
+        schema + ".cdu AS cim,  " +  
+        schema + ".cdu AS cmi  " +
+     " WHERE r.iddelito = d.id " + 
+     " and r.probabilidad = cpr.id  " +
+     " and r.impacto = cim.id  " +
+     " AND r.mitigacion = cmi.id  " +
+     " AND r.iddelito = $1 " +
+     " ORDER BY id ASC",
+       [id_delito]);
+    res.status(200).json(response.rows);
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+
+};
+
 exports.getriesgoById = async (req, res) => {
   try {
     const id = parseInt(req.params.id);

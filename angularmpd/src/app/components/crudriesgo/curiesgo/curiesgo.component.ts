@@ -20,6 +20,7 @@ export class CuriesgoComponent {
 
   selectedRiesgo: Riesgo = new Riesgo(0, 0, "", "", 0, 0, 0);
   riesgoIdEntrada: number = 0;
+  id_Delito: number = 0;
   delitoArray: Delito[] = [];
   tduProbabilidadArray: Tablacdu[] = [];
   tduImpactoArray: Tablacdu[] = [];
@@ -50,12 +51,16 @@ export class CuriesgoComponent {
 
     // Lee el paramatro de entrada necesario para saber si es una nueva Riesgo (=0) o es editar (>0)
     this.riesgoIdEntrada = Number(this.activerouter.snapshot.paramMap.get('id'));
+    this.id_Delito = Number(this.activerouter.snapshot.paramMap.get('id_delito'));
+    console.log("curiesgo.component/ngOnInit/this.id_Delito: " + this.id_Delito);
     
     // Si estamos editando, cargamos los daos respectivos
     if ( this.riesgoIdEntrada > 0){
       this.riesgoService.riesgoById(this.riesgoIdEntrada).subscribe(data =>{
         this.selectedRiesgo = data[0];
       })
+    }else {
+      this.selectedRiesgo.iddelito= this.id_Delito
     };
 
     // Carga de riesgoes para validaciones: no repetir nombre de riesgo
@@ -72,7 +77,7 @@ export class CuriesgoComponent {
 
   cancelar() {
 
-    this.router.navigate(['menulateral/rdriesgo']);
+    this.router.navigate(['menulateral/rdriesgo', this.id_Delito]);
 
   }
 
@@ -88,7 +93,7 @@ export class CuriesgoComponent {
           next: (data) => {
             let dataResponse: any = data;
             this.selectedRiesgo = new Riesgo(0, 0, "", "", 0, 0, 0);
-            this.router.navigate(['menulateral/rdriesgo']);
+            this.router.navigate(['menulateral/rdriesgo', this.id_Delito]);
           },
           error: (err) => {
             alert('Hubo un problema al crear la nueva fila en la tabla Riesgo.');
@@ -106,7 +111,7 @@ export class CuriesgoComponent {
         this.riesgoService.putRiesgo(this.selectedRiesgo).subscribe({
           next: (data) => {
             let dataResponse: any = data;
-            this.router.navigate(['menulateral/rdriesgo']);
+            this.router.navigate(['menulateral/rdriesgo', this.id_Delito]);
           },
           error: (err) => {
             alert('Hubo un problema al actualizar la tabla Riesgo.');
