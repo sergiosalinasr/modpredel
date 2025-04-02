@@ -10,7 +10,7 @@ router.post("/", keycloak.protect(), cduController.createcdu);
 router.get("/", keycloak.protect(), cduController.getcdu);
 router.get("/getcducampos", keycloak.protect(), cduController.getcducampos); // OJO: los sin ID ANTES de los con :id ¿?
 router.get("/getcducampos/:id_tdu", keycloak.protect(), cduController.getcducamposid_tdu);
-router.get('/tdu/:id_tdu', keycloak.protect(), cduController.getCDUsByTDU);
+//router.get('/tdu/:id_tdu', keycloak.protect(), cduController.getCDUsByTDU);
 router.get("/:id", keycloak.protect(), cduController.getcduById);
 router.put("/:id", keycloak.protect(), cduController.updatecdu);
 router.delete("/:id", keycloak.protect(), cduController.deletecdu);

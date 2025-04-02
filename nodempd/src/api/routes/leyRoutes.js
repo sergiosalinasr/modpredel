@@ -9,7 +9,7 @@ console.log("En leyRoutes");
 logger.info('En leyRoutes');
 router.get("/", keycloak.protect(), leyController.getley);
 router.get("/getleycampos", keycloak.protect(), leyController.getleycampos);
-router.get("/getleybynombre/:nombre", keycloak.protect(), leyController.getleybynombre);
+//router.get("/getleybynombre/:nombre", keycloak.protect(), leyController.getleybynombre);
 router.get("/:id", keycloak.protect(), leyController.getleyById);
 router.post("/", keycloak.protect(), leyController.createley);
 router.put("/:id", keycloak.protect(), leyController.updateley);

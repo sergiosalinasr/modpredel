@@ -344,6 +344,58 @@
 					"response": []
 				},
 				{
+					"name": "gettducampos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"    "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/tdu/gettducampos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tdu",
+								"gettducampos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createcdu",
 					"event": [
 						{
@@ -514,6 +566,103 @@
 							"path": [
 								"cdu",
 								"{{v_id_cdu}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getcducampos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains array of records\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/cdu/getcducampos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cdu",
+								"getcducampos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getcducamposid_tdu",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains array of records\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/cdu/getcducampos/{{v_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"cdu",
+								"getcducampos",
+								"{{v_id}}"
 							]
 						}
 					},
@@ -945,13 +1094,6 @@
 									"    pm.expect(jsonData.length).to.be.above(0);\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Each record has descsancion and descnivelgravedad\", function () {\r",
-									"    const jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item).to.have.property(\"descsancion\");\r",
-									"        pm.expect(item).to.have.property(\"descnivelgravedad\");\r",
-									"    });\r",
-									"});\r",
 									"\r",
 									"\r",
 									""
@@ -978,6 +1120,62 @@
 							"path": [
 								"delito",
 								"getdelitocampos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getdelitocamposid_ley",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains array of records\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each record has descsancion and descnivelgravedad\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    jsonData.forEach(item => {\r",
+									"        pm.expect(item).to.have.property(\"descsancion\");\r",
+									"        pm.expect(item).to.have.property(\"descnivelgravedad\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/delito/getdelitocampos/{{v_id_ley}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"delito",
+								"getdelitocampos",
+								"{{v_id_ley}}"
 							]
 						}
 					},
@@ -1212,6 +1410,64 @@
 							"path": [
 								"riesgo",
 								"getriesgocampos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getriesgocamposid_delito",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response contains array of records\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each record has descdelito, descprobabilidad, descimpacto and descmitigacion\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    jsonData.forEach(item => {\r",
+									"        pm.expect(item).to.have.property(\"descdelito\");\r",
+									"        pm.expect(item).to.have.property(\"descprobabilidad\");\r",
+									"        pm.expect(item).to.have.property(\"descimpacto\");\r",
+									"        pm.expect(item).to.have.property(\"descmitigacion\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{v_access_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/riesgo/getriesgocampos/{{v_id_delito}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"riesgo",
+								"getriesgocampos",
+								"{{v_id_delito}}"
 							]
 						}
 					},
