@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="add-columns-tdu-cdu" author="sergio.salinasr@gmail.com">
+
+        <!-- Agregar columnas -->
+        <addColumn schemaName="mpd" tableName="tdu">
+            <column name="id_modulo" type="int"/>
+            <column name="id_tipo" type="int"/>
+            <column name="id_estado" type="int"/>
+            <column name="id_expreg_nombrecorto" type="int"/>
+            <column name="id_expreg_desclarga" type="int"/>
+        </addColumn>
+
+        <!-- Agregar constraints (claves foráneas) -->
+        <addForeignKeyConstraint
+            baseTableSchemaName="mpd"
+            baseTableName="tdu"
+            baseColumnNames="id_modulo"
+            constraintName="tdu_id_modulo_fkey"
+            referencedTableSchemaName="mpd"
+            referencedTableName="cdu"
+            referencedColumnNames="id"
+            onUpdate="CASCADE"
+            onDelete="SET NULL" />
+
+        <addForeignKeyConstraint
+            baseTableSchemaName="mpd"
+            baseTableName="tdu"
+            baseColumnNames="id_tipo"
+            constraintName="tdu_id_tipo_fkey"
+            referencedTableSchemaName="mpd"
+            referencedTableName="cdu"
+            referencedColumnNames="id"
+            onUpdate="CASCADE"
+            onDelete="SET NULL" />
+
+        <addForeignKeyConstraint
+            baseTableSchemaName="mpd"
+            baseTableName="tdu"
+            baseColumnNames="id_estado"
+            constraintName="tdu_id_estado_fkey"
+            referencedTableSchemaName="mpd"
+            referencedTableName="cdu"
+            referencedColumnNames="id"
+            onUpdate="CASCADE"
+            onDelete="SET NULL" />
+
+        <addForeignKeyConstraint
+            baseTableSchemaName="mpd"
+            baseTableName="tdu"
+            baseColumnNames="id_expreg_nombrecorto"
+            constraintName="tdu_id_expreg_nombrecorto_fkey"
+            referencedTableSchemaName="mpd"
+            referencedTableName="cdu"
+            referencedColumnNames="id"
+            onUpdate="CASCADE"
+            onDelete="SET NULL" />
+
+        <addForeignKeyConstraint
+            baseTableSchemaName="mpd"
+            baseTableName="tdu"
+            baseColumnNames="id_expreg_desclarga"
+            constraintName="tdu_id_expreg_desclarga_fkey"
+            referencedTableSchemaName="mpd"
+            referencedTableName="cdu"
+            referencedColumnNames="id"
+            onUpdate="CASCADE"
+            onDelete="SET NULL" />
+
+    </changeSet>
+</databaseChangeLog>
