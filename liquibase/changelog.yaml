@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: usuario
+      changes:
+        - createTable:
+            tableName: persona
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: nombre
+                  type: varchar(100)
+              - column:
+                  name: edad
+                  type: int
+  - changeSet:
+      id: 2
+      author: usuario
+      changes:
+        - createTable:
+            tableName: persona
+            schemaName: mpd
+            columns:
+              - column:
+                  name: id
+                  type: serial
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: nombre
+                  type: varchar(100)
+              - column:
+                  name: edad
+                  type: int

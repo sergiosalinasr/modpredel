@@ -28,7 +28,7 @@ services:
       - POSTGRES_PASSWORD=root
       - POSTGRES_DB=root
     volumes:
-      - C:/tmp/docker/pgmpd/data:/var/lib/postgresql/data  # Persistencia de datos
+      - C:/tmp/docker/mpd/postgresql/data:/var/lib/postgresql/data  # Persistencia de datos
 
   c_pgadmmpd:
     image: dpage/pgadmin4

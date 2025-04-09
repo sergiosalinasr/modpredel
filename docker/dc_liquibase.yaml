@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  liquibase:
+    image: liquibase/liquibase:latest
+    container_name: liquibase
+    working_dir: /liquibase/work
+    volumes:
+      - ../liquibase:/liquibase/work
+    networks:
+      - dc_pgkcmpd_default
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+networks:
+  dc_pgkcmpd_default:
+    external: true
+
+
+# Requisito: network: dc_pgkcmpd_default es la red que se creó en el dc de Keycloak y pg (ver con docker network ls)
+# lo ejecuté desde la carpeta docker!!
+# docker compose -f docker/dc_liquibase.yaml -p dc_liquibase up -d
