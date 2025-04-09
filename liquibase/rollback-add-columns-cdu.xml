@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+       http://www.liquibase.org/xml/ns/dbchangelog
+       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="rollback-add-columns-cdu" author="sergio.salinasr@gmail.com">
+
+        <dropForeignKeyConstraint 
+            baseTableSchemaName="mpd"
+            baseTableName="cdu" 
+            constraintName="cdu_id_modulo_fkey"/>
+            
+        <dropForeignKeyConstraint 
+            baseTableSchemaName="mpd"
+            baseTableName="cdu" 
+            constraintName="cdu_id_tipo_fkey"/>
+            
+        <dropForeignKeyConstraint 
+            baseTableSchemaName="mpd"
+            baseTableName="cdu" 
+            constraintName="cdu_id_estado_fkey"/>
+            
+        <dropForeignKeyConstraint 
+            baseTableSchemaName="mpd"
+            baseTableName="cdu" 
+            constraintName="cdu_id_expreg_nombrecorto_fkey"/>
+            
+        <dropForeignKeyConstraint 
+            baseTableSchemaName="mpd"
+            baseTableName="cdu" 
+            constraintName="cdu_id_expreg_desclarga_fkey"/>
+
+        <dropColumn schemaName="mpd" tableName="cdu" columnName="id_modulo"/>
+        <dropColumn schemaName="mpd" tableName="cdu" columnName="id_tipo"/>
+        <dropColumn schemaName="mpd" tableName="cdu" columnName="id_estado"/>
+        <dropColumn schemaName="mpd" tableName="cdu" columnName="id_expreg_nombrecorto"/>
+        <dropColumn schemaName="mpd" tableName="cdu" columnName="id_expreg_desclarga"/>
+
+    </changeSet>
+
+</databaseChangeLog>
