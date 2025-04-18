@@ -18,6 +18,7 @@ const delitoRoutes = require("./api/routes/delitoRoutes");
 const riesgoRoutes = require("./api/routes/riesgoRoutes");
 const cookieParser = require('cookie-parser');
 const SECRET_KEY = 'mi_clave_secreta_super_segura_123!';
+const { iniciarCargas } = require('./services/rutinasService');
 
 // Validacion de access_token en cada API
 const session = require('express-session');
@@ -221,6 +222,13 @@ app.post('/refreshtokencookie', (req, res) => {
           console.error('Node: Refresh token error:', error);
           res.status(401).json({ message: 'Invalid refresh token' });
       });
+});
+
+
+// por ahora, sólo un Healthy!
+app.get('/iniciarCargas', (req, res) => {
+  iniciarCargas();
+  return res.status(200).json({ message: 'Nodempd: iniciarCargas' });
 });
 
 // Conexión a la base de datos

@@ -1,0 +1,26 @@
+[
+  {
+    "tdu": { "nombreCorto": "MODULO", "descripcionLarga": "Tabla de módulos del sistema", "id_modulo": 1, "id_tipo": 2, "id_estado": 1, "id_expreg_nombrecorto": 1, "id_expreg_desclarga": 1 },
+    "cdus": [
+      { "id_tdu": 1, "nombreCorto": "DTE", "descripcionLarga": "Facturación Electrónica" },
+      { "id_tdu": 1, "nombreCorto": "MPD", "descripcionLarga": "Módulo de Prevención del Delito" },
+      { "id_tdu": 1, "nombreCorto": "LIQ", "descripcionLarga": "Módulo de Liquidacion de Sueldos" }
+    ]
+  },
+  {
+    "tdu": { "nombreCorto": "TIPOTABLA", "descripcionLarga": "Tipos de tablas reservadas o de usuario", "id_modulo": 1, "id_tipo": 2, "id_estado": 1, "id_expreg_nombrecorto": 1, "id_expreg_desclarga": 1 },
+    "cdus": [
+      { "id_tdu": 1, "nombreCorto": "RES", "descripcionLarga": "Reservada para el sistema" },
+      { "id_tdu": 1, "nombreCorto": "CDU", "descripcionLarga": "Definida por el Usuario" }
+    ]
+  },
+  {
+    "tdu": { "nombreCorto": "ESTADOTABLA", "descripcionLarga": "Estado de la tabla", "id_modulo": 1, "id_tipo": 2, "id_estado": 1, "id_expreg_nombrecorto": 1, "id_expreg_desclarga": 1 },
+    "cdus": [
+      { "id_tdu": 1, "nombreCorto": "ACT", "descripcionLarga": "Estado activo de la tabla" },
+      { "id_tdu": 1, "nombreCorto": "NOA", "descripcionLarga": "Estado NO Activa de la tabla" }
+    ]
+  }
+
+]
+  
