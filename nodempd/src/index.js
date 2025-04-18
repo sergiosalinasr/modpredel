@@ -18,7 +18,7 @@ const delitoRoutes = require("./api/routes/delitoRoutes");
 const riesgoRoutes = require("./api/routes/riesgoRoutes");
 const cookieParser = require('cookie-parser');
 const SECRET_KEY = 'mi_clave_secreta_super_segura_123!';
-const { iniciarCargas } = require('./services/rutinasService');
+const { iniciarCargas, importarDesdeJSON } = require('./services/rutinasService');
 
 // Validacion de access_token en cada API
 const session = require('express-session');
@@ -227,7 +227,8 @@ app.post('/refreshtokencookie', (req, res) => {
 
 // por ahora, sólo un Healthy!
 app.get('/iniciarCargas', (req, res) => {
-  iniciarCargas();
+  //iniciarCargas();
+  importarDesdeJSON();
   return res.status(200).json({ message: 'Nodempd: iniciarCargas' });
 });
 
