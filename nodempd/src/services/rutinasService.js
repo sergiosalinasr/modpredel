@@ -48,18 +48,19 @@ importarDesdeJSON = async () => {
       console.log('TDU insertado:', nuevo);
 
       // Crear CDUs asociadas
-      /*
+      
       for (const cdu of entry.cdus) {
         // Sobrescribe id_tdu por el nuevo id del TDU creado
-        const cduData = {
+        console.log('TDU insertado nuevo.id: ' + nuevo.id, " cdu.nombreCorto: " + cdu.nombreCorto);
+        /*const cduData = {
           ...cdu,
-          id_tdu: newTdu.id
+          id_tdu: nuevo.id
         };
-
-        await axios.post(`${BASE_URL}/cdu`, cduData);
-        console.log(`  ➤ CDU creado: ${cduData.nombreCorto}`);
+        */
+        //await axios.post(`${BASE_URL}/cdu`, cduData);
+        //console.log(`  ➤ CDU creado: ${cduData.nombreCorto}`);
       }
-      */
+      
     }
 
     console.log('✅ Todos los datos han sido importados correctamente.');
