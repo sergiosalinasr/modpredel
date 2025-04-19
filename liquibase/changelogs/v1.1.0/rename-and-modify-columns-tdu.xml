@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="20250419-rename-modify-tdu-columns" author="tu_usuario">
+
+        <!-- 1. Drop Foreign Keys -->
+        <dropForeignKeyConstraint
+            baseTableName="tdu"
+            baseTableSchemaName="mpd"
+            constraintName="tdu_id_expreg_nombrecorto_fkey"/>
+
+        <dropForeignKeyConstraint
+            baseTableName="tdu"
+            baseTableSchemaName="mpd"
+            constraintName="tdu_id_expreg_desclarga_fkey"/>
+
+        <!-- 2. Rename Columns -->
+        <renameColumn
+            schemaName="mpd"
+            tableName="tdu"
+            oldColumnName="id_expreg_nombrecorto"
+            newColumnName="cdu_expreg_nombrecorto"
+            columnDataType="integer"/>
+        
+        <renameColumn
+            schemaName="mpd"
+            tableName="tdu"
+            oldColumnName="id_expreg_desclarga"
+            newColumnName="cdu_expreg_desclarga"
+            columnDataType="integer"/>
+
+        <!-- 3. Modify Columns Type -->
+        <modifyDataType
+            schemaName="mpd"
+            tableName="tdu"
+            columnName="cdu_expreg_nombrecorto"
+            newDataType="varchar(255)"/>
+        
+        <modifyDataType
+            schemaName="mpd"
+            tableName="tdu"
+            columnName="cdu_expreg_desclarga"
+            newDataType="varchar(255)"/>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,13 @@
+<!-- liquibase/master-changelog.xml -->
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+
+    <!-- Cambios versión 1.1.0 -->
+    <include file="changelogs/v1.1.0/rename-and-modify-columns-tdu.xml"/>
+
+
+</databaseChangeLog>
